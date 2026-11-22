@@ -3,108 +3,363 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VJ Study Room | Learning Portal</title>
+  <title>VJ Study Room | LMS Portal</title>
   <style>
     :root {
-      --bg: #f3f5f9;
+      --sidebar-bg: #0f172a;
+      --sidebar-hover: #1e293b;
+      --sidebar-active: #2563eb;
+      --bg: #f1f5f9;
       --surface: #ffffff;
       --primary: #1e3a8a;
       --accent: #2563eb;
       --accent-hover: #1d4ed8;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --border: #e5e7eb;
-      --success: #15803d;
-      --danger: #b91c1c;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+      --warning: #d97706;
+      --danger: #dc2626;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
-
-    /* Header & Navigation */
-    header {
-      background: linear-gradient(135deg, #0f172a, var(--primary));
-      color: #fff;
-      padding: 22px 24px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
-    }
-    .header-inner {
-      max-width: 1100px;
-      margin: auto;
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
+      min-height: 100vh;
+    }
+
+    /* Left LMS Sidebar */
+    aside.sidebar {
+      width: 260px;
+      background: var(--sidebar-bg);
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 200;
+      transition: transform 0.25s ease;
+    }
+    .brand {
+      padding: 20px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
       align-items: center;
       gap: 12px;
     }
-    header h1 { font-size: 1.5rem; letter-spacing: 0.3px; }
-    header p { font-size: 0.85rem; color: #cbd5e1; }
-    nav { display: flex; flex-wrap: wrap; gap: 8px; }
-    nav button {
-      background: rgba(255,255,255,0.12);
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1rem;
       color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 8px 14px;
-      border-radius: 6px;
+      flex-shrink: 0;
+    }
+    .brand h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.2px; }
+    .brand span { font-size: 0.75rem; color: #94a3b8; display: block; }
+
+    .course-box {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .course-box label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .course-box select {
+      width: 100%;
+      background: #1e293b;
+      color: #fff;
+      border: 1px solid #334155;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .nav-menu {
+      padding: 14px 12px;
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nav-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      padding: 10px 12px 4px;
+      font-weight: 700;
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #cbd5e1;
+      text-align: left;
+      padding: 10px 12px;
+      border-radius: 8px;
       cursor: pointer;
       font-size: 0.9rem;
-      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: 0.15s;
     }
-    nav button:hover, nav button.active { background: #fff; color: var(--primary); font-weight: 600; }
+    .nav-btn:hover { background: var(--sidebar-hover); color: #fff; }
+    .nav-btn.active { background: var(--sidebar-active); color: #fff; font-weight: 600; }
+    .nav-pill {
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+    }
+    .nav-pill.live { background: var(--danger); }
 
-    /* Layout & Cards */
-    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; display: grid; gap: 22px; }
-    .tab-section { display: none; }
-    .tab-section.active { display: block; }
+    .sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid #1e293b;
+      font-size: 0.8rem;
+      color: #94a3b8;
+    }
+    .progress-bar-bg {
+      height: 7px;
+      background: #1e293b;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: #22c55e;
+      transition: width 0.3s ease;
+    }
+
+    /* Main Content Wrapper */
+    .main-wrap {
+      margin-left: 260px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Top LMS Header Bar */
+    header.topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: 12px;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .menu-toggle {
+      display: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 7px 11px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+    .breadcrumb { font-size: 0.85rem; color: var(--muted); }
+    .breadcrumb strong { color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 10px; }
+    .status-chip {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: #166534;
+    }
+    .avatar-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 5px 12px 5px 6px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .avatar-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 0.75rem;
+    }
+
+    /* Content Area */
+    main.content {
+      padding: 24px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .view-section { display: none; }
+    .view-section.active { display: block; }
+
+    /* KPI Stats Row */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .kpi-title { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    .kpi-value { font-size: 1.65rem; font-weight: 700; margin: 6px 0 4px; color: var(--text); }
+    .kpi-sub { font-size: 0.8rem; color: var(--muted); }
+
+    /* Two-column Dashboard Grid */
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    /* Standard LMS Card */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 22px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      padding: 20px;
       margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .card h2 { font-size: 1.25rem; margin-bottom: 8px; color: #0f172a; }
-    .subtext { color: var(--muted); font-size: 0.92rem; margin-bottom: 16px; }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .card-header h2 { font-size: 1.1rem; font-weight: 700; }
+    .subtext { font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
 
-    /* Controls & Buttons */
+    /* Buttons & Inputs */
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
     input[type="text"], select {
-      padding: 10px 12px;
+      padding: 9px 12px;
       border: 1px solid var(--border);
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       flex: 1;
       min-width: 200px;
+      background: #fff;
     }
     .btn {
       background: var(--accent);
       color: #fff;
       border: none;
-      padding: 10px 16px;
+      padding: 9px 15px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.92rem;
+      font-size: 0.86rem;
       text-decoration: none;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .btn:hover { background: var(--accent-hover); }
-    .btn-outline {
-      background: #fff;
-      color: var(--accent);
-      border: 1px solid var(--accent);
-    }
+    .btn-sm { padding: 6px 11px; font-size: 0.8rem; }
+    .btn-outline { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
     .btn-outline:hover { background: #eff6ff; }
+    .btn-success { background: var(--success); }
     .btn-danger { background: var(--danger); }
 
-    /* Live Class Box */
+    /* LMS Course Modules (Accordion Style) */
+    .module-box {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .module-head {
+      background: #f8fafc;
+      padding: 14px 16px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+    }
+    .module-items { padding: 8px 16px; }
+    .lesson-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #f1f5f9;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .lesson-row:last-child { border-bottom: none; }
+    .lesson-info { display: flex; align-items: center; gap: 10px; }
+    .lesson-type {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .type-video { background: #dbeafe; color: #1e40af; }
+    .type-pdf { background: #fef3c7; color: #92400e; }
+    .type-quiz { background: #dcfce7; color: #166534; }
+    .lesson-actions { display: flex; gap: 8px; align-items: center; }
+
+    /* Announcements */
+    .notice {
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      background: #f8fafc;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 10px;
+    }
+    .notice small { color: var(--muted); display: block; margin-bottom: 3px; }
+
+    /* Live Class Frame */
     #meetContainer {
       width: 100%;
-      height: 520px;
+      height: 500px;
       background: #0f172a;
       border-radius: 10px;
       overflow: hidden;
@@ -116,13 +371,13 @@
       padding: 20px;
     }
 
-    /* Resource Grid */
+    /* Resource Cards */
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .item-box {
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 16px;
-      background: #f9fafb;
+      background: #f8fafc;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -132,23 +387,23 @@
       display: inline-block;
       background: #dbeafe;
       color: var(--primary);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 999px;
       width: fit-content;
     }
 
-    /* Video Frame */
+    /* Video Wrapper */
     .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; background: #000; }
     .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* Table */
-    table { width: 100%; border-collapse: collapse; margin-top: 8px; }
-    th, td { text-align: left; padding: 12px; border-bottom: 1px solid var(--border); font-size: 0.93rem; }
-    th { background: #f8fafc; color: #334155; }
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    th { background: #f8fafc; color: var(--muted); font-weight: 700; }
 
-    /* Quiz & Checklist */
+    /* Quiz & Tasks */
     .quiz-option {
       display: block;
       width: 100%;
@@ -159,9 +414,10 @@
       border-radius: 8px;
       margin-bottom: 8px;
       cursor: pointer;
+      font-size: 0.9rem;
     }
     .quiz-option:hover { background: #eff6ff; border-color: var(--accent); }
-    .task-list { list-style: none; display: grid; gap: 8px; margin-top: 12px; }
+    .task-list { list-style: none; display: grid; gap: 8px; margin-top: 10px; }
     .task-list li {
       display: flex;
       justify-content: space-between;
@@ -170,170 +426,494 @@
       background: #f8fafc;
       border: 1px solid var(--border);
       border-radius: 8px;
+      font-size: 0.9rem;
     }
-    .done { text-decoration: line-through; color: var(--muted); }
 
-    footer { text-align: center; padding: 24px; color: var(--muted); font-size: 0.85rem; }
+    /* Responsive Mobile Sidebar */
+    @media (max-width: 900px) {
+      aside.sidebar { transform: translateX(-100%); }
+      aside.sidebar.open { transform: translateX(0); }
+      .main-wrap { margin-left: 0; }
+      .menu-toggle { display: inline-block; }
+      .dash-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-inner">
+  <!-- LEFT LMS SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">VJ</div>
       <div>
         <h1>VJ Study Room</h1>
-        <p>Live Classes • Recorded Lectures • Study Notes • Self-Practice</p>
+        <span>Learning Management System</span>
       </div>
-      <nav>
-        <button class="active" onclick="showTab('live', this)">Live Class</button>
-        <button onclick="showTab('lectures', this)">Lectures</button>
-        <button onclick="showTab('notes', this)">Notes & PDFs</button>
-        <button onclick="showTab('schedule', this)">Timetable</button>
-        <button onclick="showTab('quiz', this)">Practice Quiz</button>
-        <button onclick="showTab('tasks', this)">Study Planner</button>
-      </nav>
     </div>
-  </header>
 
-  <main>
-    <!-- 1. LIVE CLASSROOM -->
-    <section id="live" class="tab-section active">
-      <div class="card">
-        <h2>Live Classroom (Jitsi Meet + Backup Link)</h2>
-        <p class="subtext">Enter a room name and click Start Live Room to host or join directly inside this page.</p>
-        <div class="row">
-          <input type="text" id="roomInput" value="vjstudyroom-live-101" placeholder="Enter Room Name" />
-          <button class="btn" onclick="startLiveClass()">Start / Join Live Room</button>
-          <button class="btn btn-danger" onclick="endLiveClass()">Leave Room</button>
-          <a class="btn btn-outline" href="https://meet.google.com/" target="_blank">Open Google Meet</a>
+    <div class="course-box">
+      <label for="courseSwitcher">Active Course / Batch</label>
+      <select id="courseSwitcher" onchange="switchCourse()">
+        <option value="Batch 2026–27 • Core Foundation">Batch 2026–27 • Core Foundation</option>
+        <option value="Constitutional & Legal Studies">Constitutional & Legal Studies</option>
+        <option value="Exam Revision & Test Series">Exam Revision & Test Series</option>
+      </select>
+    </div>
+
+    <nav class="nav-menu">
+      <div class="nav-label">Overview</div>
+      <button class="nav-btn active" onclick="openView('dashboard', 'Dashboard', this)">
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-btn" onclick="openView('modules', 'Course Modules', this)">
+        <span>Course Modules</span>
+        <span class="nav-pill" id="modCountBadge">3 Units</span>
+      </button>
+
+      <div class="nav-label">Classroom & Content</div>
+      <button class="nav-btn" onclick="openView('live', 'Live Classroom', this)">
+        <span>Live Classroom</span>
+        <span class="nav-pill live">LIVE</span>
+      </button>
+      <button class="nav-btn" onclick="openView('lectures', 'Recorded Lectures', this)">
+        <span>Recorded Lectures</span>
+      </button>
+      <button class="nav-btn" onclick="openView('notes', 'Notes & PDF Library', this)">
+        <span>Notes & PDFs</span>
+      </button>
+
+      <div class="nav-label">Assessment & Schedule</div>
+      <button class="nav-btn" onclick="openView('quiz', 'Practice Quiz', this)">
+        <span>Practice Quiz</span>
+      </button>
+      <button class="nav-btn" onclick="openView('schedule', 'Class Timetable', this)">
+        <span>Timetable</span>
+      </button>
+      <button class="nav-btn" onclick="openView('tasks', 'Study Planner', this)">
+        <span>Study Planner</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div style="display:flex; justify-content:space-between;">
+        <span>Syllabus Completion</span>
+        <strong id="sidebarProgressText">0%</strong>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="sidebarProgressBar"></div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN LMS AREA -->
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="breadcrumb">
+          <span id="activeCourseLabel">Batch 2026–27 • Core Foundation</span> / <strong id="pageTitle">Dashboard</strong>
         </div>
-        <div id="meetContainer">
+      </div>
+      <div class="topbar-right">
+        <span class="status-chip">Portal Online</span>
+        <div class="avatar-pill">
+          <div class="avatar-circle">VJ</div>
+          <span>Vattepu Jashuva</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <!-- 1. LMS DASHBOARD -->
+      <section id="dashboard" class="view-section active">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Course Progress</div>
+            <div class="kpi-value" id="kpiProgress">0%</div>
+            <div class="kpi-sub" id="kpiCompletedSub">0 of 6 lessons completed</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Next Live Class</div>
+            <div class="kpi-value" style="font-size:1.25rem; margin-top:10px;">Today • 06:00 PM</div>
+            <div class="kpi-sub">Room: vjstudyroom-live-101</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Study Resources</div>
+            <div class="kpi-value">3 Units</div>
+            <div class="kpi-sub">Lectures, PDFs & Quizzes</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Pending Study Tasks</div>
+            <div class="kpi-value" id="kpiTasks">2</div>
+            <div class="kpi-sub">Tracked in Study Planner</div>
+          </div>
+        </div>
+
+        <div class="dash-grid">
           <div>
-            <p><strong>Live Room Ready</strong></p>
-            <p style="font-size:0.88rem; margin-top:6px;">Click "Start / Join Live Room" above to launch audio, video, and screen sharing.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. RECORDED LECTURES (UNLISTED YOUTUBE) -->
-    <section id="lectures" class="tab-section">
-      <div class="card">
-        <h2>Recorded Video Lectures</h2>
-        <p class="subtext">Select any lecture below to watch your Unlisted YouTube class recording.</p>
-        <div class="row">
-          <select id="videoSelect" onchange="loadVideo()">
-            <option value="dQw4w9WgXcQ">Lecture 01: Introduction & Course Orientation (Sample)</option>
-            <option value="M7lc1UVf-VE">Lecture 02: Core Concepts & Framework (Sample)</option>
-          </select>
-        </div>
-        <div class="video-wrap">
-          <iframe id="ytPlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. NOTES & GOOGLE DRIVE RESOURCES -->
-    <section id="notes" class="tab-section">
-      <div class="card">
-        <h2>Study Notes & Google Drive Materials</h2>
-        <p class="subtext">Search by topic or subject and open PDFs directly from Google Drive.</p>
-        <div class="row">
-          <input type="text" id="noteSearch" onkeyup="filterNotes()" placeholder="Search notes by title or subject..." />
-        </div>
-        <div class="grid" id="notesGrid">
-          <div class="item-box" data-title="unit 1 foundation notes introduction">
-            <div>
-              <span class="badge">Unit 01</span>
-              <h3 style="margin-top:8px;">Foundation & Core Concepts</h3>
-              <p class="subtext">Complete chapter summary, key definitions, and reference points.</p>
+            <div class="card">
+              <div class="card-header">
+                <h2>Continue Learning</h2>
+                <button class="btn btn-sm" onclick="openView('modules', 'Course Modules', document.querySelectorAll('.nav-btn')[1])">View All Modules</button>
+              </div>
+              <p class="subtext">Pick up where you left off in your structured syllabus modules.</p>
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-video">Video</span>
+                  <div>
+                    <strong>Module 1.1: Course Orientation & Core Framework</strong>
+                    <div style="font-size:0.8rem; color:var(--muted);">Unlisted Lecture Recording • 45 mins</div>
+                  </div>
+                </div>
+                <button class="btn btn-sm" onclick="openView('lectures', 'Recorded Lectures', document.querySelectorAll('.nav-btn')[3])">Watch Now</button>
+              </div>
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-pdf">PDF Note</span>
+                  <div>
+                    <strong>Module 1.2: Foundation Unit Study Material</strong>
+                    <div style="font-size:0.8rem; color:var(--muted);">Google Drive Handout & Key Definitions</div>
+                  </div>
+                </div>
+                <button class="btn btn-sm btn-outline" onclick="openView('notes', 'Notes & PDF Library', document.querySelectorAll('.nav-btn')[4])">Open Notes</button>
+              </div>
             </div>
-            <a class="btn" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
-          </div>
-          <div class="item-box" data-title="unit 2 case studies practice questions">
-            <div>
-              <span class="badge">Unit 02</span>
-              <h3 style="margin-top:8px;">Case Studies & Applied Notes</h3>
-              <p class="subtext">Structured examples, important provisions, and revision sheet.</p>
+
+            <div class="card">
+              <div class="card-header">
+                <h2>Upcoming Live Sessions</h2>
+                <button class="btn btn-sm btn-danger" onclick="openView('live', 'Live Classroom', document.querySelectorAll('.nav-btn')[2])">Join Live Room</button>
+              </div>
+              <table>
+                <thead>
+                  <tr><th>Day</th><th>Time</th><th>Session Topic</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Monday</td>
+                    <td>06:00 PM</td>
+                    <td>Core Concepts & Live Discussion</td>
+                    <td><button class="btn btn-sm" onclick="openView('live', 'Live Classroom', document.querySelectorAll('.nav-btn')[2])">Enter Room</button></td>
+                  </tr>
+                  <tr>
+                    <td>Wednesday</td>
+                    <td>06:00 PM</td>
+                    <td>Case Analysis & Q&A</td>
+                    <td><button class="btn btn-sm btn-outline" onclick="openView('schedule', 'Class Timetable', document.querySelectorAll('.nav-btn')[6])">Details</button></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <a class="btn" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
           </div>
-          <div class="item-box" data-title="previous papers revision handbook">
-            <div>
-              <span class="badge">Revision</span>
-              <h3 style="margin-top:8px;">Quick Revision Handbook</h3>
-              <p class="subtext">Last-minute formulas, key articles, and exam checklist.</p>
+
+          <div>
+            <div class="card">
+              <div class="card-header">
+                <h2>Noticeboard</h2>
+              </div>
+              <div class="notice">
+                <small>Posted Today</small>
+                <strong>Welcome to VJ Study Room LMS</strong>
+                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Use the left sidebar to access live classes, module checklists, and downloadable PDFs.</p>
+              </div>
+              <div class="notice" style="border-left-color: var(--warning);">
+                <small>Weekly Assessment</small>
+                <strong>Self-Check Practice Quiz Open</strong>
+                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Complete the Practice Quiz before Friday's doubt-clearing session.</p>
+              </div>
             </div>
-            <a class="btn" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 4. CLASS SCHEDULE -->
-    <section id="schedule" class="tab-section">
-      <div class="card">
-        <h2>Weekly Class Timetable</h2>
-        <p class="subtext">Update timings and subjects anytime in index.html.</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Day</th>
-              <th>Time</th>
-              <th>Subject / Session</th>
-              <th>Mode</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Monday</td><td>06:00 PM – 07:00 PM</td><td>Core Concepts & Live Discussion</td><td>Live Room</td></tr>
-            <tr><td>Wednesday</td><td>06:00 PM – 07:00 PM</td><td>Case Analysis & Q&A</td><td>Live Room</td></tr>
-            <tr><td>Friday</td><td>07:00 PM – 08:00 PM</td><td>Weekly Test & Doubt Clearing</td><td>Quiz + Live</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
+      <!-- 2. COURSE MODULES (STRUCTURED LMS SYLLABUS) -->
+      <section id="modules" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Structured Course Modules</h2>
+            <span class="badge" id="moduleProgressBadge">0 / 6 Completed</span>
+          </div>
+          <p class="subtext">Mark lessons complete as you study—your syllabus progress saves automatically in this browser.</p>
 
-    <!-- 5. INTERACTIVE PRACTICE QUIZ -->
-    <section id="quiz" class="tab-section">
-      <div class="card">
-        <h2>Quick Self-Check Quiz</h2>
-        <p class="subtext" id="quizProgress">Question 1 of 2</p>
-        <h3 id="quizQuestion" style="margin-bottom:14px;"></h3>
-        <div id="quizOptions"></div>
-        <p id="quizFeedback" style="margin-top:12px; font-weight:600;"></p>
-        <button class="btn" style="margin-top:12px;" onclick="nextQuestion()">Next Question</button>
-      </div>
-    </section>
+          <!-- Module 1 -->
+          <div class="module-box">
+            <div class="module-head">
+              <span>Module 01: Foundations & Core Concepts</span>
+              <span style="font-size:0.8rem; color:var(--muted);">2 Items</span>
+            </div>
+            <div class="module-items">
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-video">Lecture</span>
+                  <span>1.1 Introduction & Course Orientation</span>
+                </div>
+                <div class="lesson-actions">
+                  <button class="btn btn-sm btn-outline" onclick="launchLecture('dQw4w9WgXcQ')">Open</button>
+                  <button class="btn btn-sm" id="chk-0" onclick="toggleLesson(0)">Mark Complete</button>
+                </div>
+              </div>
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-pdf">Reading</span>
+                  <span>1.2 Foundation Summary & Definitions (PDF)</span>
+                </div>
+                <div class="lesson-actions">
+                  <a class="btn btn-sm btn-outline" href="https://drive.google.com/" target="_blank">Drive PDF</a>
+                  <button class="btn btn-sm" id="chk-1" onclick="toggleLesson(1)">Mark Complete</button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-    <!-- 6. PERSONAL STUDY PLANNER -->
-    <section id="tasks" class="tab-section">
-      <div class="card">
-        <h2>Personal Study Checklist</h2>
-        <p class="subtext">Track your daily topics (saved automatically in this browser).</p>
-        <div class="row">
-          <input type="text" id="taskInput" placeholder="Add a topic to revise today..." />
-          <button class="btn" onclick="addTask()">Add Topic</button>
+          <!-- Module 2 -->
+          <div class="module-box">
+            <div class="module-head">
+              <span>Module 02: Applied Framework & Case Studies</span>
+              <span style="font-size:0.8rem; color:var(--muted);">2 Items</span>
+            </div>
+            <div class="module-items">
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-video">Lecture</span>
+                  <span>2.1 Core Concepts & Practical Framework</span>
+                </div>
+                <div class="lesson-actions">
+                  <button class="btn btn-sm btn-outline" onclick="launchLecture('M7lc1UVf-VE')">Open</button>
+                  <button class="btn btn-sm" id="chk-2" onclick="toggleLesson(2)">Mark Complete</button>
+                </div>
+              </div>
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-pdf">Reading</span>
+                  <span>2.2 Case Studies & Applied Notes (PDF)</span>
+                </div>
+                <div class="lesson-actions">
+                  <a class="btn btn-sm btn-outline" href="https://drive.google.com/" target="_blank">Drive PDF</a>
+                  <button class="btn btn-sm" id="chk-3" onclick="toggleLesson(3)">Mark Complete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 3 -->
+          <div class="module-box">
+            <div class="module-head">
+              <span>Module 03: Revision & Self-Assessment</span>
+              <span style="font-size:0.8rem; color:var(--muted);">2 Items</span>
+            </div>
+            <div class="module-items">
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-pdf">Handbook</span>
+                  <span>3.1 Quick Revision Handbook & Key Checklist</span>
+                </div>
+                <div class="lesson-actions">
+                  <a class="btn btn-sm btn-outline" href="https://drive.google.com/" target="_blank">Drive PDF</a>
+                  <button class="btn btn-sm" id="chk-4" onclick="toggleLesson(4)">Mark Complete</button>
+                </div>
+              </div>
+              <div class="lesson-row">
+                <div class="lesson-info">
+                  <span class="lesson-type type-quiz">Quiz</span>
+                  <span>3.2 End-of-Module Self-Check Assessment</span>
+                </div>
+                <div class="lesson-actions">
+                  <button class="btn btn-sm btn-outline" onclick="openView('quiz', 'Practice Quiz', document.querySelectorAll('.nav-btn')[5])">Start Quiz</button>
+                  <button class="btn btn-sm" id="chk-5" onclick="toggleLesson(5)">Mark Complete</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <ul class="task-list" id="taskList"></ul>
-      </div>
-    </section>
-  </main>
+      </section>
 
-  <footer>
-    VJ Study Room • Built & Maintained by Vattepu Jashuva
-  </footer>
+      <!-- 3. LIVE CLASSROOM -->
+      <section id="live" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Live Virtual Classroom</h2>
+            <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
+          </div>
+          <p class="subtext">Enter your session room code and click Start / Join Live Room for HD video, audio, chat, and screen sharing.</p>
+          <div class="row">
+            <input type="text" id="roomInput" value="vjstudyroom-live-101" placeholder="Enter Room Name" />
+            <button class="btn" onclick="startLiveClass()">Start / Join Live Room</button>
+            <button class="btn btn-danger" onclick="endLiveClass()">Leave Room</button>
+          </div>
+          <div id="meetContainer">
+            <div>
+              <p style="font-size:1.05rem; color:#e2e8f0;"><strong>Virtual Classroom Ready</strong></p>
+              <p style="font-size:0.86rem; margin-top:6px;">Click "Start / Join Live Room" above to launch the live session.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. RECORDED LECTURES -->
+      <section id="lectures" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Recorded Video Lectures</h2>
+          </div>
+          <p class="subtext">Select a session from the dropdown to play your Unlisted YouTube lecture recording.</p>
+          <div class="row">
+            <select id="videoSelect" onchange="loadVideo()">
+              <option value="dQw4w9WgXcQ">Lecture 01: Introduction & Course Orientation (Sample)</option>
+              <option value="M7lc1UVf-VE">Lecture 02: Core Concepts & Framework (Sample)</option>
+            </select>
+          </div>
+          <div class="video-wrap">
+            <iframe id="ytPlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. NOTES & PDFs -->
+      <section id="notes" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Notes & Google Drive Resource Library</h2>
+          </div>
+          <div class="row">
+            <input type="text" id="noteSearch" onkeyup="filterNotes()" placeholder="Filter notes by module, unit, or keyword..." />
+          </div>
+          <div class="grid" id="notesGrid">
+            <div class="item-box" data-title="unit 1 foundation notes introduction">
+              <div>
+                <span class="badge">Module 01</span>
+                <h3 style="margin-top:8px; font-size:1rem;">Foundation & Core Concepts</h3>
+                <p class="subtext" style="margin-top:4px;">Complete chapter summary, key definitions, and reference points.</p>
+              </div>
+              <a class="btn btn-sm" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
+            </div>
+            <div class="item-box" data-title="unit 2 case studies practice questions">
+              <div>
+                <span class="badge">Module 02</span>
+                <h3 style="margin-top:8px; font-size:1rem;">Case Studies & Applied Notes</h3>
+                <p class="subtext" style="margin-top:4px;">Structured examples, important provisions, and revision sheet.</p>
+              </div>
+              <a class="btn btn-sm" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
+            </div>
+            <div class="item-box" data-title="previous papers revision handbook">
+              <div>
+                <span class="badge">Module 03</span>
+                <h3 style="margin-top:8px; font-size:1rem;">Quick Revision Handbook</h3>
+                <p class="subtext" style="margin-top:4px;">Last-minute formulas, key articles, and exam checklist.</p>
+              </div>
+              <a class="btn btn-sm" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. PRACTICE QUIZ -->
+      <section id="quiz" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Self-Check Assessment Quiz</h2>
+            <span class="badge" id="quizProgress">Question 1 of 2</span>
+          </div>
+          <h3 id="quizQuestion" style="margin-bottom:14px; font-size:1.05rem;"></h3>
+          <div id="quizOptions"></div>
+          <p id="quizFeedback" style="margin-top:12px; font-weight:600;"></p>
+          <button class="btn" style="margin-top:12px;" onclick="nextQuestion()">Next Question</button>
+        </div>
+      </section>
+
+      <!-- 7. CLASS TIMETABLE -->
+      <section id="schedule" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Weekly Academic Timetable</h2>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Day</th><th>Time</th><th>Subject / Session</th><th>Delivery Mode</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Monday</td><td>06:00 PM – 07:00 PM</td><td>Core Concepts & Live Discussion</td><td>Virtual Classroom</td></tr>
+              <tr><td>Wednesday</td><td>06:00 PM – 07:00 PM</td><td>Case Analysis & Q&A</td><td>Virtual Classroom</td></tr>
+              <tr><td>Friday</td><td>07:00 PM – 08:00 PM</td><td>Weekly Test & Doubt Clearing</td><td>Quiz + Live Room</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 8. STUDY PLANNER -->
+      <section id="tasks" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Personal Study Planner</h2>
+          </div>
+          <p class="subtext">Add daily revision goals (saved automatically in your browser).</p>
+          <div class="row">
+            <input type="text" id="taskInput" placeholder="Enter topic or assignment to complete..." />
+            <button class="btn" onclick="addTask()">Add Goal</button>
+          </div>
+          <ul class="task-list" id="taskList"></ul>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <script src="https://meet.jit.si/external_api.js"></script>
   <script>
-    // 1. Navigation Tabs
-    function showTab(tabId, btn) {
-      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
-      document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      btn.classList.add('active');
+    // 1. LMS Sidebar Navigation
+    function openView(viewId, title, btn) {
+      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(viewId).classList.add('active');
+      if (btn) btn.classList.add('active');
+      document.getElementById('pageTitle').textContent = title;
+      document.getElementById('sidebar').classList.remove('open');
     }
 
-    // 2. Live Class (Jitsi Meet)
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function switchCourse() {
+      const val = document.getElementById('courseSwitcher').value;
+      document.getElementById('activeCourseLabel').textContent = val;
+    }
+
+    // 2. Module Progress Tracking (Saved in localStorage)
+    const totalLessons = 6;
+    let completedLessons = JSON.parse(localStorage.getItem('vj_lms_lessons') || '[false,false,false,false,false,false]');
+
+    function updateProgressUI() {
+      localStorage.setItem('vj_lms_lessons', JSON.stringify(completedLessons));
+      const doneCount = completedLessons.filter(Boolean).length;
+      const pct = Math.round((doneCount / totalLessons) * 100);
+
+      document.getElementById('sidebarProgressText').textContent = pct + '%';
+      document.getElementById('sidebarProgressBar').style.width = pct + '%';
+      document.getElementById('kpiProgress').textContent = pct + '%';
+      document.getElementById('kpiCompletedSub').textContent = `${doneCount} of ${totalLessons} lessons completed`;
+      document.getElementById('moduleProgressBadge').textContent = `${doneCount} / ${totalLessons} Completed`;
+
+      completedLessons.forEach((isDone, idx) => {
+        const btn = document.getElementById('chk-' + idx);
+        if (!btn) return;
+        if (isDone) {
+          btn.textContent = '✓ Completed';
+          btn.classList.add('btn-success');
+        } else {
+          btn.textContent = 'Mark Complete';
+          btn.classList.remove('btn-success');
+        }
+      });
+    }
+
+    function toggleLesson(idx) {
+      completedLessons[idx] = !completedLessons[idx];
+      updateProgressUI();
+    }
+    updateProgressUI();
+
+    // 3. Live Classroom (Jitsi Meet)
     let jitsiApi = null;
     function startLiveClass() {
       const room = document.getElementById('roomInput').value.trim() || 'vjstudyroom-live-101';
@@ -344,21 +924,26 @@
         roomName: room,
         parentNode: container,
         width: '100%',
-        height: 520
+        height: 500
       });
     }
     function endLiveClass() {
       if (jitsiApi) { jitsiApi.dispose(); jitsiApi = null; }
-      document.getElementById('meetContainer').innerHTML = '<p>You left the live room. Click "Start / Join Live Room" anytime to rejoin.</p>';
+      document.getElementById('meetContainer').innerHTML = '<p>Session ended. Click "Start / Join Live Room" anytime to rejoin.</p>';
     }
 
-    // 3. YouTube Lecture Switcher
+    // 4. Video Player & Module Launcher
     function loadVideo() {
       const id = document.getElementById('videoSelect').value;
       document.getElementById('ytPlayer').src = 'https://www.youtube.com/embed/' + id;
     }
+    function launchLecture(videoId) {
+      document.getElementById('videoSelect').value = videoId;
+      loadVideo();
+      openView('lectures', 'Recorded Lectures', document.querySelectorAll('.nav-btn')[3]);
+    }
 
-    // 4. Notes Filter
+    // 5. Notes Search
     function filterNotes() {
       const q = document.getElementById('noteSearch').value.toLowerCase();
       document.querySelectorAll('#notesGrid .item-box').forEach(card => {
@@ -367,7 +952,7 @@
       });
     }
 
-    // 5. Quiz Logic
+    // 6. Quiz Engine
     const questions = [
       {
         q: "Which YouTube privacy setting keeps class recordings accessible only to students with the link?",
@@ -375,8 +960,8 @@
         answer: 1
       },
       {
-        q: "Which three Git commands publish your saved VS Code updates to GitHub Pages?",
-        options: ["git add . -> git commit -> git push", "git open -> git save -> git run", "git init -> git delete -> git pull"],
+        q: "How do you publish saved changes in VS Code to your live GitHub Pages LMS?",
+        options: ["Commit -> Sync Changes", "Delete -> Reinstall", "Close VS Code"],
         answer: 0
       }
     ];
@@ -411,15 +996,16 @@
     }
     renderQuiz();
 
-    // 6. Study Checklist (Saved in Browser)
-    let tasks = JSON.parse(localStorage.getItem('vj_tasks') || '["Set up VJ Study Room website", "Upload first notes link"]');
+    // 7. Study Planner
+    let tasks = JSON.parse(localStorage.getItem('vj_tasks') || '["Complete Module 1 Lecture", "Review Foundation Notes"]');
     function renderTasks() {
       localStorage.setItem('vj_tasks', JSON.stringify(tasks));
+      document.getElementById('kpiTasks').textContent = tasks.length;
       const list = document.getElementById('taskList');
       list.innerHTML = '';
       tasks.forEach((t, i) => {
         const li = document.createElement('li');
-        li.innerHTML = `<span>${t}</span><button class="btn btn-danger" style="padding:4px 10px;font-size:0.8rem;" onclick="removeTask(${i})">Remove</button>`;
+        li.innerHTML = `<span>${t}</span><button class="btn btn-sm btn-danger" onclick="removeTask(${i})">Remove</button>`;
         list.appendChild(li);
       });
     }
