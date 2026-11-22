@@ -163,7 +163,7 @@
     header.topbar {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 14px 24px;
+      padding: 12px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -171,6 +171,7 @@
       top: 0;
       z-index: 100;
       gap: 12px;
+      flex-wrap: wrap;
     }
     .topbar-left { display: flex; align-items: center; gap: 12px; }
     .menu-toggle {
@@ -184,14 +185,19 @@
     }
     .breadcrumb { font-size: 0.85rem; color: var(--muted); }
     .breadcrumb strong { color: var(--text); }
-    .topbar-right { display: flex; align-items: center; gap: 10px; }
-    .status-chip {
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 5px 10px;
+    .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .role-badge {
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 9px;
       border-radius: 999px;
-      background: #dcfce7;
-      color: #166534;
+      background: #dbeafe;
+      color: #1e40af;
+      text-transform: uppercase;
+    }
+    .role-badge.faculty {
+      background: #fef3c7;
+      color: #92400e;
     }
     .avatar-pill {
       display: flex;
@@ -228,7 +234,7 @@
     /* KPI Stats Row */
     .kpi-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 16px;
       margin-bottom: 22px;
     }
@@ -239,8 +245,8 @@
       padding: 18px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .kpi-title { font-size: 0.8rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-    .kpi-value { font-size: 1.65rem; font-weight: 700; margin: 6px 0 4px; color: var(--text); }
+    .kpi-title { font-size: 0.78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+    .kpi-value { font-size: 1.6rem; font-weight: 700; margin: 6px 0 4px; color: var(--text); }
     .kpi-sub { font-size: 0.8rem; color: var(--muted); }
 
     /* Two-column Dashboard Grid */
@@ -274,15 +280,18 @@
 
     /* Buttons & Inputs */
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
-    input[type="text"], select {
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+    input[type="text"], input[type="email"], input[type="password"], select, textarea {
+      width: 100%;
       padding: 9px 12px;
       border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 0.9rem;
-      flex: 1;
-      min-width: 180px;
       background: #fff;
+      font-family: inherit;
     }
+    textarea { min-height: 76px; resize: vertical; }
     .btn {
       background: var(--accent);
       color: #fff;
@@ -303,6 +312,24 @@
     .btn-outline:hover { background: #eff6ff; }
     .btn-success { background: var(--success); }
     .btn-danger { background: var(--danger); }
+    .btn-muted { background: #475569; }
+
+    /* Auth Tabs */
+    .auth-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .auth-tab {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #f8fafc;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .auth-tab.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
 
     /* LMS Course Modules */
     .module-box {
@@ -345,15 +372,18 @@
     .type-quiz { background: #dcfce7; color: #166534; }
     .lesson-actions { display: flex; gap: 8px; align-items: center; }
 
-    /* Announcements */
-    .notice {
-      padding: 12px;
+    /* Announcements & Forum */
+    .notice, .post-card {
+      padding: 14px;
       border-left: 4px solid var(--accent);
       background: #f8fafc;
       border-radius: 0 8px 8px 0;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
     }
-    .notice small { color: var(--muted); display: block; margin-bottom: 3px; }
+    .notice small, .post-meta { color: var(--muted); font-size: 0.78rem; display: block; margin-bottom: 4px; }
 
     /* Live Class Frame */
     #meetContainer {
@@ -392,6 +422,8 @@
       border-radius: 999px;
       width: fit-content;
     }
+    .badge.green { background: #dcfce7; color: #166534; }
+    .badge.amber { background: #fef3c7; color: #92400e; }
 
     /* Video Wrapper */
     .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; background: #000; }
@@ -429,7 +461,6 @@
       font-size: 0.9rem;
     }
 
-    /* Responsive Mobile Sidebar */
     @media (max-width: 900px) {
       aside.sidebar { transform: translateX(-100%); }
       aside.sidebar.open { transform: translateX(0); }
@@ -486,6 +517,17 @@
         <span>Notes & PDFs</span>
       </button>
 
+      <div class="nav-label">Assignments & Community</div>
+      <button class="nav-btn" onclick="openView('assignments', 'Assignments', this)">
+        <span>Assignments</span>
+      </button>
+      <button class="nav-btn" onclick="openView('forum', 'Discussion Forum', this)">
+        <span>Discussion Forum</span>
+      </button>
+      <button class="nav-btn" onclick="openView('attendance', 'Attendance & Streak', this)">
+        <span>Attendance</span>
+      </button>
+
       <div class="nav-label">Assessment & Schedule</div>
       <button class="nav-btn" onclick="openView('quiz', 'Practice Quiz', this)">
         <span>Practice Quiz</span>
@@ -495,6 +537,11 @@
       </button>
       <button class="nav-btn" onclick="openView('tasks', 'Study Planner', this)">
         <span>Study Planner</span>
+      </button>
+
+      <div class="nav-label">Accounts</div>
+      <button class="nav-btn" id="navAuthBtn" onclick="openView('auth', 'Student & Faculty Logins', this)">
+        <span>Student / Faculty Login</span>
       </button>
     </nav>
 
@@ -519,11 +566,12 @@
         </div>
       </div>
       <div class="topbar-right">
-        <span class="status-chip">Portal Online</span>
+        <span class="role-badge" id="headerRoleBadge">Student</span>
         <div class="avatar-pill">
-          <div class="avatar-circle">VJ</div>
-          <span>Vattepu Jashuva</span>
+          <div class="avatar-circle" id="headerAvatar">ST</div>
+          <span id="headerUserName">Guest Student</span>
         </div>
+        <button class="btn btn-sm btn-outline" onclick="openView('auth', 'Student & Faculty Logins', document.getElementById('navAuthBtn'))">Login / Accounts</button>
       </div>
     </header>
 
@@ -538,14 +586,14 @@
             <div class="kpi-sub" id="kpiCompletedSub">0 of 6 lessons completed</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-title">First Class Slot</div>
-            <div class="kpi-value" style="font-size:1.25rem; margin-top:10px;">09:30 AM</div>
-            <div class="kpi-sub">Period 1 • Daily Timing</div>
+            <div class="kpi-title">Attendance Logged</div>
+            <div class="kpi-value" id="kpiAttendance">0 Days</div>
+            <div class="kpi-sub" id="kpiStreak">Study Streak: 0 days</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-title">Enrolled Programmes</div>
-            <div class="kpi-value">7 Courses</div>
-            <div class="kpi-sub">Semester I Timetables Active</div>
+            <div class="kpi-title">Assignments</div>
+            <div class="kpi-value" id="kpiAssignments">2</div>
+            <div class="kpi-sub">Click Assignments to submit</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-title">Pending Study Tasks</div>
@@ -587,7 +635,7 @@
             <div class="card">
               <div class="card-header">
                 <h2 id="dashTimetableHeading">BA LLB — Monday Preview</h2>
-                <button class="btn btn-sm btn-outline" onclick="openView('schedule', 'Class Timetable', document.querySelectorAll('.nav-btn')[6])">Full Timetable</button>
+                <button class="btn btn-sm btn-outline" onclick="openView('schedule', 'Class Timetable', document.querySelectorAll('.nav-btn')[10])">Full Timetable</button>
               </div>
               <div class="table-wrap">
                 <table>
@@ -630,9 +678,9 @@
                 <h2>Noticeboard</h2>
               </div>
               <div class="notice">
-                <small>Semester I Schedule</small>
-                <strong>All 7 Course Timetables Loaded</strong>
-                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Faculty slots are set to Faculty 1 and can be updated anytime.</p>
+                <small>Portals & Accounts</small>
+                <strong>Student & Faculty Logins Enabled</strong>
+                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Create student or faculty accounts anytime from the Accounts tab.</p>
               </div>
             </div>
           </div>
@@ -728,7 +776,7 @@
                   <span>3.2 End-of-Module Self-Check Assessment</span>
                 </div>
                 <div class="lesson-actions">
-                  <button class="btn btn-sm btn-outline" onclick="openView('quiz', 'Practice Quiz', document.querySelectorAll('.nav-btn')[5])">Start Quiz</button>
+                  <button class="btn btn-sm btn-outline" onclick="openView('quiz', 'Practice Quiz', document.querySelectorAll('.nav-btn')[9])">Start Quiz</button>
                   <button class="btn btn-sm" id="chk-5" onclick="toggleLesson(5)">Mark Complete</button>
                 </div>
               </div>
@@ -816,7 +864,95 @@
         </div>
       </section>
 
-      <!-- 6. PRACTICE QUIZ -->
+      <!-- 6. ASSIGNMENTS -->
+      <section id="assignments" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Assignments & Submissions</h2>
+            <span class="badge" id="assignmentRoleNote">Student Submission Mode</span>
+          </div>
+          <p class="subtext">Submit a Google Drive / document link or note for an assignment. Faculty accounts can also mark submissions as Graded.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="assignSelect">Select Assignment</label>
+              <select id="assignSelect"></select>
+            </div>
+            <div class="field">
+              <label for="assignLinkInput">Submission Link or Notes</label>
+              <input type="text" id="assignLinkInput" placeholder="https://drive.google.com/... or summary" />
+            </div>
+          </div>
+          <button class="btn" onclick="submitAssignment()">Submit Assignment</button>
+
+          <div class="table-wrap" style="margin-top:18px;">
+            <table>
+              <thead>
+                <tr><th>Assignment</th><th>Course</th><th>Due</th><th>Status & Submission</th><th>Action</th></tr>
+              </thead>
+              <tbody id="assignmentsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. DISCUSSION FORUM -->
+      <section id="forum" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Class Discussion Forum</h2>
+          </div>
+          <p class="subtext">Ask academic questions, share study pointers, or post announcements for the selected course.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="forumTopic">Topic / Subject</label>
+              <input type="text" id="forumTopic" placeholder="e.g., Unit 1 Doubt or Case Discussion" />
+            </div>
+            <div class="field">
+              <label for="forumCourse">Course Tag</label>
+              <select id="forumCourse">
+                <option value="BA LLB">BA LLB</option>
+                <option value="BBA LLB">BBA LLB</option>
+                <option value="BSC LLB">BSC LLB</option>
+                <option value="LLB">LLB</option>
+                <option value="LLB HONS">LLB HONS</option>
+                <option value="LLM">LLM</option>
+                <option value="Ph.D">Ph.D</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:12px;">
+            <label for="forumMessage">Message</label>
+            <textarea id="forumMessage" placeholder="Write your question or update..."></textarea>
+          </div>
+          <button class="btn" onclick="addForumPost()">Post to Forum</button>
+          <div id="forumList" style="margin-top:18px;"></div>
+        </div>
+      </section>
+
+      <!-- 8. ATTENDANCE & STREAK -->
+      <section id="attendance" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Attendance & Study Streak</h2>
+            <span class="badge green" id="attendanceBadge">0 Check-ins</span>
+          </div>
+          <p class="subtext">Check in once per day for your active course to record attendance and build your study streak.</p>
+          <div class="row">
+            <button class="btn btn-success" onclick="markAttendance()">Check In Today's Attendance</button>
+            <span id="attendanceFeedback" style="font-size:0.88rem; font-weight:600; color:var(--muted);"></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Date</th><th>Course</th><th>User</th><th>Role</th><th>Status</th></tr>
+              </thead>
+              <tbody id="attendanceBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. PRACTICE QUIZ -->
       <section id="quiz" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -830,7 +966,7 @@
         </div>
       </section>
 
-      <!-- 7. CLASS TIMETABLE -->
+      <!-- 10. CLASS TIMETABLE -->
       <section id="schedule" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -868,7 +1004,7 @@
         </div>
       </section>
 
-      <!-- 8. STUDY PLANNER -->
+      <!-- 11. STUDY PLANNER -->
       <section id="tasks" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -883,6 +1019,122 @@
         </div>
       </section>
 
+      <!-- 12. STUDENT & FACULTY LOGINS + ACCOUNT CREATION -->
+      <section id="auth" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Student & Faculty Login / Account Creation</h2>
+            <span class="badge" id="currentAccountBadge">Signed in: Guest Student</span>
+          </div>
+
+          <div class="auth-tabs">
+            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
+            <button class="auth-tab" id="tabCreateStudent" onclick="switchAuthTab('create-student')">Create Student Login</button>
+            <button class="auth-tab" id="tabCreateFaculty" onclick="switchAuthTab('create-faculty')">Create Faculty Login</button>
+          </div>
+
+          <!-- Sign In Form -->
+          <div id="panelLogin">
+            <p class="subtext">Sign in using a Student or Faculty account you created, or click a quick sample account below.</p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="loginEmail">Email or ID</label>
+                <input type="text" id="loginEmail" placeholder="student@example.com or FAC-01" />
+              </div>
+              <div class="field">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter password" />
+              </div>
+            </div>
+            <div class="row">
+              <button class="btn" onclick="handleLogin()">Sign In</button>
+              <button class="btn btn-sm btn-outline" onclick="quickDemoLogin('Student')">Demo Student Login</button>
+              <button class="btn btn-sm btn-outline" onclick="quickDemoLogin('Faculty')">Demo Faculty Login</button>
+              <button class="btn btn-sm btn-muted" onclick="handleLogout()">Sign Out</button>
+            </div>
+            <p id="authMessage" style="font-size:0.88rem; font-weight:600; margin-top:6px;"></p>
+          </div>
+
+          <!-- Create Student Login Form -->
+          <div id="panelCreateStudent" style="display:none;">
+            <p class="subtext">Register a new **Student Login** account.</p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="stuName">Full Name</label>
+                <input type="text" id="stuName" placeholder="Student full name" />
+              </div>
+              <div class="field">
+                <label for="stuId">Student Roll / ID</label>
+                <input type="text" id="stuId" placeholder="e.g., STU-2026-01" />
+              </div>
+              <div class="field">
+                <label for="stuCourse">Course</label>
+                <select id="stuCourse">
+                  <option value="BA LLB">BA LLB</option>
+                  <option value="BBA LLB">BBA LLB</option>
+                  <option value="BSC LLB">BSC LLB</option>
+                  <option value="LLB">LLB</option>
+                  <option value="LLB HONS">LLB HONS</option>
+                  <option value="LLM">LLM</option>
+                  <option value="Ph.D">Ph.D</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="stuEmail">Email Address</label>
+                <input type="email" id="stuEmail" placeholder="student@domain.com" />
+              </div>
+              <div class="field">
+                <label for="stuPass">Create Password</label>
+                <input type="password" id="stuPass" placeholder="Choose a password" />
+              </div>
+            </div>
+            <button class="btn btn-success" onclick="createAccount('Student')">Create Student Login</button>
+          </div>
+
+          <!-- Create Faculty Login Form -->
+          <div id="panelCreateFaculty" style="display:none;">
+            <p class="subtext">Register a new **Faculty Login** account.</p>
+            <div class="form-grid">
+              <div class="field">
+                <label for="facName">Faculty Name</label>
+                <input type="text" id="facName" placeholder="e.g., Faculty 1" />
+              </div>
+              <div class="field">
+                <label for="facId">Faculty ID</label>
+                <input type="text" id="facId" placeholder="e.g., FAC-101" />
+              </div>
+              <div class="field">
+                <label for="facDept">Primary Course / Subject</label>
+                <input type="text" id="facDept" placeholder="e.g., Law of Contract I / BA LLB" />
+              </div>
+              <div class="field">
+                <label for="facEmail">Email Address</label>
+                <input type="email" id="facEmail" placeholder="faculty@domain.com" />
+              </div>
+              <div class="field">
+                <label for="facPass">Create Password</label>
+                <input type="password" id="facPass" placeholder="Choose a password" />
+              </div>
+            </div>
+            <button class="btn btn-success" onclick="createAccount('Faculty')">Create Faculty Login</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Registered Accounts on This Browser</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Name</th><th>Role</th><th>ID</th><th>Email</th><th>Action</th></tr>
+              </thead>
+              <tbody id="accountsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -890,7 +1142,7 @@
   <script>
     const F1 = "Faculty 1";
 
-    // Semester I Timetables Data (Faculty set to Faculty 1; No College Name / Logo)
+    // Semester I Timetables (Faculty 1 placeholder; No College Name / Logo)
     const timetables = {
       "BA LLB": {
         label: "BA LLB • Semester I",
@@ -905,51 +1157,11 @@
           { key: "p7", name: "Period 7 (03:30–04:00)" }
         ],
         days: {
-          Monday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Sociology I (${F1})`,
-            p5: `Political Science I (${F1})`,
-            p6: `AI & Digital Literacy (${F1})`,
-            p7: "Library"
-          },
-          Tuesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Sociology I (${F1})`,
-            p5: `Political Science I (${F1})`,
-            p6: `Legal Research I (${F1})`,
-            p7: "Library & Moot Training"
-          },
-          Wednesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Sociology I (${F1})`,
-            p5: `Political Science I (${F1})`,
-            p6: `AI & Digital Literacy (${F1})`,
-            p7: "Library"
-          },
-          Thursday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Sociology I (${F1})`,
-            p5: `Political Science I (${F1})`,
-            p6: `Legal Research I (${F1})`,
-            p7: "Library"
-          },
-          Friday: {
-            p1: `English I: Legal English (${F1})`,
-            p2: `English I: Legal English (${F1})`,
-            p3: `Torts Tutorial (${F1})`,
-            p4: "Library & Moot Court Training",
-            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`,
-            p6: `Contracts Tutorial (${F1})`,
-            p7: "Library"
-          }
+          Monday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Sociology I (${F1})`, p5: `Political Science I (${F1})`, p6: `AI & Digital Literacy (${F1})`, p7: "Library" },
+          Tuesday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Sociology I (${F1})`, p5: `Political Science I (${F1})`, p6: `Legal Research I (${F1})`, p7: "Library & Moot Training" },
+          Wednesday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Sociology I (${F1})`, p5: `Political Science I (${F1})`, p6: `AI & Digital Literacy (${F1})`, p7: "Library" },
+          Thursday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Sociology I (${F1})`, p5: `Political Science I (${F1})`, p6: `Legal Research I (${F1})`, p7: "Library" },
+          Friday: { p1: `English I: Legal English (${F1})`, p2: `English I: Legal English (${F1})`, p3: `Torts Tutorial (${F1})`, p4: "Library & Moot Court Training", p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`, p6: `Contracts Tutorial (${F1})`, p7: "Library" }
         }
       },
       "BBA LLB": {
@@ -965,51 +1177,11 @@
           { key: "p7", name: "Period 7 (03:30–04:00)" }
         ],
         days: {
-          Monday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Principles & Practices of Management (${F1})`,
-            p5: `Business Economics (${F1})`,
-            p6: `AI & Digital Literacy (${F1})`,
-            p7: "Library"
-          },
-          Tuesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Principles & Practices of Management (${F1})`,
-            p5: `Business Economics (${F1})`,
-            p6: `Legal Research I (${F1})`,
-            p7: "Library & Moot Training"
-          },
-          Wednesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Principles & Practices of Management (${F1})`,
-            p5: `Business Economics (${F1})`,
-            p6: `AI & Digital Literacy (${F1})`,
-            p7: "Library"
-          },
-          Thursday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Principles & Practices of Management (${F1})`,
-            p5: `Business Economics (${F1})`,
-            p6: `Legal Research I (${F1})`,
-            p7: "Library"
-          },
-          Friday: {
-            p1: `English I: Legal English (${F1})`,
-            p2: `English I: Legal English (${F1})`,
-            p3: `Torts Tutorial (${F1})`,
-            p4: "Library & Moot Court Training",
-            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`,
-            p6: `Contracts Tutorial (${F1})`,
-            p7: "Library"
-          }
+          Monday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Principles & Practices of Management (${F1})`, p5: `Business Economics (${F1})`, p6: `AI & Digital Literacy (${F1})`, p7: "Library" },
+          Tuesday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Principles & Practices of Management (${F1})`, p5: `Business Economics (${F1})`, p6: `Legal Research I (${F1})`, p7: "Library & Moot Training" },
+          Wednesday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Principles & Practices of Management (${F1})`, p5: `Business Economics (${F1})`, p6: `AI & Digital Literacy (${F1})`, p7: "Library" },
+          Thursday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Principles & Practices of Management (${F1})`, p5: `Business Economics (${F1})`, p6: `Legal Research I (${F1})`, p7: "Library" },
+          Friday: { p1: `English I: Legal English (${F1})`, p2: `English I: Legal English (${F1})`, p3: `Torts Tutorial (${F1})`, p4: "Library & Moot Court Training", p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`, p6: `Contracts Tutorial (${F1})`, p7: "Library" }
         }
       },
       "BSC LLB": {
@@ -1025,51 +1197,11 @@
           { key: "p7", name: "Period 7 (03:30–04:00)" }
         ],
         days: {
-          Monday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Introduction to Criminology (${F1})`,
-            p5: `Introduction to Forensic Science (${F1})`,
-            p6: `AI & Digital Literacy (${F1})`,
-            p7: "Library"
-          },
-          Tuesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Introduction to Criminology (${F1})`,
-            p5: `Introduction to Forensic Science (${F1})`,
-            p6: `Legal Research I (${F1})`,
-            p7: "Library & Moot Training"
-          },
-          Wednesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Introduction to Criminology (${F1})`,
-            p5: `Introduction to Forensic Science (${F1})`,
-            p6: `AI & Digital Literacy (${F1})`,
-            p7: "Library"
-          },
-          Thursday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Legal Methods & Legal Reasoning (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Introduction to Criminology (${F1})`,
-            p5: `Introduction to Forensic Science (${F1})`,
-            p6: `Legal Research I (${F1})`,
-            p7: "Library"
-          },
-          Friday: {
-            p1: `English I: Legal English (${F1})`,
-            p2: `English I: Legal English (${F1})`,
-            p3: `Torts Tutorial (${F1})`,
-            p4: "Library & Moot Court Training",
-            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`,
-            p6: `Contracts Tutorial (${F1})`,
-            p7: "Library"
-          }
+          Monday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Introduction to Criminology (${F1})`, p5: `Introduction to Forensic Science (${F1})`, p6: `AI & Digital Literacy (${F1})`, p7: "Library" },
+          Tuesday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Introduction to Criminology (${F1})`, p5: `Introduction to Forensic Science (${F1})`, p6: `Legal Research I (${F1})`, p7: "Library & Moot Training" },
+          Wednesday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Introduction to Criminology (${F1})`, p5: `Introduction to Forensic Science (${F1})`, p6: `AI & Digital Literacy (${F1})`, p7: "Library" },
+          Thursday: { p1: `Law of Contract I (${F1})`, p2: `Legal Methods & Legal Reasoning (${F1})`, p3: `Law of Torts (${F1})`, p4: `Introduction to Criminology (${F1})`, p5: `Introduction to Forensic Science (${F1})`, p6: `Legal Research I (${F1})`, p7: "Library" },
+          Friday: { p1: `English I: Legal English (${F1})`, p2: `English I: Legal English (${F1})`, p3: `Torts Tutorial (${F1})`, p4: "Library & Moot Court Training", p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`, p6: `Contracts Tutorial (${F1})`, p7: "Library" }
         }
       },
       "LLB": {
@@ -1083,48 +1215,12 @@
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
-          Monday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Tuesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Wednesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Thursday: {
-            p1: `AI & Digital Literacy (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Friday: {
-            p1: `Family Law I (${F1})`,
-            p2: `Law of Contract I (${F1})`,
-            p3: `Torts Tutorial (${F1})`,
-            p4: `Contracts Tutorial (${F1})`,
-            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`
-          },
-          Saturday: {
-            p1: `Family Law I (${F1})`,
-            p2: `Legal Research I (${F1})`,
-            p3: `Crimes Tutorial (${F1})`,
-            p4: `AI & Digital Literacy (${F1})`,
-            p5: `Legal Research I (${F1})`
-          }
+          Monday: { p1: `Law of Contract I (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Tuesday: { p1: `Law of Contract I (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Wednesday: { p1: `Law of Contract I (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Thursday: { p1: `AI & Digital Literacy (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Friday: { p1: `Family Law I (${F1})`, p2: `Law of Contract I (${F1})`, p3: `Torts Tutorial (${F1})`, p4: `Contracts Tutorial (${F1})`, p5: `Legal Methods and Legal Reasoning Tutorial (${F1})` },
+          Saturday: { p1: `Family Law I (${F1})`, p2: `Legal Research I (${F1})`, p3: `Crimes Tutorial (${F1})`, p4: `AI & Digital Literacy (${F1})`, p5: `Legal Research I (${F1})` }
         }
       },
       "LLB HONS": {
@@ -1138,48 +1234,12 @@
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
-          Monday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Tuesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Wednesday: {
-            p1: `Law of Contract I (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Thursday: {
-            p1: `AI & Digital Literacy (${F1})`,
-            p2: `Family Law I (${F1})`,
-            p3: `Law of Torts (${F1})`,
-            p4: `Constitutional Law I (${F1})`,
-            p5: `Law of Crimes I (BNS) (${F1})`
-          },
-          Friday: {
-            p1: `Family Law I (${F1})`,
-            p2: `Law of Contract I (${F1})`,
-            p3: `Torts Tutorial (${F1})`,
-            p4: `Contracts Tutorial (${F1})`,
-            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`
-          },
-          Saturday: {
-            p1: `Family Law I (${F1})`,
-            p2: `Legal Research I (${F1})`,
-            p3: `Crimes Tutorial (${F1})`,
-            p4: `AI & Digital Literacy (${F1})`,
-            p5: `Legal Research I (${F1})`
-          }
+          Monday: { p1: `Law of Contract I (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Tuesday: { p1: `Law of Contract I (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Wednesday: { p1: `Law of Contract I (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Thursday: { p1: `AI & Digital Literacy (${F1})`, p2: `Family Law I (${F1})`, p3: `Law of Torts (${F1})`, p4: `Constitutional Law I (${F1})`, p5: `Law of Crimes I (BNS) (${F1})` },
+          Friday: { p1: `Family Law I (${F1})`, p2: `Law of Contract I (${F1})`, p3: `Torts Tutorial (${F1})`, p4: `Contracts Tutorial (${F1})`, p5: `Legal Methods and Legal Reasoning Tutorial (${F1})` },
+          Saturday: { p1: `Family Law I (${F1})`, p2: `Legal Research I (${F1})`, p3: `Crimes Tutorial (${F1})`, p4: `AI & Digital Literacy (${F1})`, p5: `Legal Research I (${F1})` }
         }
       },
       "LLM": {
@@ -1193,41 +1253,11 @@
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
-          Monday: {
-            p1: `Research Methodology (${F1})`,
-            p2: `Comparative Public Law (${F1})`,
-            p3: `Law & Justice in the Globalizing World (${F1})`,
-            p4: "—",
-            p5: "—"
-          },
-          Tuesday: {
-            p1: `Research Methodology (${F1})`,
-            p2: `Public Law / Criminal II (${F1})`,
-            p3: `Law & Justice in the Globalizing World (${F1})`,
-            p4: `Corporate Law II / Corporate Law I (${F1})`,
-            p5: `IP II (${F1})`
-          },
-          Wednesday: {
-            p1: `Research Methodology (${F1})`,
-            p2: `Comparative Public Law (${F1})`,
-            p3: `Constitution I (${F1})`,
-            p4: `Corporate Law II / Corporate Law I (${F1})`,
-            p5: `IP II (${F1})`
-          },
-          Thursday: {
-            p1: `Research Methodology (${F1})`,
-            p2: `Criminal Law II (${F1})`,
-            p3: `Constitution I (${F1})`,
-            p4: "—",
-            p5: "—"
-          },
-          Friday: {
-            p1: `IP I (${F1})`,
-            p2: `IP I (${F1})`,
-            p3: `Cr. Law II / Constitution II (${F1})`,
-            p4: `Criminal Law II / Constitution II (${F1})`,
-            p5: "—"
-          }
+          Monday: { p1: `Research Methodology (${F1})`, p2: `Comparative Public Law (${F1})`, p3: `Law & Justice in the Globalizing World (${F1})`, p4: "—", p5: "—" },
+          Tuesday: { p1: `Research Methodology (${F1})`, p2: `Public Law / Criminal II (${F1})`, p3: `Law & Justice in the Globalizing World (${F1})`, p4: `Corporate Law II / Corporate Law I (${F1})`, p5: `IP II (${F1})` },
+          Wednesday: { p1: `Research Methodology (${F1})`, p2: `Comparative Public Law (${F1})`, p3: `Constitution I (${F1})`, p4: `Corporate Law II / Corporate Law I (${F1})`, p5: `IP II (${F1})` },
+          Thursday: { p1: `Research Methodology (${F1})`, p2: `Criminal Law II (${F1})`, p3: `Constitution I (${F1})`, p4: "—", p5: "—" },
+          Friday: { p1: `IP I (${F1})`, p2: `IP I (${F1})`, p3: `Cr. Law II / Constitution II (${F1})`, p4: `Criminal Law II / Constitution II (${F1})`, p5: "—" }
         }
       },
       "Ph.D": {
@@ -1241,28 +1271,11 @@
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
-          Monday: {
-            p1: `Research Methodology (${F1})`,
-            p2: "—", p3: "—", p4: "—", p5: "—"
-          },
-          Tuesday: {
-            p1: `Research Methodology (${F1})`,
-            p2: "—", p3: "—", p4: "—", p5: "—"
-          },
-          Wednesday: {
-            p1: `Research Methodology (${F1})`,
-            p2: "—", p3: "—", p4: "—", p5: "—"
-          },
-          Thursday: {
-            p1: `Research Methodology (${F1})`,
-            p2: "—", p3: "—", p4: "—", p5: "—"
-          },
-          Friday: {
-            p1: "—",
-            p2: `Research Ethics and Publications (${F1})`,
-            p3: `Research Ethics and Publications (${F1})`,
-            p4: "—", p5: "—"
-          }
+          Monday: { p1: `Research Methodology (${F1})`, p2: "—", p3: "—", p4: "—", p5: "—" },
+          Tuesday: { p1: `Research Methodology (${F1})`, p2: "—", p3: "—", p4: "—", p5: "—" },
+          Wednesday: { p1: `Research Methodology (${F1})`, p2: "—", p3: "—", p4: "—", p5: "—" },
+          Thursday: { p1: `Research Methodology (${F1})`, p2: "—", p3: "—", p4: "—", p5: "—" },
+          Friday: { p1: "—", p2: `Research Ethics and Publications (${F1})`, p3: `Research Ethics and Publications (${F1})`, p4: "—", p5: "—" }
         }
       }
     };
@@ -1324,7 +1337,7 @@
       }
     }
 
-    // 1. LMS Sidebar Navigation
+    // Navigation & Sidebar
     function openView(viewId, title, btn) {
       document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
@@ -1333,12 +1346,139 @@
       document.getElementById('pageTitle').textContent = title;
       document.getElementById('sidebar').classList.remove('open');
     }
-
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
     }
 
-    // 2. Module Progress Tracking
+    // Accounts: Student & Faculty Login + Creation
+    const defaultAccounts = [
+      { name: "Demo Student", role: "Student", id: "STU-001", email: "student@vjstudy.local", pass: "1234", course: "BA LLB" },
+      { name: "Faculty 1", role: "Faculty", id: "FAC-001", email: "faculty1@vjstudy.local", pass: "1234", course: "All Courses" }
+    ];
+    let accounts = JSON.parse(localStorage.getItem('vj_lms_accounts') || 'null') || defaultAccounts;
+    let activeUser = JSON.parse(localStorage.getItem('vj_lms_active_user') || 'null') || { name: "Guest Student", role: "Student", id: "GUEST" };
+
+    function saveAccountsState() {
+      localStorage.setItem('vj_lms_accounts', JSON.stringify(accounts));
+      localStorage.setItem('vj_lms_active_user', JSON.stringify(activeUser));
+      renderAuthUI();
+    }
+
+    function switchAuthTab(tab) {
+      ['login', 'create-student', 'create-faculty'].forEach(t => {
+        document.getElementById('tab' + t.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('')).classList.remove('active');
+      });
+      document.getElementById('panelLogin').style.display = tab === 'login' ? 'block' : 'none';
+      document.getElementById('panelCreateStudent').style.display = tab === 'create-student' ? 'block' : 'none';
+      document.getElementById('panelCreateFaculty').style.display = tab === 'create-faculty' ? 'block' : 'none';
+
+      if (tab === 'login') document.getElementById('tabLogin').classList.add('active');
+      if (tab === 'create-student') document.getElementById('tabCreateStudent').classList.add('active');
+      if (tab === 'create-faculty') document.getElementById('tabCreateFaculty').classList.add('active');
+    }
+
+    function createAccount(role) {
+      const msg = document.getElementById('authMessage');
+      if (role === 'Student') {
+        const name = document.getElementById('stuName').value.trim();
+        const id = document.getElementById('stuId').value.trim() || ('STU-' + Math.floor(100 + Math.random() * 900));
+        const course = document.getElementById('stuCourse').value;
+        const email = document.getElementById('stuEmail').value.trim();
+        const pass = document.getElementById('stuPass').value.trim();
+        if (!name || !email || !pass) { alert("Please fill Name, Email, and Password."); return; }
+        const newAcc = { name, role: "Student", id, email, pass, course };
+        accounts.push(newAcc);
+        activeUser = newAcc;
+        switchCourse(course);
+        saveAccountsState();
+        switchAuthTab('login');
+        msg.style.color = 'var(--success)';
+        msg.textContent = `Student account created & signed in as ${name} (${id}).`;
+      } else {
+        const name = document.getElementById('facName').value.trim();
+        const id = document.getElementById('facId').value.trim() || ('FAC-' + Math.floor(100 + Math.random() * 900));
+        const dept = document.getElementById('facDept').value.trim() || 'Faculty 1';
+        const email = document.getElementById('facEmail').value.trim();
+        const pass = document.getElementById('facPass').value.trim();
+        if (!name || !email || !pass) { alert("Please fill Name, Email, and Password."); return; }
+        const newAcc = { name, role: "Faculty", id, email, pass, course: dept };
+        accounts.push(newAcc);
+        activeUser = newAcc;
+        saveAccountsState();
+        switchAuthTab('login');
+        msg.style.color = 'var(--success)';
+        msg.textContent = `Faculty account created & signed in as ${name} (${id}).`;
+      }
+    }
+
+    function handleLogin() {
+      const identifier = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPassword').value.trim();
+      const msg = document.getElementById('authMessage');
+      const found = accounts.find(a => (a.email.toLowerCase() === identifier || a.id.toLowerCase() === identifier) && a.pass === pass);
+      if (!found) {
+        msg.style.color = 'var(--danger)';
+        msg.textContent = "Invalid credentials. Try Demo Student/Faculty login or create a new account.";
+        return;
+      }
+      activeUser = found;
+      if (found.course && timetables[found.course]) switchCourse(found.course);
+      saveAccountsState();
+      msg.style.color = 'var(--success)';
+      msg.textContent = `Signed in as ${found.name} (${found.role}).`;
+    }
+
+    function quickDemoLogin(role) {
+      const found = accounts.find(a => a.role === role) || defaultAccounts[role === 'Faculty' ? 1 : 0];
+      activeUser = found;
+      saveAccountsState();
+      const msg = document.getElementById('authMessage');
+      msg.style.color = 'var(--success)';
+      msg.textContent = `Quick signed in as ${found.name} (${found.role}).`;
+    }
+
+    function handleLogout() {
+      activeUser = { name: "Guest Student", role: "Student", id: "GUEST" };
+      saveAccountsState();
+      const msg = document.getElementById('authMessage');
+      msg.style.color = 'var(--muted)';
+      msg.textContent = "Signed out to Guest Student.";
+    }
+
+    function signInAsAccount(idx) {
+      activeUser = accounts[idx];
+      if (activeUser.course && timetables[activeUser.course]) switchCourse(activeUser.course);
+      saveAccountsState();
+    }
+
+    function renderAuthUI() {
+      const badge = document.getElementById('headerRoleBadge');
+      badge.textContent = activeUser.role;
+      badge.className = 'role-badge' + (activeUser.role === 'Faculty' ? ' faculty' : '');
+
+      document.getElementById('headerUserName').textContent = activeUser.name;
+      const initials = activeUser.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'VJ';
+      document.getElementById('headerAvatar').textContent = initials;
+      document.getElementById('currentAccountBadge').textContent = `Signed in: ${activeUser.name} (${activeUser.role})`;
+      document.getElementById('assignmentRoleNote').textContent = activeUser.role === 'Faculty' ? 'Faculty Grading Mode' : 'Student Submission Mode';
+
+      const tbody = document.getElementById('accountsTableBody');
+      tbody.innerHTML = '';
+      accounts.forEach((a, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${a.name}</strong></td>
+          <td><span class="badge ${a.role === 'Faculty' ? 'amber' : ''}">${a.role}</span></td>
+          <td>${a.id}</td>
+          <td>${a.email}</td>
+          <td><button class="btn btn-sm btn-outline" onclick="signInAsAccount(${i})">Switch</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      renderAssignments();
+    }
+
+    // Module Progress
     const totalLessons = 6;
     let completedLessons = JSON.parse(localStorage.getItem('vj_lms_lessons') || '[false,false,false,false,false,false]');
 
@@ -1365,14 +1505,136 @@
         }
       });
     }
-
     function toggleLesson(idx) {
       completedLessons[idx] = !completedLessons[idx];
       updateProgressUI();
     }
     updateProgressUI();
 
-    // 3. Live Classroom (Jitsi Meet)
+    // Assignments Feature
+    let assignments = JSON.parse(localStorage.getItem('vj_lms_assignments') || 'null') || [
+      { id: 0, title: "Unit 1 Case Brief & Summary", course: "BA LLB", due: "Friday", status: "Pending", submission: "" },
+      { id: 1, title: "Semester I Legal Research Worksheet", course: "All Courses", due: "Next Monday", status: "Pending", submission: "" }
+    ];
+
+    function renderAssignments() {
+      localStorage.setItem('vj_lms_assignments', JSON.stringify(assignments));
+      document.getElementById('kpiAssignments').textContent = assignments.length;
+      const sel = document.getElementById('assignSelect');
+      sel.innerHTML = assignments.map(a => `<option value="${a.id}">${a.title} (${a.course})</option>`).join('');
+
+      const tbody = document.getElementById('assignmentsBody');
+      tbody.innerHTML = '';
+      assignments.forEach(a => {
+        const badgeClass = a.status === 'Graded' ? 'green' : (a.status === 'Submitted' ? '' : 'amber');
+        const gradeBtn = activeUser.role === 'Faculty'
+          ? `<button class="btn btn-sm btn-success" onclick="markGraded(${a.id})">Mark Graded</button>`
+          : `<span style="font-size:0.78rem; color:var(--muted);">—</span>`;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${a.title}</strong></td>
+          <td>${a.course}</td>
+          <td>${a.due}</td>
+          <td><span class="badge ${badgeClass}">${a.status}</span>${a.submission ? `<div style="font-size:0.78rem; color:var(--muted); margin-top:4px;">${a.submission}</div>` : ''}</td>
+          <td>${gradeBtn}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function submitAssignment() {
+      const id = Number(document.getElementById('assignSelect').value);
+      const val = document.getElementById('assignLinkInput').value.trim();
+      if (!val) { alert("Please enter a submission link or note."); return; }
+      const item = assignments.find(a => a.id === id);
+      if (item) {
+        item.submission = `${activeUser.name}: ${val}`;
+        item.status = "Submitted";
+        document.getElementById('assignLinkInput').value = '';
+        renderAssignments();
+      }
+    }
+
+    function markGraded(id) {
+      const item = assignments.find(a => a.id === id);
+      if (item) {
+        item.status = "Graded";
+        renderAssignments();
+      }
+    }
+
+    // Discussion Forum Feature
+    let forumPosts = JSON.parse(localStorage.getItem('vj_lms_forum') || 'null') || [
+      { topic: "Semester I Timetable & Period Structure", course: "BA LLB", author: "Faculty 1 (Faculty)", time: "Today", msg: "Periods 1 to 5 run in the morning session; please check your course tab for exact subjects." }
+    ];
+
+    function renderForum() {
+      localStorage.setItem('vj_lms_forum', JSON.stringify(forumPosts));
+      const wrap = document.getElementById('forumList');
+      wrap.innerHTML = '';
+      forumPosts.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'post-card';
+        div.innerHTML = `
+          <div class="post-meta"><strong>${p.topic}</strong> • <span class="badge">${p.course}</span> • Posted by ${p.author} (${p.time})</div>
+          <p style="font-size:0.9rem;">${p.msg}</p>
+        `;
+        wrap.appendChild(div);
+      });
+    }
+
+    function addForumPost() {
+      const topic = document.getElementById('forumTopic').value.trim();
+      const course = document.getElementById('forumCourse').value;
+      const msg = document.getElementById('forumMessage').value.trim();
+      if (!topic || !msg) { alert("Please enter both a topic and message."); return; }
+      forumPosts.unshift({
+        topic,
+        course,
+        author: `${activeUser.name} (${activeUser.role})`,
+        time: new Date().toLocaleDateString(),
+        msg
+      });
+      document.getElementById('forumTopic').value = '';
+      document.getElementById('forumMessage').value = '';
+      renderForum();
+    }
+
+    // Attendance & Streak Feature
+    let attendanceLogs = JSON.parse(localStorage.getItem('vj_lms_attendance') || '[]');
+
+    function renderAttendance() {
+      localStorage.setItem('vj_lms_attendance', JSON.stringify(attendanceLogs));
+      const count = attendanceLogs.length;
+      document.getElementById('kpiAttendance').textContent = `${count} ${count === 1 ? 'Day' : 'Days'}`;
+      document.getElementById('kpiStreak').textContent = `Study Streak: ${count} ${count === 1 ? 'day' : 'days'}`;
+      document.getElementById('attendanceBadge').textContent = `${count} Check-ins`;
+
+      const tbody = document.getElementById('attendanceBody');
+      tbody.innerHTML = '';
+      attendanceLogs.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${row.date}</td><td>${row.course}</td><td>${row.user}</td><td>${row.role}</td><td><span class="badge green">Present</span></td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function markAttendance() {
+      const todayStr = new Date().toLocaleDateString();
+      const fb = document.getElementById('attendanceFeedback');
+      const already = attendanceLogs.some(r => r.date === todayStr && r.user === activeUser.name && r.course === currentCourse);
+      if (already) {
+        fb.style.color = 'var(--warning)';
+        fb.textContent = `Already checked in for ${currentCourse} today (${todayStr}).`;
+        return;
+      }
+      attendanceLogs.unshift({ date: todayStr, course: currentCourse, user: activeUser.name, role: activeUser.role });
+      fb.style.color = 'var(--success)';
+      fb.textContent = `Attendance recorded for ${currentCourse} on ${todayStr}!`;
+      renderAttendance();
+    }
+
+    // Live Classroom (Jitsi Meet)
     let jitsiApi = null;
     function startLiveClass() {
       const room = document.getElementById('roomInput').value.trim() || 'vjstudyroom-live-101';
@@ -1391,7 +1653,7 @@
       document.getElementById('meetContainer').innerHTML = '<p>Session ended. Click "Start / Join Live Room" anytime to rejoin.</p>';
     }
 
-    // 4. Video Player & Module Launcher
+    // Video Player & Module Launcher
     function loadVideo() {
       const id = document.getElementById('videoSelect').value;
       document.getElementById('ytPlayer').src = 'https://www.youtube.com/embed/' + id;
@@ -1402,7 +1664,7 @@
       openView('lectures', 'Recorded Lectures', document.querySelectorAll('.nav-btn')[3]);
     }
 
-    // 5. Notes Search
+    // Notes Search
     function filterNotes() {
       const q = document.getElementById('noteSearch').value.toLowerCase();
       document.querySelectorAll('#notesGrid .item-box').forEach(card => {
@@ -1411,7 +1673,7 @@
       });
     }
 
-    // 6. Quiz Engine
+    // Quiz Engine
     const questions = [
       {
         q: "Which YouTube privacy setting keeps class recordings accessible only to students with the link?",
@@ -1455,7 +1717,7 @@
     }
     renderQuiz();
 
-    // 7. Study Planner
+    // Study Planner
     let tasks = JSON.parse(localStorage.getItem('vj_tasks') || '["Complete Module 1 Lecture", "Review Foundation Notes"]');
     function renderTasks() {
       localStorage.setItem('vj_tasks', JSON.stringify(tasks));
@@ -1481,7 +1743,10 @@
     }
     renderTasks();
 
-    // Initial Timetable Render
+    // Initial Renders
+    renderAuthUI();
+    renderForum();
+    renderAttendance();
     renderDashboardSchedule();
     renderTimetable();
   </script>
