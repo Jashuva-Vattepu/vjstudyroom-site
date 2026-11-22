@@ -33,7 +33,7 @@
 
     /* Left LMS Sidebar */
     aside.sidebar {
-      width: 260px;
+      width: 265px;
       background: var(--sidebar-bg);
       color: #f8fafc;
       display: flex;
@@ -152,7 +152,7 @@
 
     /* Main Content Wrapper */
     .main-wrap {
-      margin-left: 260px;
+      margin-left: 265px;
       flex: 1;
       display: flex;
       flex-direction: column;
@@ -280,7 +280,7 @@
       border-radius: 8px;
       font-size: 0.9rem;
       flex: 1;
-      min-width: 200px;
+      min-width: 180px;
       background: #fff;
     }
     .btn {
@@ -304,7 +304,7 @@
     .btn-success { background: var(--success); }
     .btn-danger { background: var(--danger); }
 
-    /* LMS Course Modules (Accordion Style) */
+    /* LMS Course Modules */
     .module-box {
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -319,7 +319,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      cursor: pointer;
       border-bottom: 1px solid var(--border);
     }
     .module-items { padding: 8px 16px; }
@@ -399,8 +398,9 @@
     .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
     /* Tables */
+    .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); font-size: 0.88rem; vertical-align: top; }
     th { background: #f8fafc; color: var(--muted); font-weight: 700; }
 
     /* Quiz & Tasks */
@@ -452,11 +452,15 @@
     </div>
 
     <div class="course-box">
-      <label for="courseSwitcher">Active Course / Batch</label>
-      <select id="courseSwitcher" onchange="switchCourse()">
-        <option value="Batch 2026–27 • Core Foundation">Batch 2026–27 • Core Foundation</option>
-        <option value="Constitutional & Legal Studies">Constitutional & Legal Studies</option>
-        <option value="Exam Revision & Test Series">Exam Revision & Test Series</option>
+      <label for="courseSwitcher">Active Course (Sem I)</label>
+      <select id="courseSwitcher" onchange="switchCourse(this.value)">
+        <option value="BA LLB">1. BA LLB</option>
+        <option value="BBA LLB">2. BBA LLB</option>
+        <option value="BSC LLB">3. BSC LLB</option>
+        <option value="LLB">4. LLB</option>
+        <option value="LLB HONS">5. LLB HONS</option>
+        <option value="LLM">6. LLM</option>
+        <option value="Ph.D">7. Ph.D</option>
       </select>
     </div>
 
@@ -511,7 +515,7 @@
       <div class="topbar-left">
         <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
         <div class="breadcrumb">
-          <span id="activeCourseLabel">Batch 2026–27 • Core Foundation</span> / <strong id="pageTitle">Dashboard</strong>
+          <span id="activeCourseLabel">BA LLB • Semester I</span> / <strong id="pageTitle">Dashboard</strong>
         </div>
       </div>
       <div class="topbar-right">
@@ -534,14 +538,14 @@
             <div class="kpi-sub" id="kpiCompletedSub">0 of 6 lessons completed</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-title">Next Live Class</div>
-            <div class="kpi-value" style="font-size:1.25rem; margin-top:10px;">Today • 06:00 PM</div>
-            <div class="kpi-sub">Room: vjstudyroom-live-101</div>
+            <div class="kpi-title">First Class Slot</div>
+            <div class="kpi-value" style="font-size:1.25rem; margin-top:10px;">09:30 AM</div>
+            <div class="kpi-sub">Period 1 • Daily Timing</div>
           </div>
           <div class="kpi-card">
-            <div class="kpi-title">Study Resources</div>
-            <div class="kpi-value">3 Units</div>
-            <div class="kpi-sub">Lectures, PDFs & Quizzes</div>
+            <div class="kpi-title">Enrolled Programmes</div>
+            <div class="kpi-value">7 Courses</div>
+            <div class="kpi-sub">Semester I Timetables Active</div>
           </div>
           <div class="kpi-card">
             <div class="kpi-title">Pending Study Tasks</div>
@@ -582,52 +586,60 @@
 
             <div class="card">
               <div class="card-header">
-                <h2>Upcoming Live Sessions</h2>
-                <button class="btn btn-sm btn-danger" onclick="openView('live', 'Live Classroom', document.querySelectorAll('.nav-btn')[2])">Join Live Room</button>
+                <h2 id="dashTimetableHeading">BA LLB — Monday Preview</h2>
+                <button class="btn btn-sm btn-outline" onclick="openView('schedule', 'Class Timetable', document.querySelectorAll('.nav-btn')[6])">Full Timetable</button>
               </div>
-              <table>
-                <thead>
-                  <tr><th>Day</th><th>Time</th><th>Session Topic</th><th>Action</th></tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Monday</td>
-                    <td>06:00 PM</td>
-                    <td>Core Concepts & Live Discussion</td>
-                    <td><button class="btn btn-sm" onclick="openView('live', 'Live Classroom', document.querySelectorAll('.nav-btn')[2])">Enter Room</button></td>
-                  </tr>
-                  <tr>
-                    <td>Wednesday</td>
-                    <td>06:00 PM</td>
-                    <td>Case Analysis & Q&A</td>
-                    <td><button class="btn btn-sm btn-outline" onclick="openView('schedule', 'Class Timetable', document.querySelectorAll('.nav-btn')[6])">Details</button></td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>Period</th><th>Time</th><th>Subject & Faculty</th></tr>
+                  </thead>
+                  <tbody id="dashScheduleBody"></tbody>
+                </table>
+              </div>
             </div>
           </div>
 
           <div>
             <div class="card">
               <div class="card-header">
+                <h2>Daily Period Structure</h2>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>Session</th><th>Timing</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Period 1</td><td>09:30–10:15 AM (45m)</td></tr>
+                    <tr><td>Period 2</td><td>10:15–11:00 AM (45m)</td></tr>
+                    <tr><td>Short Break</td><td>11:00–11:10 AM (10m)</td></tr>
+                    <tr><td>Period 3</td><td>11:10–11:55 AM (45m)</td></tr>
+                    <tr><td>Period 4</td><td>11:55 AM–12:40 PM (45m)</td></tr>
+                    <tr><td>Period 5</td><td>12:40–01:25 PM (45m)</td></tr>
+                    <tr><td>Lunch Break</td><td>01:25–02:30 PM (60m)</td></tr>
+                    <tr><td>Period 6</td><td>02:45–03:30 PM (45m)</td></tr>
+                    <tr><td>Period 7</td><td>03:30–04:00 PM (30m)</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
                 <h2>Noticeboard</h2>
               </div>
               <div class="notice">
-                <small>Posted Today</small>
-                <strong>Welcome to VJ Study Room LMS</strong>
-                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Use the left sidebar to access live classes, module checklists, and downloadable PDFs.</p>
-              </div>
-              <div class="notice" style="border-left-color: var(--warning);">
-                <small>Weekly Assessment</small>
-                <strong>Self-Check Practice Quiz Open</strong>
-                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Complete the Practice Quiz before Friday's doubt-clearing session.</p>
+                <small>Semester I Schedule</small>
+                <strong>All 7 Course Timetables Loaded</strong>
+                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Faculty slots are set to Faculty 1 and can be updated anytime.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 2. COURSE MODULES (STRUCTURED LMS SYLLABUS) -->
+      <!-- 2. COURSE MODULES -->
       <section id="modules" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -636,7 +648,6 @@
           </div>
           <p class="subtext">Mark lessons complete as you study—your syllabus progress saves automatically in this browser.</p>
 
-          <!-- Module 1 -->
           <div class="module-box">
             <div class="module-head">
               <span>Module 01: Foundations & Core Concepts</span>
@@ -666,7 +677,6 @@
             </div>
           </div>
 
-          <!-- Module 2 -->
           <div class="module-box">
             <div class="module-head">
               <span>Module 02: Applied Framework & Case Studies</span>
@@ -696,7 +706,6 @@
             </div>
           </div>
 
-          <!-- Module 3 -->
           <div class="module-box">
             <div class="module-head">
               <span>Module 03: Revision & Self-Assessment</span>
@@ -825,18 +834,37 @@
       <section id="schedule" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Weekly Academic Timetable</h2>
+            <h2 id="timetableHeading">Semester I Timetable — BA LLB</h2>
+            <span class="badge" id="timetableSubtitle">5-Year Integrated Degree Course</span>
           </div>
-          <table>
-            <thead>
-              <tr><th>Day</th><th>Time</th><th>Subject / Session</th><th>Delivery Mode</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Monday</td><td>06:00 PM – 07:00 PM</td><td>Core Concepts & Live Discussion</td><td>Virtual Classroom</td></tr>
-              <tr><td>Wednesday</td><td>06:00 PM – 07:00 PM</td><td>Case Analysis & Q&A</td><td>Virtual Classroom</td></tr>
-              <tr><td>Friday</td><td>07:00 PM – 08:00 PM</td><td>Weekly Test & Doubt Clearing</td><td>Quiz + Live Room</td></tr>
-            </tbody>
-          </table>
+          <div class="row">
+            <select id="ttCourseSelect" onchange="syncCourseFromTimetable(this.value)">
+              <option value="BA LLB">1. BA LLB</option>
+              <option value="BBA LLB">2. BBA LLB</option>
+              <option value="BSC LLB">3. BSC LLB</option>
+              <option value="LLB">4. LLB</option>
+              <option value="LLB HONS">5. LLB HONS</option>
+              <option value="LLM">6. LLM</option>
+              <option value="Ph.D">7. Ph.D</option>
+            </select>
+            <select id="ttDaySelect" onchange="renderTimetable()">
+              <option value="All Days">All Days (Mon–Sat)</option>
+              <option value="Monday">Monday</option>
+              <option value="Tuesday">Tuesday</option>
+              <option value="Wednesday">Wednesday</option>
+              <option value="Thursday">Thursday</option>
+              <option value="Friday">Friday</option>
+              <option value="Saturday">Saturday</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr id="ttHeadRow"></tr>
+              </thead>
+              <tbody id="ttBodyRows"></tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -860,6 +888,442 @@
 
   <script src="https://meet.jit.si/external_api.js"></script>
   <script>
+    const F1 = "Faculty 1";
+
+    // Semester I Timetables Data (Faculty set to Faculty 1; No College Name / Logo)
+    const timetables = {
+      "BA LLB": {
+        label: "BA LLB • Semester I",
+        subtitle: "5-Year Integrated Degree Course",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" },
+          { key: "p6", name: "Period 6 (02:45–03:30)" },
+          { key: "p7", name: "Period 7 (03:30–04:00)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Sociology I (${F1})`,
+            p5: `Political Science I (${F1})`,
+            p6: `AI & Digital Literacy (${F1})`,
+            p7: "Library"
+          },
+          Tuesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Sociology I (${F1})`,
+            p5: `Political Science I (${F1})`,
+            p6: `Legal Research I (${F1})`,
+            p7: "Library & Moot Training"
+          },
+          Wednesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Sociology I (${F1})`,
+            p5: `Political Science I (${F1})`,
+            p6: `AI & Digital Literacy (${F1})`,
+            p7: "Library"
+          },
+          Thursday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Sociology I (${F1})`,
+            p5: `Political Science I (${F1})`,
+            p6: `Legal Research I (${F1})`,
+            p7: "Library"
+          },
+          Friday: {
+            p1: `English I: Legal English (${F1})`,
+            p2: `English I: Legal English (${F1})`,
+            p3: `Torts Tutorial (${F1})`,
+            p4: "Library & Moot Court Training",
+            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`,
+            p6: `Contracts Tutorial (${F1})`,
+            p7: "Library"
+          }
+        }
+      },
+      "BBA LLB": {
+        label: "BBA LLB • Semester I",
+        subtitle: "5-Year Integrated Degree Course",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" },
+          { key: "p6", name: "Period 6 (02:45–03:30)" },
+          { key: "p7", name: "Period 7 (03:30–04:00)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Principles & Practices of Management (${F1})`,
+            p5: `Business Economics (${F1})`,
+            p6: `AI & Digital Literacy (${F1})`,
+            p7: "Library"
+          },
+          Tuesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Principles & Practices of Management (${F1})`,
+            p5: `Business Economics (${F1})`,
+            p6: `Legal Research I (${F1})`,
+            p7: "Library & Moot Training"
+          },
+          Wednesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Principles & Practices of Management (${F1})`,
+            p5: `Business Economics (${F1})`,
+            p6: `AI & Digital Literacy (${F1})`,
+            p7: "Library"
+          },
+          Thursday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Principles & Practices of Management (${F1})`,
+            p5: `Business Economics (${F1})`,
+            p6: `Legal Research I (${F1})`,
+            p7: "Library"
+          },
+          Friday: {
+            p1: `English I: Legal English (${F1})`,
+            p2: `English I: Legal English (${F1})`,
+            p3: `Torts Tutorial (${F1})`,
+            p4: "Library & Moot Court Training",
+            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`,
+            p6: `Contracts Tutorial (${F1})`,
+            p7: "Library"
+          }
+        }
+      },
+      "BSC LLB": {
+        label: "BSC LLB • Semester I",
+        subtitle: "5-Year Integrated Degree Course",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" },
+          { key: "p6", name: "Period 6 (02:45–03:30)" },
+          { key: "p7", name: "Period 7 (03:30–04:00)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Introduction to Criminology (${F1})`,
+            p5: `Introduction to Forensic Science (${F1})`,
+            p6: `AI & Digital Literacy (${F1})`,
+            p7: "Library"
+          },
+          Tuesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Introduction to Criminology (${F1})`,
+            p5: `Introduction to Forensic Science (${F1})`,
+            p6: `Legal Research I (${F1})`,
+            p7: "Library & Moot Training"
+          },
+          Wednesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Introduction to Criminology (${F1})`,
+            p5: `Introduction to Forensic Science (${F1})`,
+            p6: `AI & Digital Literacy (${F1})`,
+            p7: "Library"
+          },
+          Thursday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Legal Methods & Legal Reasoning (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Introduction to Criminology (${F1})`,
+            p5: `Introduction to Forensic Science (${F1})`,
+            p6: `Legal Research I (${F1})`,
+            p7: "Library"
+          },
+          Friday: {
+            p1: `English I: Legal English (${F1})`,
+            p2: `English I: Legal English (${F1})`,
+            p3: `Torts Tutorial (${F1})`,
+            p4: "Library & Moot Court Training",
+            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`,
+            p6: `Contracts Tutorial (${F1})`,
+            p7: "Library"
+          }
+        }
+      },
+      "LLB": {
+        label: "LLB • Semester I",
+        subtitle: "3-Year Degree Course",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Tuesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Wednesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Thursday: {
+            p1: `AI & Digital Literacy (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Friday: {
+            p1: `Family Law I (${F1})`,
+            p2: `Law of Contract I (${F1})`,
+            p3: `Torts Tutorial (${F1})`,
+            p4: `Contracts Tutorial (${F1})`,
+            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`
+          },
+          Saturday: {
+            p1: `Family Law I (${F1})`,
+            p2: `Legal Research I (${F1})`,
+            p3: `Crimes Tutorial (${F1})`,
+            p4: `AI & Digital Literacy (${F1})`,
+            p5: `Legal Research I (${F1})`
+          }
+        }
+      },
+      "LLB HONS": {
+        label: "LLB HONS • Semester I",
+        subtitle: "3-Year Degree Course (Honours)",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Tuesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Wednesday: {
+            p1: `Law of Contract I (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Thursday: {
+            p1: `AI & Digital Literacy (${F1})`,
+            p2: `Family Law I (${F1})`,
+            p3: `Law of Torts (${F1})`,
+            p4: `Constitutional Law I (${F1})`,
+            p5: `Law of Crimes I (BNS) (${F1})`
+          },
+          Friday: {
+            p1: `Family Law I (${F1})`,
+            p2: `Law of Contract I (${F1})`,
+            p3: `Torts Tutorial (${F1})`,
+            p4: `Contracts Tutorial (${F1})`,
+            p5: `Legal Methods and Legal Reasoning Tutorial (${F1})`
+          },
+          Saturday: {
+            p1: `Family Law I (${F1})`,
+            p2: `Legal Research I (${F1})`,
+            p3: `Crimes Tutorial (${F1})`,
+            p4: `AI & Digital Literacy (${F1})`,
+            p5: `Legal Research I (${F1})`
+          }
+        }
+      },
+      "LLM": {
+        label: "LLM • Semester I",
+        subtitle: "Master of Laws",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Research Methodology (${F1})`,
+            p2: `Comparative Public Law (${F1})`,
+            p3: `Law & Justice in the Globalizing World (${F1})`,
+            p4: "—",
+            p5: "—"
+          },
+          Tuesday: {
+            p1: `Research Methodology (${F1})`,
+            p2: `Public Law / Criminal II (${F1})`,
+            p3: `Law & Justice in the Globalizing World (${F1})`,
+            p4: `Corporate Law II / Corporate Law I (${F1})`,
+            p5: `IP II (${F1})`
+          },
+          Wednesday: {
+            p1: `Research Methodology (${F1})`,
+            p2: `Comparative Public Law (${F1})`,
+            p3: `Constitution I (${F1})`,
+            p4: `Corporate Law II / Corporate Law I (${F1})`,
+            p5: `IP II (${F1})`
+          },
+          Thursday: {
+            p1: `Research Methodology (${F1})`,
+            p2: `Criminal Law II (${F1})`,
+            p3: `Constitution I (${F1})`,
+            p4: "—",
+            p5: "—"
+          },
+          Friday: {
+            p1: `IP I (${F1})`,
+            p2: `IP I (${F1})`,
+            p3: `Cr. Law II / Constitution II (${F1})`,
+            p4: `Criminal Law II / Constitution II (${F1})`,
+            p5: "—"
+          }
+        }
+      },
+      "Ph.D": {
+        label: "Ph.D • Semester I",
+        subtitle: "Doctoral Course Work",
+        periods: [
+          { key: "p1", name: "Period 1 (09:30–10:15)" },
+          { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" },
+          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }
+        ],
+        days: {
+          Monday: {
+            p1: `Research Methodology (${F1})`,
+            p2: "—", p3: "—", p4: "—", p5: "—"
+          },
+          Tuesday: {
+            p1: `Research Methodology (${F1})`,
+            p2: "—", p3: "—", p4: "—", p5: "—"
+          },
+          Wednesday: {
+            p1: `Research Methodology (${F1})`,
+            p2: "—", p3: "—", p4: "—", p5: "—"
+          },
+          Thursday: {
+            p1: `Research Methodology (${F1})`,
+            p2: "—", p3: "—", p4: "—", p5: "—"
+          },
+          Friday: {
+            p1: "—",
+            p2: `Research Ethics and Publications (${F1})`,
+            p3: `Research Ethics and Publications (${F1})`,
+            p4: "—", p5: "—"
+          }
+        }
+      }
+    };
+
+    let currentCourse = "BA LLB";
+
+    function switchCourse(courseName) {
+      currentCourse = courseName;
+      document.getElementById("courseSwitcher").value = courseName;
+      document.getElementById("ttCourseSelect").value = courseName;
+      document.getElementById("activeCourseLabel").textContent = timetables[courseName].label;
+      renderDashboardSchedule();
+      renderTimetable();
+    }
+
+    function syncCourseFromTimetable(courseName) {
+      switchCourse(courseName);
+    }
+
+    function renderDashboardSchedule() {
+      const course = timetables[currentCourse];
+      const mon = course.days.Monday;
+      document.getElementById("dashTimetableHeading").textContent = `${currentCourse} — Monday Preview`;
+      const tbody = document.getElementById("dashScheduleBody");
+      tbody.innerHTML = "";
+      course.periods.slice(0, 5).forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td><strong>${p.name.split(" (")[0]}</strong></td><td>${p.name.match(/\((.*?)\)/)?.[1] || ""}</td><td>${mon[p.key] || "—"}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderTimetable() {
+      const course = timetables[currentCourse];
+      const dayFilter = document.getElementById("ttDaySelect").value;
+      document.getElementById("timetableHeading").textContent = `Semester I Timetable — ${currentCourse}`;
+      document.getElementById("timetableSubtitle").textContent = course.subtitle;
+
+      const headRow = document.getElementById("ttHeadRow");
+      const bodyRows = document.getElementById("ttBodyRows");
+      bodyRows.innerHTML = "";
+
+      if (dayFilter === "All Days") {
+        headRow.innerHTML = `<th>Day</th>` + course.periods.map(p => `<th>${p.name}</th>`).join("");
+        Object.keys(course.days).forEach(day => {
+          const dData = course.days[day];
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td><strong>${day}</strong></td>` + course.periods.map(p => `<td>${dData[p.key] || "—"}</td>`).join("");
+          bodyRows.appendChild(tr);
+        });
+      } else {
+        headRow.innerHTML = `<th>Session / Time</th><th>${dayFilter} Subject & Faculty</th>`;
+        const dData = course.days[dayFilter] || {};
+        course.periods.forEach(p => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td><strong>${p.name}</strong></td><td>${dData[p.key] || "—"}</td>`;
+          bodyRows.appendChild(tr);
+        });
+      }
+    }
+
     // 1. LMS Sidebar Navigation
     function openView(viewId, title, btn) {
       document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
@@ -874,12 +1338,7 @@
       document.getElementById('sidebar').classList.toggle('open');
     }
 
-    function switchCourse() {
-      const val = document.getElementById('courseSwitcher').value;
-      document.getElementById('activeCourseLabel').textContent = val;
-    }
-
-    // 2. Module Progress Tracking (Saved in localStorage)
+    // 2. Module Progress Tracking
     const totalLessons = 6;
     let completedLessons = JSON.parse(localStorage.getItem('vj_lms_lessons') || '[false,false,false,false,false,false]');
 
@@ -1021,6 +1480,10 @@
       renderTasks();
     }
     renderTasks();
+
+    // Initial Timetable Render
+    renderDashboardSchedule();
+    renderTimetable();
   </script>
 </body>
 </html>
