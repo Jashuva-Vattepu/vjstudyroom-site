@@ -454,7 +454,6 @@
         </div>
       </div>
 
-      <!-- Normal Login Form -->
       <div id="normalLoginBox">
         <div class="field">
           <label for="gateEmail">Email or ID</label>
@@ -479,11 +478,10 @@
       <div id="adminForgotBox" style="display:none;">
         <p class="subtext" style="margin-bottom:12px;">Admin Password Recovery</p>
 
-        <!-- Step 1: Enter Mail ID -->
         <div id="fpStep1">
           <div class="field">
             <label for="fpEmail">Enter Admin Mail ID</label>
-            <input type="email" id="fpEmail" placeholder="admin@vjstudy.local" />
+            <input type="email" id="fpEmail" placeholder="vjstudyroom.admin@gmail.com" />
           </div>
           <div class="row" style="margin-bottom:8px;">
             <button type="button" class="btn" style="flex:1; justify-content:center;" onclick="sendAdminOtp()">Send OTP</button>
@@ -491,7 +489,6 @@
           </div>
         </div>
 
-        <!-- Step 2: Enter OTP -->
         <div id="fpStep2" style="display:none;">
           <div class="otp-notice" id="fpOtpHint"></div>
           <div class="field">
@@ -504,7 +501,6 @@
           </div>
         </div>
 
-        <!-- Step 3: Create New Password -->
         <div id="fpStep3" style="display:none;">
           <div class="field">
             <label for="fpNewPass">Create New Password</label>
@@ -909,31 +905,34 @@
       }
     };
 
-    let students = JSON.parse(localStorage.getItem("vj_students_v2") || "null") || [
+    let students = JSON.parse(localStorage.getItem("vj_students_v3") || "null") || [
       { name: "Sample Student", id: "STU-001", course: "BA LLB", email: "student@vjstudy.local", pass: "1234" }
     ];
-    let facultyList = JSON.parse(localStorage.getItem("vj_faculty_v2") || "null") || [
+    let facultyList = JSON.parse(localStorage.getItem("vj_faculty_v3") || "null") || [
       { name: "Faculty 1", id: "FAC-001", email: "faculty@vjstudy.local", pass: "1234" }
     ];
-    let adminAccount = JSON.parse(localStorage.getItem("vj_admin_v2") || "null") || {
-      name: "Portal Admin", id: "ADM-001", email: "admin@vjstudy.local", pass: "admin123"
+    let adminAccount = JSON.parse(localStorage.getItem("vj_admin_v3") || "null") || {
+      name: "Portal Admin",
+      id: "ADM-001",
+      email: "vjstudyroom.admin@gmail.com",
+      pass: "Vjstudyroom@43432"
     };
 
-    let facultyUploads = JSON.parse(localStorage.getItem("vj_uploads_v2") || "[]");
-    let customSubjects = JSON.parse(localStorage.getItem("vj_subjects_v2") || "[]");
-    let tasks = JSON.parse(localStorage.getItem("vj_tasks_v2") || "[]");
+    let facultyUploads = JSON.parse(localStorage.getItem("vj_uploads_v3") || "[]");
+    let customSubjects = JSON.parse(localStorage.getItem("vj_subjects_v3") || "[]");
+    let tasks = JSON.parse(localStorage.getItem("vj_tasks_v3") || "[]");
 
     let currentUser = null;
     let currentCourse = "BA LLB";
     let generatedOtp = null;
 
     function saveData() {
-      localStorage.setItem("vj_students_v2", JSON.stringify(students));
-      localStorage.setItem("vj_faculty_v2", JSON.stringify(facultyList));
-      localStorage.setItem("vj_admin_v2", JSON.stringify(adminAccount));
-      localStorage.setItem("vj_uploads_v2", JSON.stringify(facultyUploads));
-      localStorage.setItem("vj_subjects_v2", JSON.stringify(customSubjects));
-      localStorage.setItem("vj_tasks_v2", JSON.stringify(tasks));
+      localStorage.setItem("vj_students_v3", JSON.stringify(students));
+      localStorage.setItem("vj_faculty_v3", JSON.stringify(facultyList));
+      localStorage.setItem("vj_admin_v3", JSON.stringify(adminAccount));
+      localStorage.setItem("vj_uploads_v3", JSON.stringify(facultyUploads));
+      localStorage.setItem("vj_subjects_v3", JSON.stringify(customSubjects));
+      localStorage.setItem("vj_tasks_v3", JSON.stringify(tasks));
     }
 
     function initGate() {
@@ -951,7 +950,6 @@
       document.getElementById("portalContent").style.display = "none";
     }
 
-    // Admin Forgot Password Flow
     function openAdminForgotFlow() {
       generatedOtp = null;
       document.getElementById("normalLoginBox").style.display = "none";
@@ -1235,7 +1233,6 @@
       renderAll();
     }
 
-    // Admin: Reset Password for Students or Faculty
     function populateResetAccountDropdown() {
       const type = document.getElementById("resetTargetType").value;
       const sel = document.getElementById("resetAccountSelect");
