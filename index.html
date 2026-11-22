@@ -31,7 +31,6 @@
       min-height: 100vh;
     }
 
-    /* Locked Login Gate Mode */
     body.locked aside.sidebar,
     body.locked header.topbar {
       display: none !important;
@@ -309,10 +308,30 @@
     }
     .btn:hover { background: var(--accent-hover); }
     .btn-sm { padding: 6px 11px; font-size: 0.8rem; }
+    .btn-link {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 0;
+      text-decoration: underline;
+    }
     .btn-outline { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
     .btn-success { background: var(--success); }
     .btn-danger { background: var(--danger); }
     .btn-muted { background: #475569; }
+
+    .otp-notice {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e3a8a;
+      padding: 10px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
 
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .item-box {
@@ -425,33 +444,87 @@
       </div>
     </header>
 
-    <!-- LOGIN GATE (Shown First Before Any Portal Options) -->
+    <!-- LOGIN GATE -->
     <div id="loginGate" class="login-gate-card">
       <div class="gate-brand">
         <div class="brand-logo">VJ</div>
         <div>
           <h2 style="font-size:1.15rem;">VJ Study Room</h2>
-          <span id="gateSubtitle" style="font-size:0.8rem; color:var(--muted);">Student Portal Login</span>
+          <span id="gateSubtitle" style="font-size:0.8rem; color:var(--muted);">Student Login</span>
         </div>
       </div>
 
-      <div class="field">
-        <label for="gateEmail">Email or ID</label>
-        <input type="text" id="gateEmail" placeholder="Enter email or ID" />
-      </div>
-      <div class="field">
-        <label for="gatePassword">Password</label>
-        <input type="password" id="gatePassword" placeholder="Enter password" />
+      <!-- Normal Login Form -->
+      <div id="normalLoginBox">
+        <div class="field">
+          <label for="gateEmail">Email or ID</label>
+          <input type="text" id="gateEmail" placeholder="Enter email or ID" />
+        </div>
+        <div class="field">
+          <label for="gatePassword">Password</label>
+          <input type="password" id="gatePassword" placeholder="Enter password" />
+        </div>
+
+        <div class="row" style="margin-bottom:8px;">
+          <button class="btn" style="flex:1; justify-content:center;" onclick="loginFromGate()">Login</button>
+          <button class="btn btn-outline" onclick="quickDemoGateLogin()">Demo Login</button>
+        </div>
+
+        <div id="adminForgotWrap" style="display:none; margin-top:6px;">
+          <button type="button" class="btn-link" onclick="openAdminForgotFlow()">Forgot Password?</button>
+        </div>
       </div>
 
-      <div class="row" style="margin-bottom:8px;">
-        <button class="btn" style="flex:1; justify-content:center;" onclick="loginFromGate()">Login</button>
-        <button class="btn btn-outline" onclick="quickDemoGateLogin()">Demo Login</button>
+      <!-- Admin Forgot Password Flow: 1. Mail ID -> 2. OTP -> 3. Create New Password -->
+      <div id="adminForgotBox" style="display:none;">
+        <p class="subtext" style="margin-bottom:12px;">Admin Password Recovery</p>
+
+        <!-- Step 1: Enter Mail ID -->
+        <div id="fpStep1">
+          <div class="field">
+            <label for="fpEmail">Enter Admin Mail ID</label>
+            <input type="email" id="fpEmail" placeholder="admin@vjstudy.local" />
+          </div>
+          <div class="row" style="margin-bottom:8px;">
+            <button type="button" class="btn" style="flex:1; justify-content:center;" onclick="sendAdminOtp()">Send OTP</button>
+            <button type="button" class="btn btn-muted" onclick="closeAdminForgotFlow()">Back to Login</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Enter OTP -->
+        <div id="fpStep2" style="display:none;">
+          <div class="otp-notice" id="fpOtpHint"></div>
+          <div class="field">
+            <label for="fpOtpInput">Enter 6-Digit OTP</label>
+            <input type="text" id="fpOtpInput" maxlength="6" placeholder="Enter OTP" />
+          </div>
+          <div class="row" style="margin-bottom:8px;">
+            <button type="button" class="btn" style="flex:1; justify-content:center;" onclick="verifyAdminOtp()">Verify OTP</button>
+            <button type="button" class="btn btn-muted" onclick="closeAdminForgotFlow()">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Create New Password -->
+        <div id="fpStep3" style="display:none;">
+          <div class="field">
+            <label for="fpNewPass">Create New Password</label>
+            <input type="password" id="fpNewPass" placeholder="New password" />
+          </div>
+          <div class="field">
+            <label for="fpConfirmPass">Confirm New Password</label>
+            <input type="password" id="fpConfirmPass" placeholder="Confirm new password" />
+          </div>
+          <div class="row" style="margin-bottom:8px;">
+            <button type="button" class="btn btn-success" style="flex:1; justify-content:center;" onclick="saveNewAdminPassword()">Save New Password</button>
+            <button type="button" class="btn btn-muted" onclick="closeAdminForgotFlow()">Cancel</button>
+          </div>
+        </div>
       </div>
+
       <p id="gateError" style="font-size:0.85rem; font-weight:600; color:var(--danger); min-height:20px;"></p>
     </div>
 
-    <!-- MAIN PORTAL CONTENT (Enabled Only After Login) -->
+    <!-- MAIN PORTAL CONTENT -->
     <main class="content" id="portalContent" style="display:none;">
 
       <!-- DASHBOARD -->
@@ -522,7 +595,6 @@
             <span class="badge" id="timetableSubtitle">5-Year Integrated Degree Course</span>
           </div>
           <div class="row">
-            <!-- Only shown for Faculty / Admin; hidden for Student -->
             <select id="ttCourseSelect" onchange="switchCourse(this.value)">
               <option value="BA LLB">1. BA LLB</option>
               <option value="BBA LLB">2. BBA LLB</option>
@@ -563,7 +635,7 @@
         </div>
       </section>
 
-      <!-- SEPARATE OPTION: ADD STUDENT (Faculty) -->
+      <!-- FACULTY: ADD STUDENT -->
       <section id="add-student" class="view-section">
         <div class="card">
           <div class="card-header"><h2>Add Student</h2></div>
@@ -589,7 +661,7 @@
         </div>
       </section>
 
-      <!-- SEPARATE OPTION: ADD SUBJECT (Faculty & Admin) -->
+      <!-- FACULTY & ADMIN: ADD SUBJECT -->
       <section id="add-subject" class="view-section">
         <div class="card">
           <div class="card-header"><h2>Add Subject</h2></div>
@@ -621,7 +693,7 @@
         </div>
       </section>
 
-      <!-- SEPARATE OPTION: UPLOAD CONTENT (Faculty & Admin) -->
+      <!-- FACULTY & ADMIN: UPLOAD CONTENT -->
       <section id="upload-content" class="view-section">
         <div class="card">
           <div class="card-header"><h2>Upload Lecture / Note / Assignment</h2></div>
@@ -653,7 +725,7 @@
         </div>
       </section>
 
-      <!-- SEPARATE OPTION: MANAGE STUDENTS (Admin) -->
+      <!-- ADMIN: MANAGE STUDENTS -->
       <section id="manage-students" class="view-section">
         <div class="card">
           <div class="card-header"><h2>Manage Students</h2></div>
@@ -666,7 +738,7 @@
         </div>
       </section>
 
-      <!-- SEPARATE OPTION: MANAGE FACULTY (Admin) -->
+      <!-- ADMIN: MANAGE FACULTY -->
       <section id="manage-faculty" class="view-section">
         <div class="card">
           <div class="card-header"><h2>Manage Faculty</h2></div>
@@ -683,6 +755,33 @@
               <tbody id="adminFacultyBody"></tbody>
             </table>
           </div>
+        </div>
+      </section>
+
+      <!-- ADMIN: SEPARATE SIDEBAR OPTION FOR PASSWORD RESET (STUDENTS & FACULTY) -->
+      <section id="reset-passwords" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Reset Passwords (Students & Faculty)</h2></div>
+          <p class="subtext">Select Student or Faculty, choose the account, and set a new password.</p>
+          <div class="form-grid">
+            <div class="field">
+              <label for="resetTargetType">Account Type</label>
+              <select id="resetTargetType" onchange="populateResetAccountDropdown()">
+                <option value="student">Student</option>
+                <option value="faculty">Faculty</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="resetAccountSelect">Select Account</label>
+              <select id="resetAccountSelect"></select>
+            </div>
+            <div class="field">
+              <label for="resetNewPassword">New Password</label>
+              <input type="password" id="resetNewPassword" placeholder="Enter new password" />
+            </div>
+          </div>
+          <button class="btn btn-success" onclick="adminResetUserPassword()">Reset Password</button>
+          <p id="resetPassFeedback" style="font-size:0.86rem; font-weight:600; color:var(--success); margin-top:10px;"></p>
         </div>
       </section>
 
@@ -816,19 +915,22 @@
     let facultyList = JSON.parse(localStorage.getItem("vj_faculty_v2") || "null") || [
       { name: "Faculty 1", id: "FAC-001", email: "faculty@vjstudy.local", pass: "1234" }
     ];
-    const adminAccount = { name: "Portal Admin", id: "ADM-001", email: "admin@vjstudy.local", pass: "admin123" };
+    let adminAccount = JSON.parse(localStorage.getItem("vj_admin_v2") || "null") || {
+      name: "Portal Admin", id: "ADM-001", email: "admin@vjstudy.local", pass: "admin123"
+    };
 
-    // Empty until Faculty uploads
     let facultyUploads = JSON.parse(localStorage.getItem("vj_uploads_v2") || "[]");
     let customSubjects = JSON.parse(localStorage.getItem("vj_subjects_v2") || "[]");
     let tasks = JSON.parse(localStorage.getItem("vj_tasks_v2") || "[]");
 
     let currentUser = null;
     let currentCourse = "BA LLB";
+    let generatedOtp = null;
 
     function saveData() {
       localStorage.setItem("vj_students_v2", JSON.stringify(students));
       localStorage.setItem("vj_faculty_v2", JSON.stringify(facultyList));
+      localStorage.setItem("vj_admin_v2", JSON.stringify(adminAccount));
       localStorage.setItem("vj_uploads_v2", JSON.stringify(facultyUploads));
       localStorage.setItem("vj_subjects_v2", JSON.stringify(customSubjects));
       localStorage.setItem("vj_tasks_v2", JSON.stringify(tasks));
@@ -842,9 +944,85 @@
       };
       document.getElementById("gateSubtitle").textContent = labels[portalRole];
       document.getElementById("sidebarPortalMode").textContent = `${portalRole.toUpperCase()} PORTAL`;
+      document.getElementById("adminForgotWrap").style.display = portalRole === "admin" ? "block" : "none";
+      closeAdminForgotFlow();
       document.body.classList.add("locked");
       document.getElementById("loginGate").style.display = "block";
       document.getElementById("portalContent").style.display = "none";
+    }
+
+    // Admin Forgot Password Flow
+    function openAdminForgotFlow() {
+      generatedOtp = null;
+      document.getElementById("normalLoginBox").style.display = "none";
+      document.getElementById("adminForgotBox").style.display = "block";
+      document.getElementById("fpStep1").style.display = "block";
+      document.getElementById("fpStep2").style.display = "none";
+      document.getElementById("fpStep3").style.display = "none";
+      document.getElementById("fpEmail").value = "";
+      document.getElementById("fpOtpInput").value = "";
+      document.getElementById("fpNewPass").value = "";
+      document.getElementById("fpConfirmPass").value = "";
+      document.getElementById("gateError").style.color = "var(--danger)";
+      document.getElementById("gateError").textContent = "";
+    }
+
+    function closeAdminForgotFlow() {
+      generatedOtp = null;
+      document.getElementById("adminForgotBox").style.display = "none";
+      document.getElementById("normalLoginBox").style.display = "block";
+      document.getElementById("gateError").textContent = "";
+    }
+
+    function sendAdminOtp() {
+      const mail = document.getElementById("fpEmail").value.trim().toLowerCase();
+      const err = document.getElementById("gateError");
+      if (!mail || mail !== adminAccount.email.toLowerCase()) {
+        err.style.color = "var(--danger)";
+        err.textContent = `Enter registered Admin Mail ID (${adminAccount.email}).`;
+        return;
+      }
+      generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
+      err.textContent = "";
+      document.getElementById("fpStep1").style.display = "none";
+      document.getElementById("fpStep2").style.display = "block";
+      document.getElementById("fpOtpHint").innerHTML = `OTP generated for <strong>${adminAccount.email}</strong>: <strong>${generatedOtp}</strong>`;
+    }
+
+    function verifyAdminOtp() {
+      const entered = document.getElementById("fpOtpInput").value.trim();
+      const err = document.getElementById("gateError");
+      if (!entered || entered !== generatedOtp) {
+        err.style.color = "var(--danger)";
+        err.textContent = "Invalid OTP. Please check and try again.";
+        return;
+      }
+      err.textContent = "";
+      document.getElementById("fpStep2").style.display = "none";
+      document.getElementById("fpStep3").style.display = "block";
+    }
+
+    function saveNewAdminPassword() {
+      const p1 = document.getElementById("fpNewPass").value.trim();
+      const p2 = document.getElementById("fpConfirmPass").value.trim();
+      const err = document.getElementById("gateError");
+      if (!p1) {
+        err.style.color = "var(--danger)";
+        err.textContent = "Enter a new password.";
+        return;
+      }
+      if (p1 !== p2) {
+        err.style.color = "var(--danger)";
+        err.textContent = "Passwords do not match.";
+        return;
+      }
+      adminAccount.pass = p1;
+      saveData();
+      closeAdminForgotFlow();
+      document.getElementById("gateEmail").value = adminAccount.email;
+      document.getElementById("gatePassword").value = "";
+      err.style.color = "var(--success)";
+      err.textContent = "Admin password updated! Please log in with your new password.";
     }
 
     function unlockPortal(userObj) {
@@ -884,6 +1062,7 @@
       const idVal = document.getElementById("gateEmail").value.trim().toLowerCase();
       const passVal = document.getElementById("gatePassword").value.trim();
       const err = document.getElementById("gateError");
+      err.style.color = "var(--danger)";
 
       let found = null;
       if (portalRole === "student") {
@@ -942,6 +1121,7 @@
           <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
           <button class="nav-btn" onclick="openView('manage-students','Manage Students',this)">Manage Students</button>
           <button class="nav-btn" onclick="openView('manage-faculty','Manage Faculty',this)">Manage Faculty</button>
+          <button class="nav-btn" onclick="openView('reset-passwords','Reset Passwords',this)">Reset Passwords</button>
           <button class="nav-btn" onclick="openView('add-subject','Add Subject',this)">Add Subject</button>
           <button class="nav-btn" onclick="openView('upload-content','Upload Content',this)">Upload Content</button>
           <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
@@ -974,7 +1154,6 @@
       renderAll();
     }
 
-    // Faculty: Add Student
     function facultyAddStudent() {
       const name = document.getElementById("facStuName").value.trim();
       const id = document.getElementById("facStuId").value.trim() || ("STU-" + Math.floor(100 + Math.random() * 900));
@@ -992,7 +1171,6 @@
       alert(`Student added to ${course}.`);
     }
 
-    // Faculty / Admin: Add Subject
     function facultyAddSubject() {
       const course = document.getElementById("facSubCourse").value;
       const sub = document.getElementById("facSubName").value.trim();
@@ -1003,7 +1181,6 @@
       renderAll();
     }
 
-    // Faculty / Admin: Upload Content
     function facultyUploadItem() {
       const type = document.getElementById("upType").value;
       const course = document.getElementById("upCourse").value;
@@ -1018,7 +1195,6 @@
       alert("Uploaded for students.");
     }
 
-    // Admin: Edit / Delete Student
     function adminEditStudent(idx) {
       const s = students[idx];
       const newName = prompt("Student Name:", s.name);
@@ -1038,7 +1214,6 @@
       renderAll();
     }
 
-    // Admin: Add / Delete Faculty
     function adminAddFaculty() {
       const name = document.getElementById("admFacName").value.trim();
       const id = document.getElementById("admFacId").value.trim() || ("FAC-" + Math.floor(100 + Math.random() * 900));
@@ -1060,7 +1235,42 @@
       renderAll();
     }
 
-    // Timetable (No timetable on Dashboard; no course dropdown in Student Timetable)
+    // Admin: Reset Password for Students or Faculty
+    function populateResetAccountDropdown() {
+      const type = document.getElementById("resetTargetType").value;
+      const sel = document.getElementById("resetAccountSelect");
+      const list = type === "student" ? students : facultyList;
+      sel.innerHTML = list.map((acc, i) => {
+        const extra = type === "student" ? ` • ${acc.course}` : "";
+        return `<option value="${i}">${acc.name} (${acc.id})${extra} — ${acc.email}</option>`;
+      }).join("");
+    }
+
+    function adminResetUserPassword() {
+      const type = document.getElementById("resetTargetType").value;
+      const idx = Number(document.getElementById("resetAccountSelect").value);
+      const newPass = document.getElementById("resetNewPassword").value.trim();
+      const fb = document.getElementById("resetPassFeedback");
+      if (!newPass) {
+        fb.style.color = "var(--danger)";
+        fb.textContent = "Enter a new password.";
+        return;
+      }
+      if (type === "student" && students[idx]) {
+        students[idx].pass = newPass;
+        saveData();
+        document.getElementById("resetNewPassword").value = "";
+        fb.style.color = "var(--success)";
+        fb.textContent = `Password reset for student ${students[idx].name} (${students[idx].id}).`;
+      } else if (type === "faculty" && facultyList[idx]) {
+        facultyList[idx].pass = newPass;
+        saveData();
+        document.getElementById("resetNewPassword").value = "";
+        fb.style.color = "var(--success)";
+        fb.textContent = `Password reset for faculty ${facultyList[idx].name} (${facultyList[idx].id}).`;
+      }
+    }
+
     function renderTimetable() {
       const course = defaultTimetables[currentCourse];
       const dayFilter = document.getElementById("ttDaySelect").value;
@@ -1090,7 +1300,6 @@
       }
     }
 
-    // Student Content (Strictly hidden unless Faculty uploaded for currentCourse)
     function renderStudentUploads() {
       const lecs = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse);
       const notes = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse);
@@ -1165,14 +1374,12 @@
 
       const kpiGrid = document.getElementById("kpiGrid");
       if (portalRole === "student") {
-        // No Enrolled Students count card for Students
         kpiGrid.innerHTML = `
           <div class="kpi-card"><div class="kpi-title">Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Assigned Semester I Course</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Notes</div><div class="kpi-value">${notesCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
         `;
       } else {
-        // Faculty & Admin: Enrolled Students count is strictly for the selected Active Course
         kpiGrid.innerHTML = `
           <div class="kpi-card"><div class="kpi-title">Active Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Semester I</div></div>
           <div class="kpi-card"><div class="kpi-title">Enrolled Students</div><div class="kpi-value">${enrolledInSelectedCourse}</div><div class="kpi-sub">In ${currentCourse}</div></div>
@@ -1213,6 +1420,10 @@
             <td><button class="btn btn-sm btn-danger" onclick="adminDeleteFaculty(${i})">Remove</button></td>
           </tr>
         `).join("");
+      }
+
+      if (portalRole === "admin") {
+        populateResetAccountDropdown();
       }
     }
 
