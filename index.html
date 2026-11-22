@@ -31,6 +31,45 @@
       min-height: 100vh;
     }
 
+    /* Locked Login Gate Mode */
+    body.locked aside.sidebar,
+    body.locked header.topbar {
+      display: none !important;
+    }
+    body.locked .main-wrap {
+      margin-left: 0 !important;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .login-gate-card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+    }
+    .gate-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
     aside.sidebar {
       width: 265px;
       background: var(--sidebar-bg);
@@ -50,18 +89,6 @@
       display: flex;
       align-items: center;
       gap: 12px;
-    }
-    .brand-logo {
-      width: 38px;
-      height: 38px;
-      background: var(--accent);
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      font-size: 1rem;
-      color: #fff;
-      flex-shrink: 0;
     }
     .brand h1 { font-size: 1.05rem; font-weight: 700; }
     .brand span { font-size: 0.75rem; color: #94a3b8; display: block; }
@@ -124,10 +151,9 @@
       font-size: 0.7rem;
       padding: 2px 7px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.15);
+      background: var(--danger);
       color: #fff;
     }
-    .nav-pill.live { background: var(--danger); }
 
     .main-wrap {
       margin-left: 265px;
@@ -256,8 +282,9 @@
 
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 14px; }
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+    .field { margin-bottom: 12px; }
     .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
-    input[type="text"], input[type="email"], input[type="password"], select, textarea {
+    input[type="text"], input[type="email"], input[type="password"], select {
       width: 100%;
       padding: 9px 12px;
       border: 1px solid var(--border);
@@ -345,16 +372,6 @@
       font-size: 0.9rem;
     }
 
-    .url-box {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.84rem;
-      margin-bottom: 10px;
-      word-break: break-all;
-    }
-
     @media (max-width: 900px) {
       aside.sidebar { transform: translateX(-100%); }
       aside.sidebar.open { transform: translateX(0); }
@@ -363,18 +380,18 @@
     }
   </style>
 </head>
-<body>
+<body class="locked">
 
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-logo">VJ</div>
       <div>
         <h1>VJ Study Room</h1>
-        <span id="sidebarPortalMode">Student Portal</span>
+        <span id="sidebarPortalMode">LMS Portal</span>
       </div>
     </div>
 
-    <div class="course-box">
+    <div class="course-box" id="sidebarCourseBox">
       <label for="courseSwitcher">Active Course (Sem I)</label>
       <select id="courseSwitcher" onchange="switchCourse(this.value)">
         <option value="BA LLB">1. BA LLB</option>
@@ -401,93 +418,52 @@
       <div class="topbar-right">
         <span class="role-badge" id="headerRoleBadge">Student</span>
         <div class="avatar-pill">
-          <div class="avatar-circle" id="headerAvatar">ST</div>
-          <span id="headerUserName">Not Signed In</span>
+          <div class="avatar-circle" id="headerAvatar">VJ</div>
+          <span id="headerUserName">User</span>
         </div>
-        <button class="btn btn-sm btn-outline" onclick="openLoginPage()">Login</button>
+        <button class="btn btn-sm btn-muted" onclick="signOutToGate()">Sign Out</button>
       </div>
     </header>
 
-    <main class="content">
-
-      <!-- LOGIN VIEW (Dedicated per URL: ?role=student | ?role=faculty | ?role=admin) -->
-      <section id="login" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2 id="loginHeading">Student Login</h2>
-            <span class="badge" id="loginUrlBadge">URL: ?role=student</span>
-          </div>
-          <p class="subtext" id="loginSubtext">Sign in with your Student account to view faculty-uploaded materials, timetable, and study tools.</p>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="loginEmail">Email or ID</label>
-              <input type="text" id="loginEmail" placeholder="Enter email or ID" />
-            </div>
-            <div class="field">
-              <label for="loginPassword">Password</label>
-              <input type="password" id="loginPassword" placeholder="Enter password" />
-            </div>
-          </div>
-
-          <div class="row">
-            <button class="btn" onclick="signInWithUrlRole()">Sign In</button>
-            <button class="btn btn-sm btn-outline" id="demoRoleBtn" onclick="quickSignInUrlRole()">Quick Demo Sign In</button>
-            <button class="btn btn-sm btn-muted" onclick="signOut()">Sign Out</button>
-          </div>
-          <p id="loginFeedback" style="font-size:0.88rem; font-weight:600;"></p>
-
-          <hr style="border:none; border-top:1px solid var(--border); margin:18px 0;" />
-          <div class="url-box">
-            <strong>Separate Role URLs:</strong><br />
-            • Student Login URL: <code id="studentUrlText"></code><br />
-            • Faculty Login URL: <code id="facultyUrlText"></code><br />
-            • Admin Login URL: <code id="adminUrlText"></code>
-          </div>
+    <!-- LOGIN GATE (Shown First Before Any Portal Options) -->
+    <div id="loginGate" class="login-gate-card">
+      <div class="gate-brand">
+        <div class="brand-logo">VJ</div>
+        <div>
+          <h2 style="font-size:1.15rem;">VJ Study Room</h2>
+          <span id="gateSubtitle" style="font-size:0.8rem; color:var(--muted);">Student Portal Login</span>
         </div>
-      </section>
+      </div>
+
+      <div class="field">
+        <label for="gateEmail">Email or ID</label>
+        <input type="text" id="gateEmail" placeholder="Enter email or ID" />
+      </div>
+      <div class="field">
+        <label for="gatePassword">Password</label>
+        <input type="password" id="gatePassword" placeholder="Enter password" />
+      </div>
+
+      <div class="row" style="margin-bottom:8px;">
+        <button class="btn" style="flex:1; justify-content:center;" onclick="loginFromGate()">Login</button>
+        <button class="btn btn-outline" onclick="quickDemoGateLogin()">Demo Login</button>
+      </div>
+      <p id="gateError" style="font-size:0.85rem; font-weight:600; color:var(--danger); min-height:20px;"></p>
+    </div>
+
+    <!-- MAIN PORTAL CONTENT (Enabled Only After Login) -->
+    <main class="content" id="portalContent" style="display:none;">
 
       <!-- DASHBOARD -->
-      <section id="dashboard" class="view-section">
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-title">Active Course</div>
-            <div class="kpi-value" style="font-size:1.3rem;" id="kpiCourse">BA LLB</div>
-            <div class="kpi-sub">Semester I</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Faculty Lectures</div>
-            <div class="kpi-value" id="kpiLecCount">0</div>
-            <div class="kpi-sub">Uploaded for active course</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Faculty Notes</div>
-            <div class="kpi-value" id="kpiNoteCount">0</div>
-            <div class="kpi-sub">Uploaded for active course</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Enrolled Students</div>
-            <div class="kpi-value" id="kpiStuCount">0</div>
-            <div class="kpi-sub">Registered student accounts</div>
-          </div>
-        </div>
-
+      <section id="dashboard" class="view-section active">
+        <div class="kpi-grid" id="kpiGrid"></div>
         <div class="card">
-          <div class="card-header">
-            <h2 id="dashScheduleTitle">BA LLB — Monday Timetable</h2>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Period</th><th>Time</th><th>Subject & Faculty</th></tr>
-              </thead>
-              <tbody id="dashScheduleBody"></tbody>
-            </table>
-          </div>
+          <div class="card-header"><h2>Recent Faculty Uploads (Active Course)</h2></div>
+          <div id="dashUploadsSummary"></div>
         </div>
       </section>
 
-      <!-- LECTURES (Students only see Faculty uploads for active course) -->
+      <!-- LECTURES -->
       <section id="lectures" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -498,7 +474,7 @@
         </div>
       </section>
 
-      <!-- NOTES & PDFs (Students only see Faculty uploads for active course) -->
+      <!-- NOTES & PDFs -->
       <section id="notes" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -509,7 +485,7 @@
         </div>
       </section>
 
-      <!-- ASSIGNMENTS (Students only see Faculty-posted assignments) -->
+      <!-- ASSIGNMENTS -->
       <section id="assignments" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -546,6 +522,7 @@
             <span class="badge" id="timetableSubtitle">5-Year Integrated Degree Course</span>
           </div>
           <div class="row">
+            <!-- Only shown for Faculty / Admin; hidden for Student -->
             <select id="ttCourseSelect" onchange="switchCourse(this.value)">
               <option value="BA LLB">1. BA LLB</option>
               <option value="BBA LLB">2. BBA LLB</option>
@@ -586,39 +563,10 @@
         </div>
       </section>
 
-      <!-- FACULTY PANEL: Add Subjects, Add Students, Upload Materials -->
-      <section id="faculty-tools" class="view-section">
+      <!-- SEPARATE OPTION: ADD STUDENT (Faculty) -->
+      <section id="add-student" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Faculty: Add Subject</h2></div>
-          <div class="form-grid">
-            <div class="field">
-              <label>Course</label>
-              <select id="facSubCourse">
-                <option value="BA LLB">BA LLB</option>
-                <option value="BBA LLB">BBA LLB</option>
-                <option value="BSC LLB">BSC LLB</option>
-                <option value="LLB">LLB</option>
-                <option value="LLB HONS">LLB HONS</option>
-                <option value="LLM">LLM</option>
-                <option value="Ph.D">Ph.D</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Subject Name</label>
-              <input type="text" id="facSubName" placeholder="e.g., Constitutional Law II" />
-            </div>
-          </div>
-          <button class="btn" onclick="facultyAddSubject()">Add Subject</button>
-          <div class="table-wrap" style="margin-top:14px;">
-            <table>
-              <thead><tr><th>Course</th><th>Added Subjects</th></tr></thead>
-              <tbody id="customSubjectsBody"></tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2>Faculty: Add Student</h2></div>
+          <div class="card-header"><h2>Add Student</h2></div>
           <div class="form-grid">
             <div class="field"><label>Student Name</label><input type="text" id="facStuName" placeholder="Full name" /></div>
             <div class="field"><label>Student Roll / ID</label><input type="text" id="facStuId" placeholder="e.g., STU-101" /></div>
@@ -639,9 +587,44 @@
           </div>
           <button class="btn btn-success" onclick="facultyAddStudent()">Add Student</button>
         </div>
+      </section>
 
+      <!-- SEPARATE OPTION: ADD SUBJECT (Faculty & Admin) -->
+      <section id="add-subject" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Faculty: Upload Lecture / Note / Assignment for Students</h2></div>
+          <div class="card-header"><h2>Add Subject</h2></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Course</label>
+              <select id="facSubCourse">
+                <option value="BA LLB">BA LLB</option>
+                <option value="BBA LLB">BBA LLB</option>
+                <option value="BSC LLB">BSC LLB</option>
+                <option value="LLB">LLB</option>
+                <option value="LLB HONS">LLB HONS</option>
+                <option value="LLM">LLM</option>
+                <option value="Ph.D">Ph.D</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Subject Name</label>
+              <input type="text" id="facSubName" placeholder="e.g., Constitutional Law II" />
+            </div>
+          </div>
+          <button class="btn" onclick="facultyAddSubject()">Add Subject</button>
+          <div class="table-wrap" style="margin-top:16px;">
+            <table>
+              <thead><tr><th>Course</th><th>Subject</th></tr></thead>
+              <tbody id="customSubjectsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEPARATE OPTION: UPLOAD CONTENT (Faculty & Admin) -->
+      <section id="upload-content" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Upload Lecture / Note / Assignment</h2></div>
           <div class="form-grid">
             <div class="field">
               <label>Type</label>
@@ -664,16 +647,16 @@
               </select>
             </div>
             <div class="field"><label>Title</label><input type="text" id="upTitle" placeholder="Title visible to students" /></div>
-            <div class="field"><label>YouTube ID / Drive URL / Due Note</label><input type="text" id="upValue" placeholder="e.g., dQw4w9WgXcQ or https://drive.google.com/..." /></div>
+            <div class="field"><label>YouTube ID / Drive URL / Assignment Details</label><input type="text" id="upValue" placeholder="e.g., dQw4w9WgXcQ or https://drive.google.com/..." /></div>
           </div>
-          <button class="btn" onclick="facultyUploadItem()">Publish to Students</button>
+          <button class="btn" onclick="facultyUploadItem()">Upload for Students</button>
         </div>
       </section>
 
-      <!-- ADMIN PANEL: Full Access (Edit Students, Manage Faculty, Edit Timetable) -->
-      <section id="admin-tools" class="view-section">
+      <!-- SEPARATE OPTION: MANAGE STUDENTS (Admin) -->
+      <section id="manage-students" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Admin: Manage Students (Edit / Remove)</h2></div>
+          <div class="card-header"><h2>Manage Students</h2></div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Name</th><th>ID</th><th>Course</th><th>Email</th><th>Actions</th></tr></thead>
@@ -681,9 +664,12 @@
             </table>
           </div>
         </div>
+      </section>
 
+      <!-- SEPARATE OPTION: MANAGE FACULTY (Admin) -->
+      <section id="manage-faculty" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Admin: Add or Manage Faculty Accounts</h2></div>
+          <div class="card-header"><h2>Manage Faculty</h2></div>
           <div class="form-grid">
             <div class="field"><label>Faculty Name</label><input type="text" id="admFacName" placeholder="Faculty name" /></div>
             <div class="field"><label>Faculty ID</label><input type="text" id="admFacId" placeholder="FAC-201" /></div>
@@ -691,55 +677,12 @@
             <div class="field"><label>Password</label><input type="password" id="admFacPass" placeholder="Password" /></div>
           </div>
           <button class="btn" onclick="adminAddFaculty()">Add Faculty</button>
-          <div class="table-wrap" style="margin-top:14px;">
+          <div class="table-wrap" style="margin-top:16px;">
             <table>
               <thead><tr><th>Name</th><th>ID</th><th>Email</th><th>Actions</th></tr></thead>
               <tbody id="adminFacultyBody"></tbody>
             </table>
           </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2>Admin: Update Timetable Slot (Including Faculty Label)</h2></div>
-          <div class="form-grid">
-            <div class="field">
-              <label>Course</label>
-              <select id="admTtCourse">
-                <option value="BA LLB">BA LLB</option>
-                <option value="BBA LLB">BBA LLB</option>
-                <option value="BSC LLB">BSC LLB</option>
-                <option value="LLB">LLB</option>
-                <option value="LLB HONS">LLB HONS</option>
-                <option value="LLM">LLM</option>
-                <option value="Ph.D">Ph.D</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Day</label>
-              <select id="admTtDay">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-              </select>
-            </div>
-            <div class="field">
-              <label>Period</label>
-              <select id="admTtPeriod">
-                <option value="p1">Period 1</option>
-                <option value="p2">Period 2</option>
-                <option value="p3">Period 3</option>
-                <option value="p4">Period 4</option>
-                <option value="p5">Period 5</option>
-                <option value="p6">Period 6</option>
-                <option value="p7">Period 7</option>
-              </select>
-            </div>
-            <div class="field"><label>Subject & Faculty Text</label><input type="text" id="admTtText" placeholder="e.g., Law of Contract I (Faculty 1)" /></div>
-          </div>
-          <button class="btn btn-success" onclick="adminUpdateTimetable()">Save Timetable Slot</button>
         </div>
       </section>
 
@@ -750,12 +693,10 @@
   <script>
     const F1 = "Faculty 1";
 
-    // Detect URL role (?role=student | ?role=faculty | ?role=admin)
     const params = new URLSearchParams(window.location.search);
-    const urlRoleParam = (params.get("role") || "student").toLowerCase();
-    const portalRole = ["student", "faculty", "admin"].includes(urlRoleParam) ? urlRoleParam : "student";
+    const rawRole = (params.get("role") || "student").toLowerCase();
+    const portalRole = ["student", "faculty", "admin"].includes(rawRole) ? rawRole : "student";
 
-    // Timetables (No college name/logo; Faculty 1 placeholder)
     const defaultTimetables = {
       "BA LLB": {
         label: "BA LLB • Semester I", subtitle: "5-Year Integrated Degree Course",
@@ -869,148 +810,143 @@
       }
     };
 
-    let timetables = JSON.parse(localStorage.getItem("vj_tt_v1") || "null") || defaultTimetables;
-    let students = JSON.parse(localStorage.getItem("vj_students_v1") || "null") || [
+    let students = JSON.parse(localStorage.getItem("vj_students_v2") || "null") || [
       { name: "Sample Student", id: "STU-001", course: "BA LLB", email: "student@vjstudy.local", pass: "1234" }
     ];
-    let facultyList = JSON.parse(localStorage.getItem("vj_faculty_v1") || "null") || [
+    let facultyList = JSON.parse(localStorage.getItem("vj_faculty_v2") || "null") || [
       { name: "Faculty 1", id: "FAC-001", email: "faculty@vjstudy.local", pass: "1234" }
     ];
     const adminAccount = { name: "Portal Admin", id: "ADM-001", email: "admin@vjstudy.local", pass: "admin123" };
 
-    // Starts EMPTY so students see NOTHING until Faculty uploads!
-    let facultyUploads = JSON.parse(localStorage.getItem("vj_uploads_v1") || "[]");
-    let customSubjects = JSON.parse(localStorage.getItem("vj_subjects_v1") || "[]");
-    let tasks = JSON.parse(localStorage.getItem("vj_tasks_v1") || "[]");
-    let sessionUser = JSON.parse(localStorage.getItem("vj_session_v1") || "null");
+    // Empty until Faculty uploads
+    let facultyUploads = JSON.parse(localStorage.getItem("vj_uploads_v2") || "[]");
+    let customSubjects = JSON.parse(localStorage.getItem("vj_subjects_v2") || "[]");
+    let tasks = JSON.parse(localStorage.getItem("vj_tasks_v2") || "[]");
 
+    let currentUser = null;
     let currentCourse = "BA LLB";
 
-    function saveAll() {
-      localStorage.setItem("vj_tt_v1", JSON.stringify(timetables));
-      localStorage.setItem("vj_students_v1", JSON.stringify(students));
-      localStorage.setItem("vj_faculty_v1", JSON.stringify(facultyList));
-      localStorage.setItem("vj_uploads_v1", JSON.stringify(facultyUploads));
-      localStorage.setItem("vj_subjects_v1", JSON.stringify(customSubjects));
-      localStorage.setItem("vj_tasks_v1", JSON.stringify(tasks));
-      localStorage.setItem("vj_session_v1", JSON.stringify(sessionUser));
+    function saveData() {
+      localStorage.setItem("vj_students_v2", JSON.stringify(students));
+      localStorage.setItem("vj_faculty_v2", JSON.stringify(facultyList));
+      localStorage.setItem("vj_uploads_v2", JSON.stringify(facultyUploads));
+      localStorage.setItem("vj_subjects_v2", JSON.stringify(customSubjects));
+      localStorage.setItem("vj_tasks_v2", JSON.stringify(tasks));
     }
 
-    function setupUrlDisplayAndNavigation() {
-      const base = window.location.origin + window.location.pathname;
-      document.getElementById("studentUrlText").textContent = `${base}?role=student`;
-      document.getElementById("facultyUrlText").textContent = `${base}?role=faculty`;
-      document.getElementById("adminUrlText").textContent = `${base}?role=admin`;
+    function initGate() {
+      const labels = {
+        student: "Student Login",
+        faculty: "Faculty Login",
+        admin: "Admin Login"
+      };
+      document.getElementById("gateSubtitle").textContent = labels[portalRole];
+      document.getElementById("sidebarPortalMode").textContent = `${portalRole.toUpperCase()} PORTAL`;
+      document.body.classList.add("locked");
+      document.getElementById("loginGate").style.display = "block";
+      document.getElementById("portalContent").style.display = "none";
+    }
 
-      const titles = { student: "Student Login", faculty: "Faculty Login", admin: "Admin Login" };
-      document.getElementById("loginHeading").textContent = titles[portalRole];
-      document.getElementById("loginUrlBadge").textContent = `URL: ?role=${portalRole}`;
-      document.getElementById("sidebarPortalMode").textContent = `${portalRole.toUpperCase()} URL`;
-
-      const nav = document.getElementById("navMenu");
-      if (portalRole === "student") {
-        // Limited student navigation
-        nav.innerHTML = `
-          <div class="nav-label">Student Menu</div>
-          <button class="nav-btn" data-v="dashboard" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
-          <button class="nav-btn" data-v="lectures" onclick="openView('lectures','Recorded Lectures',this)">Lectures</button>
-          <button class="nav-btn" data-v="notes" onclick="openView('notes','Notes & PDFs',this)">Notes & PDFs</button>
-          <button class="nav-btn" data-v="assignments" onclick="openView('assignments','Assignments',this)">Assignments</button>
-          <button class="nav-btn" data-v="live" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill live">LIVE</span></button>
-          <button class="nav-btn" data-v="schedule" onclick="openView('schedule','Timetable',this)">Timetable</button>
-          <button class="nav-btn" data-v="tasks" onclick="openView('tasks','Study Planner',this)">Study Planner</button>
-          <button class="nav-btn" data-v="login" onclick="openView('login','Student Login',this)">Student Login</button>
-        `;
-      } else if (portalRole === "faculty") {
-        // Faculty tools: Add subjects, add students, upload content + timetable/live
-        nav.innerHTML = `
-          <div class="nav-label">Faculty Menu</div>
-          <button class="nav-btn" data-v="dashboard" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
-          <button class="nav-btn" data-v="faculty-tools" onclick="openView('faculty-tools','Faculty Tools',this)">Add Subject / Student / Upload</button>
-          <button class="nav-btn" data-v="live" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill live">LIVE</span></button>
-          <button class="nav-btn" data-v="schedule" onclick="openView('schedule','Timetable',this)">Timetable</button>
-          <button class="nav-btn" data-v="login" onclick="openView('login','Faculty Login',this)">Faculty Login</button>
-        `;
+    function unlockPortal(userObj) {
+      currentUser = userObj;
+      if (portalRole === "student" && userObj.course) {
+        currentCourse = userObj.course;
+        document.getElementById("sidebarCourseBox").style.display = "none";
+        document.getElementById("ttCourseSelect").style.display = "none";
       } else {
-        // Admin full access
-        nav.innerHTML = `
-          <div class="nav-label">Admin Menu</div>
-          <button class="nav-btn" data-v="dashboard" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
-          <button class="nav-btn" data-v="admin-tools" onclick="openView('admin-tools','Admin Control Panel',this)">Manage Students & Faculty</button>
-          <button class="nav-btn" data-v="faculty-tools" onclick="openView('faculty-tools','Subjects & Uploads',this)">Add Subject / Student / Upload</button>
-          <button class="nav-btn" data-v="schedule" onclick="openView('schedule','Timetable',this)">Timetable</button>
-          <button class="nav-btn" data-v="login" onclick="openView('login','Admin Login',this)">Admin Login</button>
-        `;
+        document.getElementById("sidebarCourseBox").style.display = "block";
+        document.getElementById("ttCourseSelect").style.display = "block";
       }
-    }
 
-    function updateHeaderUser() {
+      document.body.classList.remove("locked");
+      document.getElementById("loginGate").style.display = "none";
+      document.getElementById("portalContent").style.display = "block";
+
       const badge = document.getElementById("headerRoleBadge");
-      const activeRole = sessionUser ? sessionUser.role : portalRole;
-      badge.textContent = activeRole;
-      badge.className = "role-badge " + activeRole.toLowerCase();
+      badge.textContent = portalRole.toUpperCase();
+      badge.className = "role-badge " + portalRole;
+      document.getElementById("headerUserName").textContent = userObj.name;
+      document.getElementById("headerAvatar").textContent = userObj.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
 
-      const name = sessionUser ? sessionUser.name : `Guest (${portalRole})`;
-      document.getElementById("headerUserName").textContent = name;
-      document.getElementById("headerAvatar").textContent = name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+      buildNavigation();
+      renderAll();
     }
 
-    function openLoginPage() {
-      const btn = document.querySelector('#navMenu button[data-v="login"]');
-      openView("login", `${portalRole.toUpperCase()} Login`, btn);
+    function signOutToGate() {
+      currentUser = null;
+      document.getElementById("gateEmail").value = "";
+      document.getElementById("gatePassword").value = "";
+      document.getElementById("gateError").textContent = "";
+      initGate();
     }
 
-    function signInWithUrlRole() {
-      const idVal = document.getElementById("loginEmail").value.trim().toLowerCase();
-      const passVal = document.getElementById("loginPassword").value.trim();
-      const fb = document.getElementById("loginFeedback");
+    function loginFromGate() {
+      const idVal = document.getElementById("gateEmail").value.trim().toLowerCase();
+      const passVal = document.getElementById("gatePassword").value.trim();
+      const err = document.getElementById("gateError");
 
-      let matched = null;
+      let found = null;
       if (portalRole === "student") {
-        matched = students.find(s => (s.email.toLowerCase() === idVal || s.id.toLowerCase() === idVal) && s.pass === passVal);
+        found = students.find(s => (s.email.toLowerCase() === idVal || s.id.toLowerCase() === idVal) && s.pass === passVal);
       } else if (portalRole === "faculty") {
-        matched = facultyList.find(f => (f.email.toLowerCase() === idVal || f.id.toLowerCase() === idVal) && f.pass === passVal);
+        found = facultyList.find(f => (f.email.toLowerCase() === idVal || f.id.toLowerCase() === idVal) && f.pass === passVal);
       } else {
         if ((adminAccount.email.toLowerCase() === idVal || adminAccount.id.toLowerCase() === idVal) && adminAccount.pass === passVal) {
-          matched = adminAccount;
+          found = adminAccount;
         }
       }
 
-      if (!matched) {
-        fb.style.color = "var(--danger)";
-        fb.textContent = `Invalid ${portalRole} credentials.`;
+      if (!found) {
+        err.textContent = `Invalid ${portalRole} credentials.`;
         return;
       }
-      sessionUser = { name: matched.name, role: portalRole.charAt(0).toUpperCase() + portalRole.slice(1), id: matched.id };
-      if (matched.course && timetables[matched.course]) switchCourse(matched.course);
-      saveAll();
-      updateHeaderUser();
-      fb.style.color = "var(--success)";
-      fb.textContent = `Signed in as ${matched.name}.`;
+      unlockPortal(found);
     }
 
-    function quickSignInUrlRole() {
-      const fb = document.getElementById("loginFeedback");
+    function quickDemoGateLogin() {
       if (portalRole === "student") {
-        const s = students[0] || { name: "Student", id: "STU-001" };
-        sessionUser = { name: s.name, role: "Student", id: s.id };
+        unlockPortal(students[0] || { name: "Sample Student", id: "STU-001", course: "BA LLB" });
       } else if (portalRole === "faculty") {
-        const f = facultyList[0] || { name: "Faculty 1", id: "FAC-001" };
-        sessionUser = { name: f.name, role: "Faculty", id: f.id };
+        unlockPortal(facultyList[0] || { name: "Faculty 1", id: "FAC-001" });
       } else {
-        sessionUser = { name: adminAccount.name, role: "Admin", id: adminAccount.id };
+        unlockPortal(adminAccount);
       }
-      saveAll();
-      updateHeaderUser();
-      fb.style.color = "var(--success)";
-      fb.textContent = `Demo signed in as ${sessionUser.name} (${sessionUser.role}).`;
     }
 
-    function signOut() {
-      sessionUser = null;
-      saveAll();
-      updateHeaderUser();
-      document.getElementById("loginFeedback").textContent = "Signed out.";
+    function buildNavigation() {
+      const nav = document.getElementById("navMenu");
+      if (portalRole === "student") {
+        nav.innerHTML = `
+          <div class="nav-label">Student Options</div>
+          <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
+          <button class="nav-btn" onclick="openView('lectures','Recorded Lectures',this)">Lectures</button>
+          <button class="nav-btn" onclick="openView('notes','Notes & PDFs',this)">Notes & PDFs</button>
+          <button class="nav-btn" onclick="openView('assignments','Assignments',this)">Assignments</button>
+          <button class="nav-btn" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill">LIVE</span></button>
+          <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
+          <button class="nav-btn" onclick="openView('tasks','Study Planner',this)">Study Planner</button>
+        `;
+      } else if (portalRole === "faculty") {
+        nav.innerHTML = `
+          <div class="nav-label">Faculty Options</div>
+          <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
+          <button class="nav-btn" onclick="openView('add-student','Add Student',this)">Add Student</button>
+          <button class="nav-btn" onclick="openView('add-subject','Add Subject',this)">Add Subject</button>
+          <button class="nav-btn" onclick="openView('upload-content','Upload Content',this)">Upload Content</button>
+          <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
+          <button class="nav-btn" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill">LIVE</span></button>
+        `;
+      } else {
+        nav.innerHTML = `
+          <div class="nav-label">Admin Options</div>
+          <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
+          <button class="nav-btn" onclick="openView('manage-students','Manage Students',this)">Manage Students</button>
+          <button class="nav-btn" onclick="openView('manage-faculty','Manage Faculty',this)">Manage Faculty</button>
+          <button class="nav-btn" onclick="openView('add-subject','Add Subject',this)">Add Subject</button>
+          <button class="nav-btn" onclick="openView('upload-content','Upload Content',this)">Upload Content</button>
+          <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
+        `;
+      }
     }
 
     function openView(viewId, title, btn) {
@@ -1028,24 +964,17 @@
     }
 
     function switchCourse(course) {
+      if (portalRole === "student" && currentUser && currentUser.course) {
+        currentCourse = currentUser.course;
+        return;
+      }
       currentCourse = course;
       document.getElementById("courseSwitcher").value = course;
       document.getElementById("ttCourseSelect").value = course;
-      document.getElementById("activeCourseLabel").textContent = `${course} • Semester I`;
       renderAll();
     }
 
-    // Faculty actions: Add Subject, Add Student, Upload Materials
-    function facultyAddSubject() {
-      const course = document.getElementById("facSubCourse").value;
-      const sub = document.getElementById("facSubName").value.trim();
-      if (!sub) return alert("Enter subject name.");
-      customSubjects.push({ course, subject: `${sub} (${F1})` });
-      document.getElementById("facSubName").value = "";
-      saveAll();
-      renderAll();
-    }
-
+    // Faculty: Add Student
     function facultyAddStudent() {
       const name = document.getElementById("facStuName").value.trim();
       const id = document.getElementById("facStuId").value.trim() || ("STU-" + Math.floor(100 + Math.random() * 900));
@@ -1058,11 +987,23 @@
       document.getElementById("facStuId").value = "";
       document.getElementById("facStuEmail").value = "";
       document.getElementById("facStuPass").value = "";
-      saveAll();
+      saveData();
       renderAll();
-      alert("Student account added.");
+      alert(`Student added to ${course}.`);
     }
 
+    // Faculty / Admin: Add Subject
+    function facultyAddSubject() {
+      const course = document.getElementById("facSubCourse").value;
+      const sub = document.getElementById("facSubName").value.trim();
+      if (!sub) return alert("Enter subject name.");
+      customSubjects.push({ course, subject: `${sub} (${F1})` });
+      document.getElementById("facSubName").value = "";
+      saveData();
+      renderAll();
+    }
+
+    // Faculty / Admin: Upload Content
     function facultyUploadItem() {
       const type = document.getElementById("upType").value;
       const course = document.getElementById("upCourse").value;
@@ -1072,32 +1013,32 @@
       facultyUploads.unshift({ id: Date.now(), type, course, title, value });
       document.getElementById("upTitle").value = "";
       document.getElementById("upValue").value = "";
-      saveAll();
+      saveData();
       renderAll();
-      alert("Published for students.");
+      alert("Uploaded for students.");
     }
 
-    // Admin actions: Edit Student, Delete Student, Add/Delete Faculty, Edit Timetable
+    // Admin: Edit / Delete Student
     function adminEditStudent(idx) {
       const s = students[idx];
-      const newName = prompt("Edit Student Name:", s.name);
+      const newName = prompt("Student Name:", s.name);
       if (newName === null) return;
-      const newCourse = prompt("Edit Course (BA LLB, BBA LLB, BSC LLB, LLB, LLB HONS, LLM, Ph.D):", s.course);
+      const newCourse = prompt("Course (BA LLB, BBA LLB, BSC LLB, LLB, LLB HONS, LLM, Ph.D):", s.course);
       if (newCourse === null) return;
-      const newEmail = prompt("Edit Email:", s.email);
+      const newEmail = prompt("Email:", s.email);
       if (newEmail === null) return;
       students[idx] = { ...s, name: newName.trim() || s.name, course: newCourse.trim() || s.course, email: newEmail.trim() || s.email };
-      saveAll();
+      saveData();
       renderAll();
     }
-
     function adminDeleteStudent(idx) {
-      if (!confirm("Remove this student?")) return;
+      if (!confirm("Delete student?")) return;
       students.splice(idx, 1);
-      saveAll();
+      saveData();
       renderAll();
     }
 
+    // Admin: Add / Delete Faculty
     function adminAddFaculty() {
       const name = document.getElementById("admFacName").value.trim();
       const id = document.getElementById("admFacId").value.trim() || ("FAC-" + Math.floor(100 + Math.random() * 900));
@@ -1109,82 +1050,19 @@
       document.getElementById("admFacId").value = "";
       document.getElementById("admFacEmail").value = "";
       document.getElementById("admFacPass").value = "";
-      saveAll();
+      saveData();
       renderAll();
     }
-
     function adminDeleteFaculty(idx) {
-      if (!confirm("Remove this faculty account?")) return;
+      if (!confirm("Remove faculty account?")) return;
       facultyList.splice(idx, 1);
-      saveAll();
+      saveData();
       renderAll();
     }
 
-    function adminUpdateTimetable() {
-      const course = document.getElementById("admTtCourse").value;
-      const day = document.getElementById("admTtDay").value;
-      const period = document.getElementById("admTtPeriod").value;
-      const text = document.getElementById("admTtText").value.trim();
-      if (!text) return alert("Enter subject & faculty text.");
-      if (!timetables[course].days[day]) timetables[course].days[day] = {};
-      timetables[course].days[day][period] = text;
-      document.getElementById("admTtText").value = "";
-      saveAll();
-      renderAll();
-      alert("Timetable updated.");
-    }
-
-    // Student Content Rendering (Strict: only show if Faculty uploaded for active course)
-    function renderStudentUploads() {
-      const courseLectures = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse);
-      const courseNotes = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse);
-      const courseAssigns = facultyUploads.filter(u => u.type === "assignment" && u.course === currentCourse);
-
-      document.getElementById("lecCourseBadge").textContent = currentCourse;
-      document.getElementById("noteCourseBadge").textContent = currentCourse;
-      document.getElementById("assignCourseBadge").textContent = currentCourse;
-
-      const lecArea = document.getElementById("studentLecturesArea");
-      if (courseLectures.length === 0) {
-        lecArea.innerHTML = `<div class="empty-state">No lectures uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
-      } else {
-        lecArea.innerHTML = courseLectures.map(l => {
-          const ytId = l.value.includes("v=") ? l.value.split("v=")[1].split("&")[0] : l.value.split("/").pop();
-          return `
-            <div class="item-box" style="margin-bottom:14px;">
-              <div><span class="badge">${l.course}</span><h3 style="margin-top:6px;">${l.title}</h3></div>
-              <div class="video-wrap"><iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>
-            </div>
-          `;
-        }).join("");
-      }
-
-      const noteArea = document.getElementById("studentNotesArea");
-      if (courseNotes.length === 0) {
-        noteArea.innerHTML = `<div class="empty-state">No notes or PDFs uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
-      } else {
-        noteArea.innerHTML = `<div class="grid">` + courseNotes.map(n => `
-          <div class="item-box">
-            <div><span class="badge green">${n.course}</span><h3 style="margin-top:8px;">${n.title}</h3></div>
-            <a class="btn btn-sm" href="${n.value}" target="_blank">Open Material</a>
-          </div>
-        `).join("") + `</div>`;
-      }
-
-      const assignArea = document.getElementById("studentAssignmentsArea");
-      if (courseAssigns.length === 0) {
-        assignArea.innerHTML = `<div class="empty-state">No assignments uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
-      } else {
-        assignArea.innerHTML = `<div class="grid">` + courseAssigns.map(a => `
-          <div class="item-box">
-            <div><span class="badge amber">${a.course}</span><h3 style="margin-top:8px;">${a.title}</h3><p class="subtext" style="margin-top:4px;">${a.value}</p></div>
-          </div>
-        `).join("") + `</div>`;
-      }
-    }
-
+    // Timetable (No timetable on Dashboard; no course dropdown in Student Timetable)
     function renderTimetable() {
-      const course = timetables[currentCourse];
+      const course = defaultTimetables[currentCourse];
       const dayFilter = document.getElementById("ttDaySelect").value;
       document.getElementById("timetableHeading").textContent = `Semester I Timetable — ${currentCourse}`;
       document.getElementById("timetableSubtitle").textContent = course.subtitle;
@@ -1210,16 +1088,37 @@
           bodyRows.appendChild(tr);
         });
       }
+    }
 
-      const mon = course.days.Monday || {};
-      document.getElementById("dashScheduleTitle").textContent = `${currentCourse} — Monday Timetable`;
-      const dashBody = document.getElementById("dashScheduleBody");
-      dashBody.innerHTML = "";
-      course.periods.slice(0, 5).forEach(p => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td><strong>${p.name.split(" (")[0]}</strong></td><td>${p.name.match(/\((.*?)\)/)?.[1] || ""}</td><td>${mon[p.key] || "—"}</td>`;
-        dashBody.appendChild(tr);
-      });
+    // Student Content (Strictly hidden unless Faculty uploaded for currentCourse)
+    function renderStudentUploads() {
+      const lecs = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse);
+      const notes = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse);
+      const assigns = facultyUploads.filter(u => u.type === "assignment" && u.course === currentCourse);
+
+      document.getElementById("lecCourseBadge").textContent = currentCourse;
+      document.getElementById("noteCourseBadge").textContent = currentCourse;
+      document.getElementById("assignCourseBadge").textContent = currentCourse;
+
+      document.getElementById("studentLecturesArea").innerHTML = lecs.length
+        ? lecs.map(l => {
+            const ytId = l.value.includes("v=") ? l.value.split("v=")[1].split("&")[0] : l.value.split("/").pop();
+            return `<div class="item-box" style="margin-bottom:14px;"><div><span class="badge">${l.course}</span><h3 style="margin-top:6px;">${l.title}</h3></div><div class="video-wrap"><iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div></div>`;
+          }).join("")
+        : `<div class="empty-state">No lectures uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
+
+      document.getElementById("studentNotesArea").innerHTML = notes.length
+        ? `<div class="grid">` + notes.map(n => `<div class="item-box"><div><span class="badge green">${n.course}</span><h3 style="margin-top:8px;">${n.title}</h3></div><a class="btn btn-sm" href="${n.value}" target="_blank">Open Material</a></div>`).join("") + `</div>`
+        : `<div class="empty-state">No notes or PDFs uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
+
+      document.getElementById("studentAssignmentsArea").innerHTML = assigns.length
+        ? `<div class="grid">` + assigns.map(a => `<div class="item-box"><div><span class="badge amber">${a.course}</span><h3 style="margin-top:8px;">${a.title}</h3><p class="subtext" style="margin-top:4px;">${a.value}</p></div></div>`).join("") + `</div>`
+        : `<div class="empty-state">No assignments uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
+
+      const courseAllUploads = facultyUploads.filter(u => u.course === currentCourse);
+      document.getElementById("dashUploadsSummary").innerHTML = courseAllUploads.length
+        ? `<div class="grid">` + courseAllUploads.map(u => `<div class="item-box"><span class="badge">${u.type.toUpperCase()} • ${u.course}</span><strong>${u.title}</strong><span style="font-size:0.82rem; color:var(--muted);">${u.value}</span></div>`).join("") + `</div>`
+        : `<div class="empty-state">No items uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
     }
 
     function renderTasks() {
@@ -1236,12 +1135,12 @@
       if (!inp.value.trim()) return;
       tasks.push(inp.value.trim());
       inp.value = "";
-      saveAll();
+      saveData();
       renderTasks();
     }
     function removeTask(i) {
       tasks.splice(i, 1);
-      saveAll();
+      saveData();
       renderTasks();
     }
 
@@ -1259,10 +1158,28 @@
     }
 
     function renderAll() {
-      document.getElementById("kpiCourse").textContent = currentCourse;
-      document.getElementById("kpiLecCount").textContent = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse).length;
-      document.getElementById("kpiNoteCount").textContent = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse).length;
-      document.getElementById("kpiStuCount").textContent = students.length;
+      document.getElementById("activeCourseLabel").textContent = `${currentCourse} • Semester I`;
+      const lecsCount = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse).length;
+      const notesCount = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse).length;
+      const enrolledInSelectedCourse = students.filter(s => s.course === currentCourse).length;
+
+      const kpiGrid = document.getElementById("kpiGrid");
+      if (portalRole === "student") {
+        // No Enrolled Students count card for Students
+        kpiGrid.innerHTML = `
+          <div class="kpi-card"><div class="kpi-title">Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Assigned Semester I Course</div></div>
+          <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Faculty Notes</div><div class="kpi-value">${notesCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
+        `;
+      } else {
+        // Faculty & Admin: Enrolled Students count is strictly for the selected Active Course
+        kpiGrid.innerHTML = `
+          <div class="kpi-card"><div class="kpi-title">Active Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Semester I</div></div>
+          <div class="kpi-card"><div class="kpi-title">Enrolled Students</div><div class="kpi-value">${enrolledInSelectedCourse}</div><div class="kpi-sub">In ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Faculty Notes</div><div class="kpi-value">${notesCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
+        `;
+      }
 
       renderStudentUploads();
       renderTimetable();
@@ -1272,7 +1189,7 @@
       if (subBody) {
         subBody.innerHTML = customSubjects.length
           ? customSubjects.map(s => `<tr><td>${s.course}</td><td>${s.subject}</td></tr>`).join("")
-          : `<tr><td colspan="2" style="color:var(--muted);">No extra subjects added yet.</td></tr>`;
+          : `<tr><td colspan="2" style="color:var(--muted);">No subjects added yet.</td></tr>`;
       }
 
       const admStuBody = document.getElementById("adminStudentsBody");
@@ -1299,10 +1216,7 @@
       }
     }
 
-    // Boot: open directly to the URL's login view so Student / Faculty / Admin URLs land on their login screen
-    setupUrlDisplayAndNavigation();
-    updateHeaderUser();
-    openLoginPage();
+    initGate();
   </script>
 </body>
 </html>
