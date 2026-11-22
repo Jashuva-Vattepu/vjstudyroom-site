@@ -31,7 +31,6 @@
       min-height: 100vh;
     }
 
-    /* Left LMS Sidebar */
     aside.sidebar {
       width: 265px;
       background: var(--sidebar-bg);
@@ -64,7 +63,7 @@
       color: #fff;
       flex-shrink: 0;
     }
-    .brand h1 { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.2px; }
+    .brand h1 { font-size: 1.05rem; font-weight: 700; }
     .brand span { font-size: 0.75rem; color: #94a3b8; display: block; }
 
     .course-box {
@@ -130,27 +129,6 @@
     }
     .nav-pill.live { background: var(--danger); }
 
-    .sidebar-footer {
-      padding: 14px 16px;
-      border-top: 1px solid #1e293b;
-      font-size: 0.8rem;
-      color: #94a3b8;
-    }
-    .progress-bar-bg {
-      height: 7px;
-      background: #1e293b;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 6px;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: #22c55e;
-      transition: width 0.3s ease;
-    }
-
-    /* Main Content Wrapper */
     .main-wrap {
       margin-left: 265px;
       flex: 1;
@@ -159,7 +137,6 @@
       min-width: 0;
     }
 
-    /* Top LMS Header Bar */
     header.topbar {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -195,10 +172,9 @@
       color: #1e40af;
       text-transform: uppercase;
     }
-    .role-badge.faculty {
-      background: #fef3c7;
-      color: #92400e;
-    }
+    .role-badge.faculty { background: #fef3c7; color: #92400e; }
+    .role-badge.admin { background: #fee2e2; color: #991b1b; }
+
     .avatar-pill {
       display: flex;
       align-items: center;
@@ -221,7 +197,6 @@
       font-size: 0.75rem;
     }
 
-    /* Content Area */
     main.content {
       padding: 24px;
       max-width: 1200px;
@@ -231,7 +206,6 @@
     .view-section { display: none; }
     .view-section.active { display: block; }
 
-    /* KPI Stats Row */
     .kpi-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -245,18 +219,10 @@
       padding: 18px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.03);
     }
-    .kpi-title { font-size: 0.78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
-    .kpi-value { font-size: 1.6rem; font-weight: 700; margin: 6px 0 4px; color: var(--text); }
+    .kpi-title { font-size: 0.78rem; color: var(--muted); font-weight: 600; text-transform: uppercase; }
+    .kpi-value { font-size: 1.6rem; font-weight: 700; margin: 6px 0 4px; }
     .kpi-sub { font-size: 0.8rem; color: var(--muted); }
 
-    /* Two-column Dashboard Grid */
-    .dash-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 20px;
-    }
-
-    /* Standard LMS Card */
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -278,9 +244,18 @@
     .card-header h2 { font-size: 1.1rem; font-weight: 700; }
     .subtext { font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
 
-    /* Buttons & Inputs */
+    .empty-state {
+      border: 1px dashed #cbd5e1;
+      background: #f8fafc;
+      border-radius: 10px;
+      padding: 28px 18px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 14px; }
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
     .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
     input[type="text"], input[type="email"], input[type="password"], select, textarea {
       width: 100%;
@@ -291,7 +266,6 @@
       background: #fff;
       font-family: inherit;
     }
-    textarea { min-height: 76px; resize: vertical; }
     .btn {
       background: var(--accent);
       color: #fff;
@@ -309,98 +283,10 @@
     .btn:hover { background: var(--accent-hover); }
     .btn-sm { padding: 6px 11px; font-size: 0.8rem; }
     .btn-outline { background: #fff; color: var(--accent); border: 1px solid var(--accent); }
-    .btn-outline:hover { background: #eff6ff; }
     .btn-success { background: var(--success); }
     .btn-danger { background: var(--danger); }
     .btn-muted { background: #475569; }
 
-    /* Auth Tabs */
-    .auth-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
-    .auth-tab {
-      padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #f8fafc;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-    }
-    .auth-tab.active {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    /* LMS Course Modules */
-    .module-box {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      margin-bottom: 14px;
-      overflow: hidden;
-      background: #fff;
-    }
-    .module-head {
-      background: #f8fafc;
-      padding: 14px 16px;
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--border);
-    }
-    .module-items { padding: 8px 16px; }
-    .lesson-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #f1f5f9;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .lesson-row:last-child { border-bottom: none; }
-    .lesson-info { display: flex; align-items: center; gap: 10px; }
-    .lesson-type {
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-    }
-    .type-video { background: #dbeafe; color: #1e40af; }
-    .type-pdf { background: #fef3c7; color: #92400e; }
-    .type-quiz { background: #dcfce7; color: #166534; }
-    .lesson-actions { display: flex; gap: 8px; align-items: center; }
-
-    /* Announcements & Forum */
-    .notice, .post-card {
-      padding: 14px;
-      border-left: 4px solid var(--accent);
-      background: #f8fafc;
-      border-radius: 0 8px 8px 0;
-      margin-bottom: 12px;
-      border-top: 1px solid var(--border);
-      border-right: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .notice small, .post-meta { color: var(--muted); font-size: 0.78rem; display: block; margin-bottom: 4px; }
-
-    /* Live Class Frame */
-    #meetContainer {
-      width: 100%;
-      height: 500px;
-      background: #0f172a;
-      border-radius: 10px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #94a3b8;
-      text-align: center;
-      padding: 20px;
-    }
-
-    /* Resource Cards */
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
     .item-box {
       border: 1px solid var(--border);
@@ -425,30 +311,28 @@
     .badge.green { background: #dcfce7; color: #166534; }
     .badge.amber { background: #fef3c7; color: #92400e; }
 
-    /* Video Wrapper */
-    .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; background: #000; }
+    .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; background: #000; margin-top: 12px; }
     .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
 
-    /* Tables */
+    #meetContainer {
+      width: 100%;
+      height: 460px;
+      background: #0f172a;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #94a3b8;
+      text-align: center;
+      padding: 20px;
+    }
+
     .table-wrap { overflow-x: auto; }
     table { width: 100%; border-collapse: collapse; }
-    th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--border); font-size: 0.88rem; vertical-align: top; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 0.86rem; vertical-align: top; }
     th { background: #f8fafc; color: var(--muted); font-weight: 700; }
 
-    /* Quiz & Tasks */
-    .quiz-option {
-      display: block;
-      width: 100%;
-      text-align: left;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    .quiz-option:hover { background: #eff6ff; border-color: var(--accent); }
     .task-list { list-style: none; display: grid; gap: 8px; margin-top: 10px; }
     .task-list li {
       display: flex;
@@ -461,24 +345,32 @@
       font-size: 0.9rem;
     }
 
+    .url-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.84rem;
+      margin-bottom: 10px;
+      word-break: break-all;
+    }
+
     @media (max-width: 900px) {
       aside.sidebar { transform: translateX(-100%); }
       aside.sidebar.open { transform: translateX(0); }
       .main-wrap { margin-left: 0; }
       .menu-toggle { display: inline-block; }
-      .dash-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LEFT LMS SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-logo">VJ</div>
       <div>
         <h1>VJ Study Room</h1>
-        <span>Learning Management System</span>
+        <span id="sidebarPortalMode">Student Portal</span>
       </div>
     </div>
 
@@ -495,68 +387,9 @@
       </select>
     </div>
 
-    <nav class="nav-menu">
-      <div class="nav-label">Overview</div>
-      <button class="nav-btn active" onclick="openView('dashboard', 'Dashboard', this)">
-        <span>Dashboard</span>
-      </button>
-      <button class="nav-btn" onclick="openView('modules', 'Course Modules', this)">
-        <span>Course Modules</span>
-        <span class="nav-pill" id="modCountBadge">3 Units</span>
-      </button>
-
-      <div class="nav-label">Classroom & Content</div>
-      <button class="nav-btn" onclick="openView('live', 'Live Classroom', this)">
-        <span>Live Classroom</span>
-        <span class="nav-pill live">LIVE</span>
-      </button>
-      <button class="nav-btn" onclick="openView('lectures', 'Recorded Lectures', this)">
-        <span>Recorded Lectures</span>
-      </button>
-      <button class="nav-btn" onclick="openView('notes', 'Notes & PDF Library', this)">
-        <span>Notes & PDFs</span>
-      </button>
-
-      <div class="nav-label">Assignments & Community</div>
-      <button class="nav-btn" onclick="openView('assignments', 'Assignments', this)">
-        <span>Assignments</span>
-      </button>
-      <button class="nav-btn" onclick="openView('forum', 'Discussion Forum', this)">
-        <span>Discussion Forum</span>
-      </button>
-      <button class="nav-btn" onclick="openView('attendance', 'Attendance & Streak', this)">
-        <span>Attendance</span>
-      </button>
-
-      <div class="nav-label">Assessment & Schedule</div>
-      <button class="nav-btn" onclick="openView('quiz', 'Practice Quiz', this)">
-        <span>Practice Quiz</span>
-      </button>
-      <button class="nav-btn" onclick="openView('schedule', 'Class Timetable', this)">
-        <span>Timetable</span>
-      </button>
-      <button class="nav-btn" onclick="openView('tasks', 'Study Planner', this)">
-        <span>Study Planner</span>
-      </button>
-
-      <div class="nav-label">Accounts</div>
-      <button class="nav-btn" id="navAuthBtn" onclick="openView('auth', 'Student & Faculty Logins', this)">
-        <span>Student / Faculty Login</span>
-      </button>
-    </nav>
-
-    <div class="sidebar-footer">
-      <div style="display:flex; justify-content:space-between;">
-        <span>Syllabus Completion</span>
-        <strong id="sidebarProgressText">0%</strong>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="sidebarProgressBar"></div>
-      </div>
-    </div>
+    <nav class="nav-menu" id="navMenu"></nav>
   </aside>
 
-  <!-- MAIN LMS AREA -->
   <div class="main-wrap">
     <header class="topbar">
       <div class="topbar-left">
@@ -569,404 +402,143 @@
         <span class="role-badge" id="headerRoleBadge">Student</span>
         <div class="avatar-pill">
           <div class="avatar-circle" id="headerAvatar">ST</div>
-          <span id="headerUserName">Guest Student</span>
+          <span id="headerUserName">Not Signed In</span>
         </div>
-        <button class="btn btn-sm btn-outline" onclick="openView('auth', 'Student & Faculty Logins', document.getElementById('navAuthBtn'))">Login / Accounts</button>
+        <button class="btn btn-sm btn-outline" onclick="openLoginPage()">Login</button>
       </div>
     </header>
 
     <main class="content">
 
-      <!-- 1. LMS DASHBOARD -->
-      <section id="dashboard" class="view-section active">
-        <div class="kpi-grid">
-          <div class="kpi-card">
-            <div class="kpi-title">Course Progress</div>
-            <div class="kpi-value" id="kpiProgress">0%</div>
-            <div class="kpi-sub" id="kpiCompletedSub">0 of 6 lessons completed</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Attendance Logged</div>
-            <div class="kpi-value" id="kpiAttendance">0 Days</div>
-            <div class="kpi-sub" id="kpiStreak">Study Streak: 0 days</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Assignments</div>
-            <div class="kpi-value" id="kpiAssignments">2</div>
-            <div class="kpi-sub">Click Assignments to submit</div>
-          </div>
-          <div class="kpi-card">
-            <div class="kpi-title">Pending Study Tasks</div>
-            <div class="kpi-value" id="kpiTasks">2</div>
-            <div class="kpi-sub">Tracked in Study Planner</div>
-          </div>
-        </div>
-
-        <div class="dash-grid">
-          <div>
-            <div class="card">
-              <div class="card-header">
-                <h2>Continue Learning</h2>
-                <button class="btn btn-sm" onclick="openView('modules', 'Course Modules', document.querySelectorAll('.nav-btn')[1])">View All Modules</button>
-              </div>
-              <p class="subtext">Pick up where you left off in your structured syllabus modules.</p>
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-video">Video</span>
-                  <div>
-                    <strong>Module 1.1: Course Orientation & Core Framework</strong>
-                    <div style="font-size:0.8rem; color:var(--muted);">Unlisted Lecture Recording • 45 mins</div>
-                  </div>
-                </div>
-                <button class="btn btn-sm" onclick="openView('lectures', 'Recorded Lectures', document.querySelectorAll('.nav-btn')[3])">Watch Now</button>
-              </div>
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-pdf">PDF Note</span>
-                  <div>
-                    <strong>Module 1.2: Foundation Unit Study Material</strong>
-                    <div style="font-size:0.8rem; color:var(--muted);">Google Drive Handout & Key Definitions</div>
-                  </div>
-                </div>
-                <button class="btn btn-sm btn-outline" onclick="openView('notes', 'Notes & PDF Library', document.querySelectorAll('.nav-btn')[4])">Open Notes</button>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h2 id="dashTimetableHeading">BA LLB — Monday Preview</h2>
-                <button class="btn btn-sm btn-outline" onclick="openView('schedule', 'Class Timetable', document.querySelectorAll('.nav-btn')[10])">Full Timetable</button>
-              </div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr><th>Period</th><th>Time</th><th>Subject & Faculty</th></tr>
-                  </thead>
-                  <tbody id="dashScheduleBody"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <div class="card">
-              <div class="card-header">
-                <h2>Daily Period Structure</h2>
-              </div>
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr><th>Session</th><th>Timing</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr><td>Period 1</td><td>09:30–10:15 AM (45m)</td></tr>
-                    <tr><td>Period 2</td><td>10:15–11:00 AM (45m)</td></tr>
-                    <tr><td>Short Break</td><td>11:00–11:10 AM (10m)</td></tr>
-                    <tr><td>Period 3</td><td>11:10–11:55 AM (45m)</td></tr>
-                    <tr><td>Period 4</td><td>11:55 AM–12:40 PM (45m)</td></tr>
-                    <tr><td>Period 5</td><td>12:40–01:25 PM (45m)</td></tr>
-                    <tr><td>Lunch Break</td><td>01:25–02:30 PM (60m)</td></tr>
-                    <tr><td>Period 6</td><td>02:45–03:30 PM (45m)</td></tr>
-                    <tr><td>Period 7</td><td>03:30–04:00 PM (30m)</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="card">
-              <div class="card-header">
-                <h2>Noticeboard</h2>
-              </div>
-              <div class="notice">
-                <small>Portals & Accounts</small>
-                <strong>Student & Faculty Logins Enabled</strong>
-                <p style="font-size:0.84rem; color:var(--muted); margin-top:4px;">Create student or faculty accounts anytime from the Accounts tab.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 2. COURSE MODULES -->
-      <section id="modules" class="view-section">
+      <!-- LOGIN VIEW (Dedicated per URL: ?role=student | ?role=faculty | ?role=admin) -->
+      <section id="login" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Structured Course Modules</h2>
-            <span class="badge" id="moduleProgressBadge">0 / 6 Completed</span>
+            <h2 id="loginHeading">Student Login</h2>
+            <span class="badge" id="loginUrlBadge">URL: ?role=student</span>
           </div>
-          <p class="subtext">Mark lessons complete as you study—your syllabus progress saves automatically in this browser.</p>
+          <p class="subtext" id="loginSubtext">Sign in with your Student account to view faculty-uploaded materials, timetable, and study tools.</p>
 
-          <div class="module-box">
-            <div class="module-head">
-              <span>Module 01: Foundations & Core Concepts</span>
-              <span style="font-size:0.8rem; color:var(--muted);">2 Items</span>
+          <div class="form-grid">
+            <div class="field">
+              <label for="loginEmail">Email or ID</label>
+              <input type="text" id="loginEmail" placeholder="Enter email or ID" />
             </div>
-            <div class="module-items">
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-video">Lecture</span>
-                  <span>1.1 Introduction & Course Orientation</span>
-                </div>
-                <div class="lesson-actions">
-                  <button class="btn btn-sm btn-outline" onclick="launchLecture('dQw4w9WgXcQ')">Open</button>
-                  <button class="btn btn-sm" id="chk-0" onclick="toggleLesson(0)">Mark Complete</button>
-                </div>
-              </div>
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-pdf">Reading</span>
-                  <span>1.2 Foundation Summary & Definitions (PDF)</span>
-                </div>
-                <div class="lesson-actions">
-                  <a class="btn btn-sm btn-outline" href="https://drive.google.com/" target="_blank">Drive PDF</a>
-                  <button class="btn btn-sm" id="chk-1" onclick="toggleLesson(1)">Mark Complete</button>
-                </div>
-              </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <input type="password" id="loginPassword" placeholder="Enter password" />
             </div>
           </div>
 
-          <div class="module-box">
-            <div class="module-head">
-              <span>Module 02: Applied Framework & Case Studies</span>
-              <span style="font-size:0.8rem; color:var(--muted);">2 Items</span>
-            </div>
-            <div class="module-items">
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-video">Lecture</span>
-                  <span>2.1 Core Concepts & Practical Framework</span>
-                </div>
-                <div class="lesson-actions">
-                  <button class="btn btn-sm btn-outline" onclick="launchLecture('M7lc1UVf-VE')">Open</button>
-                  <button class="btn btn-sm" id="chk-2" onclick="toggleLesson(2)">Mark Complete</button>
-                </div>
-              </div>
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-pdf">Reading</span>
-                  <span>2.2 Case Studies & Applied Notes (PDF)</span>
-                </div>
-                <div class="lesson-actions">
-                  <a class="btn btn-sm btn-outline" href="https://drive.google.com/" target="_blank">Drive PDF</a>
-                  <button class="btn btn-sm" id="chk-3" onclick="toggleLesson(3)">Mark Complete</button>
-                </div>
-              </div>
-            </div>
+          <div class="row">
+            <button class="btn" onclick="signInWithUrlRole()">Sign In</button>
+            <button class="btn btn-sm btn-outline" id="demoRoleBtn" onclick="quickSignInUrlRole()">Quick Demo Sign In</button>
+            <button class="btn btn-sm btn-muted" onclick="signOut()">Sign Out</button>
           </div>
+          <p id="loginFeedback" style="font-size:0.88rem; font-weight:600;"></p>
 
-          <div class="module-box">
-            <div class="module-head">
-              <span>Module 03: Revision & Self-Assessment</span>
-              <span style="font-size:0.8rem; color:var(--muted);">2 Items</span>
-            </div>
-            <div class="module-items">
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-pdf">Handbook</span>
-                  <span>3.1 Quick Revision Handbook & Key Checklist</span>
-                </div>
-                <div class="lesson-actions">
-                  <a class="btn btn-sm btn-outline" href="https://drive.google.com/" target="_blank">Drive PDF</a>
-                  <button class="btn btn-sm" id="chk-4" onclick="toggleLesson(4)">Mark Complete</button>
-                </div>
-              </div>
-              <div class="lesson-row">
-                <div class="lesson-info">
-                  <span class="lesson-type type-quiz">Quiz</span>
-                  <span>3.2 End-of-Module Self-Check Assessment</span>
-                </div>
-                <div class="lesson-actions">
-                  <button class="btn btn-sm btn-outline" onclick="openView('quiz', 'Practice Quiz', document.querySelectorAll('.nav-btn')[9])">Start Quiz</button>
-                  <button class="btn btn-sm" id="chk-5" onclick="toggleLesson(5)">Mark Complete</button>
-                </div>
-              </div>
-            </div>
+          <hr style="border:none; border-top:1px solid var(--border); margin:18px 0;" />
+          <div class="url-box">
+            <strong>Separate Role URLs:</strong><br />
+            • Student Login URL: <code id="studentUrlText"></code><br />
+            • Faculty Login URL: <code id="facultyUrlText"></code><br />
+            • Admin Login URL: <code id="adminUrlText"></code>
           </div>
         </div>
       </section>
 
-      <!-- 3. LIVE CLASSROOM -->
+      <!-- DASHBOARD -->
+      <section id="dashboard" class="view-section">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-title">Active Course</div>
+            <div class="kpi-value" style="font-size:1.3rem;" id="kpiCourse">BA LLB</div>
+            <div class="kpi-sub">Semester I</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Faculty Lectures</div>
+            <div class="kpi-value" id="kpiLecCount">0</div>
+            <div class="kpi-sub">Uploaded for active course</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Faculty Notes</div>
+            <div class="kpi-value" id="kpiNoteCount">0</div>
+            <div class="kpi-sub">Uploaded for active course</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-title">Enrolled Students</div>
+            <div class="kpi-value" id="kpiStuCount">0</div>
+            <div class="kpi-sub">Registered student accounts</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 id="dashScheduleTitle">BA LLB — Monday Timetable</h2>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Period</th><th>Time</th><th>Subject & Faculty</th></tr>
+              </thead>
+              <tbody id="dashScheduleBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- LECTURES (Students only see Faculty uploads for active course) -->
+      <section id="lectures" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Recorded Lectures</h2>
+            <span class="badge" id="lecCourseBadge">BA LLB</span>
+          </div>
+          <div id="studentLecturesArea"></div>
+        </div>
+      </section>
+
+      <!-- NOTES & PDFs (Students only see Faculty uploads for active course) -->
+      <section id="notes" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Notes & Study Materials</h2>
+            <span class="badge" id="noteCourseBadge">BA LLB</span>
+          </div>
+          <div id="studentNotesArea"></div>
+        </div>
+      </section>
+
+      <!-- ASSIGNMENTS (Students only see Faculty-posted assignments) -->
+      <section id="assignments" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Assignments</h2>
+            <span class="badge" id="assignCourseBadge">BA LLB</span>
+          </div>
+          <div id="studentAssignmentsArea"></div>
+        </div>
+      </section>
+
+      <!-- LIVE CLASSROOM -->
       <section id="live" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Live Virtual Classroom</h2>
+            <h2>Live Classroom</h2>
             <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
           </div>
-          <p class="subtext">Enter your session room code and click Start / Join Live Room for HD video, audio, chat, and screen sharing.</p>
           <div class="row">
             <input type="text" id="roomInput" value="vjstudyroom-live-101" placeholder="Enter Room Name" />
             <button class="btn" onclick="startLiveClass()">Start / Join Live Room</button>
             <button class="btn btn-danger" onclick="endLiveClass()">Leave Room</button>
           </div>
           <div id="meetContainer">
-            <div>
-              <p style="font-size:1.05rem; color:#e2e8f0;"><strong>Virtual Classroom Ready</strong></p>
-              <p style="font-size:0.86rem; margin-top:6px;">Click "Start / Join Live Room" above to launch the live session.</p>
-            </div>
+            <p>Click "Start / Join Live Room" to connect.</p>
           </div>
         </div>
       </section>
 
-      <!-- 4. RECORDED LECTURES -->
-      <section id="lectures" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Recorded Video Lectures</h2>
-          </div>
-          <p class="subtext">Select a session from the dropdown to play your Unlisted YouTube lecture recording.</p>
-          <div class="row">
-            <select id="videoSelect" onchange="loadVideo()">
-              <option value="dQw4w9WgXcQ">Lecture 01: Introduction & Course Orientation (Sample)</option>
-              <option value="M7lc1UVf-VE">Lecture 02: Core Concepts & Framework (Sample)</option>
-            </select>
-          </div>
-          <div class="video-wrap">
-            <iframe id="ytPlayer" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. NOTES & PDFs -->
-      <section id="notes" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Notes & Google Drive Resource Library</h2>
-          </div>
-          <div class="row">
-            <input type="text" id="noteSearch" onkeyup="filterNotes()" placeholder="Filter notes by module, unit, or keyword..." />
-          </div>
-          <div class="grid" id="notesGrid">
-            <div class="item-box" data-title="unit 1 foundation notes introduction">
-              <div>
-                <span class="badge">Module 01</span>
-                <h3 style="margin-top:8px; font-size:1rem;">Foundation & Core Concepts</h3>
-                <p class="subtext" style="margin-top:4px;">Complete chapter summary, key definitions, and reference points.</p>
-              </div>
-              <a class="btn btn-sm" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
-            </div>
-            <div class="item-box" data-title="unit 2 case studies practice questions">
-              <div>
-                <span class="badge">Module 02</span>
-                <h3 style="margin-top:8px; font-size:1rem;">Case Studies & Applied Notes</h3>
-                <p class="subtext" style="margin-top:4px;">Structured examples, important provisions, and revision sheet.</p>
-              </div>
-              <a class="btn btn-sm" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
-            </div>
-            <div class="item-box" data-title="previous papers revision handbook">
-              <div>
-                <span class="badge">Module 03</span>
-                <h3 style="margin-top:8px; font-size:1rem;">Quick Revision Handbook</h3>
-                <p class="subtext" style="margin-top:4px;">Last-minute formulas, key articles, and exam checklist.</p>
-              </div>
-              <a class="btn btn-sm" href="https://drive.google.com/" target="_blank">Open PDF on Drive</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. ASSIGNMENTS -->
-      <section id="assignments" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Assignments & Submissions</h2>
-            <span class="badge" id="assignmentRoleNote">Student Submission Mode</span>
-          </div>
-          <p class="subtext">Submit a Google Drive / document link or note for an assignment. Faculty accounts can also mark submissions as Graded.</p>
-          <div class="form-grid">
-            <div class="field">
-              <label for="assignSelect">Select Assignment</label>
-              <select id="assignSelect"></select>
-            </div>
-            <div class="field">
-              <label for="assignLinkInput">Submission Link or Notes</label>
-              <input type="text" id="assignLinkInput" placeholder="https://drive.google.com/... or summary" />
-            </div>
-          </div>
-          <button class="btn" onclick="submitAssignment()">Submit Assignment</button>
-
-          <div class="table-wrap" style="margin-top:18px;">
-            <table>
-              <thead>
-                <tr><th>Assignment</th><th>Course</th><th>Due</th><th>Status & Submission</th><th>Action</th></tr>
-              </thead>
-              <tbody id="assignmentsBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- 7. DISCUSSION FORUM -->
-      <section id="forum" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Class Discussion Forum</h2>
-          </div>
-          <p class="subtext">Ask academic questions, share study pointers, or post announcements for the selected course.</p>
-          <div class="form-grid">
-            <div class="field">
-              <label for="forumTopic">Topic / Subject</label>
-              <input type="text" id="forumTopic" placeholder="e.g., Unit 1 Doubt or Case Discussion" />
-            </div>
-            <div class="field">
-              <label for="forumCourse">Course Tag</label>
-              <select id="forumCourse">
-                <option value="BA LLB">BA LLB</option>
-                <option value="BBA LLB">BBA LLB</option>
-                <option value="BSC LLB">BSC LLB</option>
-                <option value="LLB">LLB</option>
-                <option value="LLB HONS">LLB HONS</option>
-                <option value="LLM">LLM</option>
-                <option value="Ph.D">Ph.D</option>
-              </select>
-            </div>
-          </div>
-          <div class="field" style="margin-bottom:12px;">
-            <label for="forumMessage">Message</label>
-            <textarea id="forumMessage" placeholder="Write your question or update..."></textarea>
-          </div>
-          <button class="btn" onclick="addForumPost()">Post to Forum</button>
-          <div id="forumList" style="margin-top:18px;"></div>
-        </div>
-      </section>
-
-      <!-- 8. ATTENDANCE & STREAK -->
-      <section id="attendance" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Attendance & Study Streak</h2>
-            <span class="badge green" id="attendanceBadge">0 Check-ins</span>
-          </div>
-          <p class="subtext">Check in once per day for your active course to record attendance and build your study streak.</p>
-          <div class="row">
-            <button class="btn btn-success" onclick="markAttendance()">Check In Today's Attendance</button>
-            <span id="attendanceFeedback" style="font-size:0.88rem; font-weight:600; color:var(--muted);"></span>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr><th>Date</th><th>Course</th><th>User</th><th>Role</th><th>Status</th></tr>
-              </thead>
-              <tbody id="attendanceBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <!-- 9. PRACTICE QUIZ -->
-      <section id="quiz" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Self-Check Assessment Quiz</h2>
-            <span class="badge" id="quizProgress">Question 1 of 2</span>
-          </div>
-          <h3 id="quizQuestion" style="margin-bottom:14px; font-size:1.05rem;"></h3>
-          <div id="quizOptions"></div>
-          <p id="quizFeedback" style="margin-top:12px; font-weight:600;"></p>
-          <button class="btn" style="margin-top:12px;" onclick="nextQuestion()">Next Question</button>
-        </div>
-      </section>
-
-      <!-- 10. CLASS TIMETABLE -->
+      <!-- TIMETABLE -->
       <section id="schedule" class="view-section">
         <div class="card">
           <div class="card-header">
@@ -974,7 +546,7 @@
             <span class="badge" id="timetableSubtitle">5-Year Integrated Degree Course</span>
           </div>
           <div class="row">
-            <select id="ttCourseSelect" onchange="syncCourseFromTimetable(this.value)">
+            <select id="ttCourseSelect" onchange="switchCourse(this.value)">
               <option value="BA LLB">1. BA LLB</option>
               <option value="BBA LLB">2. BBA LLB</option>
               <option value="BSC LLB">3. BSC LLB</option>
@@ -995,143 +567,179 @@
           </div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr id="ttHeadRow"></tr>
-              </thead>
+              <thead><tr id="ttHeadRow"></tr></thead>
               <tbody id="ttBodyRows"></tbody>
             </table>
           </div>
         </div>
       </section>
 
-      <!-- 11. STUDY PLANNER -->
+      <!-- STUDY PLANNER (Student) -->
       <section id="tasks" class="view-section">
         <div class="card">
-          <div class="card-header">
-            <h2>Personal Study Planner</h2>
-          </div>
-          <p class="subtext">Add daily revision goals (saved automatically in your browser).</p>
+          <div class="card-header"><h2>Personal Study Planner</h2></div>
           <div class="row">
-            <input type="text" id="taskInput" placeholder="Enter topic or assignment to complete..." />
-            <button class="btn" onclick="addTask()">Add Goal</button>
+            <input type="text" id="taskInput" placeholder="Add a study goal..." />
+            <button class="btn" onclick="addTask()">Add</button>
           </div>
           <ul class="task-list" id="taskList"></ul>
         </div>
       </section>
 
-      <!-- 12. STUDENT & FACULTY LOGINS + ACCOUNT CREATION -->
-      <section id="auth" class="view-section">
+      <!-- FACULTY PANEL: Add Subjects, Add Students, Upload Materials -->
+      <section id="faculty-tools" class="view-section">
         <div class="card">
-          <div class="card-header">
-            <h2>Student & Faculty Login / Account Creation</h2>
-            <span class="badge" id="currentAccountBadge">Signed in: Guest Student</span>
-          </div>
-
-          <div class="auth-tabs">
-            <button class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Sign In</button>
-            <button class="auth-tab" id="tabCreateStudent" onclick="switchAuthTab('create-student')">Create Student Login</button>
-            <button class="auth-tab" id="tabCreateFaculty" onclick="switchAuthTab('create-faculty')">Create Faculty Login</button>
-          </div>
-
-          <!-- Sign In Form -->
-          <div id="panelLogin">
-            <p class="subtext">Sign in using a Student or Faculty account you created, or click a quick sample account below.</p>
-            <div class="form-grid">
-              <div class="field">
-                <label for="loginEmail">Email or ID</label>
-                <input type="text" id="loginEmail" placeholder="student@example.com or FAC-01" />
-              </div>
-              <div class="field">
-                <label for="loginPassword">Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter password" />
-              </div>
+          <div class="card-header"><h2>Faculty: Add Subject</h2></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Course</label>
+              <select id="facSubCourse">
+                <option value="BA LLB">BA LLB</option>
+                <option value="BBA LLB">BBA LLB</option>
+                <option value="BSC LLB">BSC LLB</option>
+                <option value="LLB">LLB</option>
+                <option value="LLB HONS">LLB HONS</option>
+                <option value="LLM">LLM</option>
+                <option value="Ph.D">Ph.D</option>
+              </select>
             </div>
-            <div class="row">
-              <button class="btn" onclick="handleLogin()">Sign In</button>
-              <button class="btn btn-sm btn-outline" onclick="quickDemoLogin('Student')">Demo Student Login</button>
-              <button class="btn btn-sm btn-outline" onclick="quickDemoLogin('Faculty')">Demo Faculty Login</button>
-              <button class="btn btn-sm btn-muted" onclick="handleLogout()">Sign Out</button>
+            <div class="field">
+              <label>Subject Name</label>
+              <input type="text" id="facSubName" placeholder="e.g., Constitutional Law II" />
             </div>
-            <p id="authMessage" style="font-size:0.88rem; font-weight:600; margin-top:6px;"></p>
           </div>
-
-          <!-- Create Student Login Form -->
-          <div id="panelCreateStudent" style="display:none;">
-            <p class="subtext">Register a new **Student Login** account.</p>
-            <div class="form-grid">
-              <div class="field">
-                <label for="stuName">Full Name</label>
-                <input type="text" id="stuName" placeholder="Student full name" />
-              </div>
-              <div class="field">
-                <label for="stuId">Student Roll / ID</label>
-                <input type="text" id="stuId" placeholder="e.g., STU-2026-01" />
-              </div>
-              <div class="field">
-                <label for="stuCourse">Course</label>
-                <select id="stuCourse">
-                  <option value="BA LLB">BA LLB</option>
-                  <option value="BBA LLB">BBA LLB</option>
-                  <option value="BSC LLB">BSC LLB</option>
-                  <option value="LLB">LLB</option>
-                  <option value="LLB HONS">LLB HONS</option>
-                  <option value="LLM">LLM</option>
-                  <option value="Ph.D">Ph.D</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="stuEmail">Email Address</label>
-                <input type="email" id="stuEmail" placeholder="student@domain.com" />
-              </div>
-              <div class="field">
-                <label for="stuPass">Create Password</label>
-                <input type="password" id="stuPass" placeholder="Choose a password" />
-              </div>
-            </div>
-            <button class="btn btn-success" onclick="createAccount('Student')">Create Student Login</button>
-          </div>
-
-          <!-- Create Faculty Login Form -->
-          <div id="panelCreateFaculty" style="display:none;">
-            <p class="subtext">Register a new **Faculty Login** account.</p>
-            <div class="form-grid">
-              <div class="field">
-                <label for="facName">Faculty Name</label>
-                <input type="text" id="facName" placeholder="e.g., Faculty 1" />
-              </div>
-              <div class="field">
-                <label for="facId">Faculty ID</label>
-                <input type="text" id="facId" placeholder="e.g., FAC-101" />
-              </div>
-              <div class="field">
-                <label for="facDept">Primary Course / Subject</label>
-                <input type="text" id="facDept" placeholder="e.g., Law of Contract I / BA LLB" />
-              </div>
-              <div class="field">
-                <label for="facEmail">Email Address</label>
-                <input type="email" id="facEmail" placeholder="faculty@domain.com" />
-              </div>
-              <div class="field">
-                <label for="facPass">Create Password</label>
-                <input type="password" id="facPass" placeholder="Choose a password" />
-              </div>
-            </div>
-            <button class="btn btn-success" onclick="createAccount('Faculty')">Create Faculty Login</button>
+          <button class="btn" onclick="facultyAddSubject()">Add Subject</button>
+          <div class="table-wrap" style="margin-top:14px;">
+            <table>
+              <thead><tr><th>Course</th><th>Added Subjects</th></tr></thead>
+              <tbody id="customSubjectsBody"></tbody>
+            </table>
           </div>
         </div>
 
         <div class="card">
-          <div class="card-header">
-            <h2>Registered Accounts on This Browser</h2>
+          <div class="card-header"><h2>Faculty: Add Student</h2></div>
+          <div class="form-grid">
+            <div class="field"><label>Student Name</label><input type="text" id="facStuName" placeholder="Full name" /></div>
+            <div class="field"><label>Student Roll / ID</label><input type="text" id="facStuId" placeholder="e.g., STU-101" /></div>
+            <div class="field">
+              <label>Course</label>
+              <select id="facStuCourse">
+                <option value="BA LLB">BA LLB</option>
+                <option value="BBA LLB">BBA LLB</option>
+                <option value="BSC LLB">BSC LLB</option>
+                <option value="LLB">LLB</option>
+                <option value="LLB HONS">LLB HONS</option>
+                <option value="LLM">LLM</option>
+                <option value="Ph.D">Ph.D</option>
+              </select>
+            </div>
+            <div class="field"><label>Student Email</label><input type="email" id="facStuEmail" placeholder="student@domain.com" /></div>
+            <div class="field"><label>Password</label><input type="password" id="facStuPass" placeholder="Password" /></div>
           </div>
+          <button class="btn btn-success" onclick="facultyAddStudent()">Add Student</button>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>Faculty: Upload Lecture / Note / Assignment for Students</h2></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Type</label>
+              <select id="upType">
+                <option value="lecture">Lecture (YouTube ID or Link)</option>
+                <option value="note">Note / PDF (Google Drive Link)</option>
+                <option value="assignment">Assignment</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Course</label>
+              <select id="upCourse">
+                <option value="BA LLB">BA LLB</option>
+                <option value="BBA LLB">BBA LLB</option>
+                <option value="BSC LLB">BSC LLB</option>
+                <option value="LLB">LLB</option>
+                <option value="LLB HONS">LLB HONS</option>
+                <option value="LLM">LLM</option>
+                <option value="Ph.D">Ph.D</option>
+              </select>
+            </div>
+            <div class="field"><label>Title</label><input type="text" id="upTitle" placeholder="Title visible to students" /></div>
+            <div class="field"><label>YouTube ID / Drive URL / Due Note</label><input type="text" id="upValue" placeholder="e.g., dQw4w9WgXcQ or https://drive.google.com/..." /></div>
+          </div>
+          <button class="btn" onclick="facultyUploadItem()">Publish to Students</button>
+        </div>
+      </section>
+
+      <!-- ADMIN PANEL: Full Access (Edit Students, Manage Faculty, Edit Timetable) -->
+      <section id="admin-tools" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Admin: Manage Students (Edit / Remove)</h2></div>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr><th>Name</th><th>Role</th><th>ID</th><th>Email</th><th>Action</th></tr>
-              </thead>
-              <tbody id="accountsTableBody"></tbody>
+              <thead><tr><th>Name</th><th>ID</th><th>Course</th><th>Email</th><th>Actions</th></tr></thead>
+              <tbody id="adminStudentsBody"></tbody>
             </table>
           </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>Admin: Add or Manage Faculty Accounts</h2></div>
+          <div class="form-grid">
+            <div class="field"><label>Faculty Name</label><input type="text" id="admFacName" placeholder="Faculty name" /></div>
+            <div class="field"><label>Faculty ID</label><input type="text" id="admFacId" placeholder="FAC-201" /></div>
+            <div class="field"><label>Email</label><input type="email" id="admFacEmail" placeholder="faculty@domain.com" /></div>
+            <div class="field"><label>Password</label><input type="password" id="admFacPass" placeholder="Password" /></div>
+          </div>
+          <button class="btn" onclick="adminAddFaculty()">Add Faculty</button>
+          <div class="table-wrap" style="margin-top:14px;">
+            <table>
+              <thead><tr><th>Name</th><th>ID</th><th>Email</th><th>Actions</th></tr></thead>
+              <tbody id="adminFacultyBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><h2>Admin: Update Timetable Slot (Including Faculty Label)</h2></div>
+          <div class="form-grid">
+            <div class="field">
+              <label>Course</label>
+              <select id="admTtCourse">
+                <option value="BA LLB">BA LLB</option>
+                <option value="BBA LLB">BBA LLB</option>
+                <option value="BSC LLB">BSC LLB</option>
+                <option value="LLB">LLB</option>
+                <option value="LLB HONS">LLB HONS</option>
+                <option value="LLM">LLM</option>
+                <option value="Ph.D">Ph.D</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Day</label>
+              <select id="admTtDay">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Period</label>
+              <select id="admTtPeriod">
+                <option value="p1">Period 1</option>
+                <option value="p2">Period 2</option>
+                <option value="p3">Period 3</option>
+                <option value="p4">Period 4</option>
+                <option value="p5">Period 5</option>
+                <option value="p6">Period 6</option>
+                <option value="p7">Period 7</option>
+              </select>
+            </div>
+            <div class="field"><label>Subject & Faculty Text</label><input type="text" id="admTtText" placeholder="e.g., Law of Contract I (Faculty 1)" /></div>
+          </div>
+          <button class="btn btn-success" onclick="adminUpdateTimetable()">Save Timetable Slot</button>
         </div>
       </section>
 
@@ -1142,18 +750,19 @@
   <script>
     const F1 = "Faculty 1";
 
-    // Semester I Timetables (Faculty 1 placeholder; No College Name / Logo)
-    const timetables = {
+    // Detect URL role (?role=student | ?role=faculty | ?role=admin)
+    const params = new URLSearchParams(window.location.search);
+    const urlRoleParam = (params.get("role") || "student").toLowerCase();
+    const portalRole = ["student", "faculty", "admin"].includes(urlRoleParam) ? urlRoleParam : "student";
+
+    // Timetables (No college name/logo; Faculty 1 placeholder)
+    const defaultTimetables = {
       "BA LLB": {
-        label: "BA LLB • Semester I",
-        subtitle: "5-Year Integrated Degree Course",
+        label: "BA LLB • Semester I", subtitle: "5-Year Integrated Degree Course",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
-          { key: "p5", name: "Period 5 (12:40–01:25)" },
-          { key: "p6", name: "Period 6 (02:45–03:30)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }, { key: "p6", name: "Period 6 (02:45–03:30)" },
           { key: "p7", name: "Period 7 (03:30–04:00)" }
         ],
         days: {
@@ -1165,15 +774,11 @@
         }
       },
       "BBA LLB": {
-        label: "BBA LLB • Semester I",
-        subtitle: "5-Year Integrated Degree Course",
+        label: "BBA LLB • Semester I", subtitle: "5-Year Integrated Degree Course",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
-          { key: "p5", name: "Period 5 (12:40–01:25)" },
-          { key: "p6", name: "Period 6 (02:45–03:30)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }, { key: "p6", name: "Period 6 (02:45–03:30)" },
           { key: "p7", name: "Period 7 (03:30–04:00)" }
         ],
         days: {
@@ -1185,15 +790,11 @@
         }
       },
       "BSC LLB": {
-        label: "BSC LLB • Semester I",
-        subtitle: "5-Year Integrated Degree Course",
+        label: "BSC LLB • Semester I", subtitle: "5-Year Integrated Degree Course",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
-          { key: "p5", name: "Period 5 (12:40–01:25)" },
-          { key: "p6", name: "Period 6 (02:45–03:30)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p5", name: "Period 5 (12:40–01:25)" }, { key: "p6", name: "Period 6 (02:45–03:30)" },
           { key: "p7", name: "Period 7 (03:30–04:00)" }
         ],
         days: {
@@ -1205,13 +806,10 @@
         }
       },
       "LLB": {
-        label: "LLB • Semester I",
-        subtitle: "3-Year Degree Course",
+        label: "LLB • Semester I", subtitle: "3-Year Degree Course",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
@@ -1224,13 +822,10 @@
         }
       },
       "LLB HONS": {
-        label: "LLB HONS • Semester I",
-        subtitle: "3-Year Degree Course (Honours)",
+        label: "LLB HONS • Semester I", subtitle: "3-Year Degree Course (Honours)",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
@@ -1243,13 +838,10 @@
         }
       },
       "LLM": {
-        label: "LLM • Semester I",
-        subtitle: "Master of Laws",
+        label: "LLM • Semester I", subtitle: "Master of Laws",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
@@ -1261,13 +853,10 @@
         }
       },
       "Ph.D": {
-        label: "Ph.D • Semester I",
-        subtitle: "Doctoral Course Work",
+        label: "Ph.D • Semester I", subtitle: "Doctoral Course Work",
         periods: [
-          { key: "p1", name: "Period 1 (09:30–10:15)" },
-          { key: "p2", name: "Period 2 (10:15–11:00)" },
-          { key: "p3", name: "Period 3 (11:10–11:55)" },
-          { key: "p4", name: "Period 4 (11:55–12:40)" },
+          { key: "p1", name: "Period 1 (09:30–10:15)" }, { key: "p2", name: "Period 2 (10:15–11:00)" },
+          { key: "p3", name: "Period 3 (11:10–11:55)" }, { key: "p4", name: "Period 4 (11:55–12:40)" },
           { key: "p5", name: "Period 5 (12:40–01:25)" }
         ],
         days: {
@@ -1280,32 +869,318 @@
       }
     };
 
+    let timetables = JSON.parse(localStorage.getItem("vj_tt_v1") || "null") || defaultTimetables;
+    let students = JSON.parse(localStorage.getItem("vj_students_v1") || "null") || [
+      { name: "Sample Student", id: "STU-001", course: "BA LLB", email: "student@vjstudy.local", pass: "1234" }
+    ];
+    let facultyList = JSON.parse(localStorage.getItem("vj_faculty_v1") || "null") || [
+      { name: "Faculty 1", id: "FAC-001", email: "faculty@vjstudy.local", pass: "1234" }
+    ];
+    const adminAccount = { name: "Portal Admin", id: "ADM-001", email: "admin@vjstudy.local", pass: "admin123" };
+
+    // Starts EMPTY so students see NOTHING until Faculty uploads!
+    let facultyUploads = JSON.parse(localStorage.getItem("vj_uploads_v1") || "[]");
+    let customSubjects = JSON.parse(localStorage.getItem("vj_subjects_v1") || "[]");
+    let tasks = JSON.parse(localStorage.getItem("vj_tasks_v1") || "[]");
+    let sessionUser = JSON.parse(localStorage.getItem("vj_session_v1") || "null");
+
     let currentCourse = "BA LLB";
 
-    function switchCourse(courseName) {
-      currentCourse = courseName;
-      document.getElementById("courseSwitcher").value = courseName;
-      document.getElementById("ttCourseSelect").value = courseName;
-      document.getElementById("activeCourseLabel").textContent = timetables[courseName].label;
-      renderDashboardSchedule();
-      renderTimetable();
+    function saveAll() {
+      localStorage.setItem("vj_tt_v1", JSON.stringify(timetables));
+      localStorage.setItem("vj_students_v1", JSON.stringify(students));
+      localStorage.setItem("vj_faculty_v1", JSON.stringify(facultyList));
+      localStorage.setItem("vj_uploads_v1", JSON.stringify(facultyUploads));
+      localStorage.setItem("vj_subjects_v1", JSON.stringify(customSubjects));
+      localStorage.setItem("vj_tasks_v1", JSON.stringify(tasks));
+      localStorage.setItem("vj_session_v1", JSON.stringify(sessionUser));
     }
 
-    function syncCourseFromTimetable(courseName) {
-      switchCourse(courseName);
+    function setupUrlDisplayAndNavigation() {
+      const base = window.location.origin + window.location.pathname;
+      document.getElementById("studentUrlText").textContent = `${base}?role=student`;
+      document.getElementById("facultyUrlText").textContent = `${base}?role=faculty`;
+      document.getElementById("adminUrlText").textContent = `${base}?role=admin`;
+
+      const titles = { student: "Student Login", faculty: "Faculty Login", admin: "Admin Login" };
+      document.getElementById("loginHeading").textContent = titles[portalRole];
+      document.getElementById("loginUrlBadge").textContent = `URL: ?role=${portalRole}`;
+      document.getElementById("sidebarPortalMode").textContent = `${portalRole.toUpperCase()} URL`;
+
+      const nav = document.getElementById("navMenu");
+      if (portalRole === "student") {
+        // Limited student navigation
+        nav.innerHTML = `
+          <div class="nav-label">Student Menu</div>
+          <button class="nav-btn" data-v="dashboard" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
+          <button class="nav-btn" data-v="lectures" onclick="openView('lectures','Recorded Lectures',this)">Lectures</button>
+          <button class="nav-btn" data-v="notes" onclick="openView('notes','Notes & PDFs',this)">Notes & PDFs</button>
+          <button class="nav-btn" data-v="assignments" onclick="openView('assignments','Assignments',this)">Assignments</button>
+          <button class="nav-btn" data-v="live" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill live">LIVE</span></button>
+          <button class="nav-btn" data-v="schedule" onclick="openView('schedule','Timetable',this)">Timetable</button>
+          <button class="nav-btn" data-v="tasks" onclick="openView('tasks','Study Planner',this)">Study Planner</button>
+          <button class="nav-btn" data-v="login" onclick="openView('login','Student Login',this)">Student Login</button>
+        `;
+      } else if (portalRole === "faculty") {
+        // Faculty tools: Add subjects, add students, upload content + timetable/live
+        nav.innerHTML = `
+          <div class="nav-label">Faculty Menu</div>
+          <button class="nav-btn" data-v="dashboard" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
+          <button class="nav-btn" data-v="faculty-tools" onclick="openView('faculty-tools','Faculty Tools',this)">Add Subject / Student / Upload</button>
+          <button class="nav-btn" data-v="live" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill live">LIVE</span></button>
+          <button class="nav-btn" data-v="schedule" onclick="openView('schedule','Timetable',this)">Timetable</button>
+          <button class="nav-btn" data-v="login" onclick="openView('login','Faculty Login',this)">Faculty Login</button>
+        `;
+      } else {
+        // Admin full access
+        nav.innerHTML = `
+          <div class="nav-label">Admin Menu</div>
+          <button class="nav-btn" data-v="dashboard" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
+          <button class="nav-btn" data-v="admin-tools" onclick="openView('admin-tools','Admin Control Panel',this)">Manage Students & Faculty</button>
+          <button class="nav-btn" data-v="faculty-tools" onclick="openView('faculty-tools','Subjects & Uploads',this)">Add Subject / Student / Upload</button>
+          <button class="nav-btn" data-v="schedule" onclick="openView('schedule','Timetable',this)">Timetable</button>
+          <button class="nav-btn" data-v="login" onclick="openView('login','Admin Login',this)">Admin Login</button>
+        `;
+      }
     }
 
-    function renderDashboardSchedule() {
-      const course = timetables[currentCourse];
-      const mon = course.days.Monday;
-      document.getElementById("dashTimetableHeading").textContent = `${currentCourse} — Monday Preview`;
-      const tbody = document.getElementById("dashScheduleBody");
-      tbody.innerHTML = "";
-      course.periods.slice(0, 5).forEach(p => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `<td><strong>${p.name.split(" (")[0]}</strong></td><td>${p.name.match(/\((.*?)\)/)?.[1] || ""}</td><td>${mon[p.key] || "—"}</td>`;
-        tbody.appendChild(tr);
-      });
+    function updateHeaderUser() {
+      const badge = document.getElementById("headerRoleBadge");
+      const activeRole = sessionUser ? sessionUser.role : portalRole;
+      badge.textContent = activeRole;
+      badge.className = "role-badge " + activeRole.toLowerCase();
+
+      const name = sessionUser ? sessionUser.name : `Guest (${portalRole})`;
+      document.getElementById("headerUserName").textContent = name;
+      document.getElementById("headerAvatar").textContent = name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+    }
+
+    function openLoginPage() {
+      const btn = document.querySelector('#navMenu button[data-v="login"]');
+      openView("login", `${portalRole.toUpperCase()} Login`, btn);
+    }
+
+    function signInWithUrlRole() {
+      const idVal = document.getElementById("loginEmail").value.trim().toLowerCase();
+      const passVal = document.getElementById("loginPassword").value.trim();
+      const fb = document.getElementById("loginFeedback");
+
+      let matched = null;
+      if (portalRole === "student") {
+        matched = students.find(s => (s.email.toLowerCase() === idVal || s.id.toLowerCase() === idVal) && s.pass === passVal);
+      } else if (portalRole === "faculty") {
+        matched = facultyList.find(f => (f.email.toLowerCase() === idVal || f.id.toLowerCase() === idVal) && f.pass === passVal);
+      } else {
+        if ((adminAccount.email.toLowerCase() === idVal || adminAccount.id.toLowerCase() === idVal) && adminAccount.pass === passVal) {
+          matched = adminAccount;
+        }
+      }
+
+      if (!matched) {
+        fb.style.color = "var(--danger)";
+        fb.textContent = `Invalid ${portalRole} credentials.`;
+        return;
+      }
+      sessionUser = { name: matched.name, role: portalRole.charAt(0).toUpperCase() + portalRole.slice(1), id: matched.id };
+      if (matched.course && timetables[matched.course]) switchCourse(matched.course);
+      saveAll();
+      updateHeaderUser();
+      fb.style.color = "var(--success)";
+      fb.textContent = `Signed in as ${matched.name}.`;
+    }
+
+    function quickSignInUrlRole() {
+      const fb = document.getElementById("loginFeedback");
+      if (portalRole === "student") {
+        const s = students[0] || { name: "Student", id: "STU-001" };
+        sessionUser = { name: s.name, role: "Student", id: s.id };
+      } else if (portalRole === "faculty") {
+        const f = facultyList[0] || { name: "Faculty 1", id: "FAC-001" };
+        sessionUser = { name: f.name, role: "Faculty", id: f.id };
+      } else {
+        sessionUser = { name: adminAccount.name, role: "Admin", id: adminAccount.id };
+      }
+      saveAll();
+      updateHeaderUser();
+      fb.style.color = "var(--success)";
+      fb.textContent = `Demo signed in as ${sessionUser.name} (${sessionUser.role}).`;
+    }
+
+    function signOut() {
+      sessionUser = null;
+      saveAll();
+      updateHeaderUser();
+      document.getElementById("loginFeedback").textContent = "Signed out.";
+    }
+
+    function openView(viewId, title, btn) {
+      document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
+      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById(viewId).classList.add("active");
+      if (btn) btn.classList.add("active");
+      document.getElementById("pageTitle").textContent = title;
+      document.getElementById("sidebar").classList.remove("open");
+      renderAll();
+    }
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("open");
+    }
+
+    function switchCourse(course) {
+      currentCourse = course;
+      document.getElementById("courseSwitcher").value = course;
+      document.getElementById("ttCourseSelect").value = course;
+      document.getElementById("activeCourseLabel").textContent = `${course} • Semester I`;
+      renderAll();
+    }
+
+    // Faculty actions: Add Subject, Add Student, Upload Materials
+    function facultyAddSubject() {
+      const course = document.getElementById("facSubCourse").value;
+      const sub = document.getElementById("facSubName").value.trim();
+      if (!sub) return alert("Enter subject name.");
+      customSubjects.push({ course, subject: `${sub} (${F1})` });
+      document.getElementById("facSubName").value = "";
+      saveAll();
+      renderAll();
+    }
+
+    function facultyAddStudent() {
+      const name = document.getElementById("facStuName").value.trim();
+      const id = document.getElementById("facStuId").value.trim() || ("STU-" + Math.floor(100 + Math.random() * 900));
+      const course = document.getElementById("facStuCourse").value;
+      const email = document.getElementById("facStuEmail").value.trim();
+      const pass = document.getElementById("facStuPass").value.trim() || "1234";
+      if (!name || !email) return alert("Enter student name and email.");
+      students.push({ name, id, course, email, pass });
+      document.getElementById("facStuName").value = "";
+      document.getElementById("facStuId").value = "";
+      document.getElementById("facStuEmail").value = "";
+      document.getElementById("facStuPass").value = "";
+      saveAll();
+      renderAll();
+      alert("Student account added.");
+    }
+
+    function facultyUploadItem() {
+      const type = document.getElementById("upType").value;
+      const course = document.getElementById("upCourse").value;
+      const title = document.getElementById("upTitle").value.trim();
+      const value = document.getElementById("upValue").value.trim();
+      if (!title || !value) return alert("Enter title and link/ID/details.");
+      facultyUploads.unshift({ id: Date.now(), type, course, title, value });
+      document.getElementById("upTitle").value = "";
+      document.getElementById("upValue").value = "";
+      saveAll();
+      renderAll();
+      alert("Published for students.");
+    }
+
+    // Admin actions: Edit Student, Delete Student, Add/Delete Faculty, Edit Timetable
+    function adminEditStudent(idx) {
+      const s = students[idx];
+      const newName = prompt("Edit Student Name:", s.name);
+      if (newName === null) return;
+      const newCourse = prompt("Edit Course (BA LLB, BBA LLB, BSC LLB, LLB, LLB HONS, LLM, Ph.D):", s.course);
+      if (newCourse === null) return;
+      const newEmail = prompt("Edit Email:", s.email);
+      if (newEmail === null) return;
+      students[idx] = { ...s, name: newName.trim() || s.name, course: newCourse.trim() || s.course, email: newEmail.trim() || s.email };
+      saveAll();
+      renderAll();
+    }
+
+    function adminDeleteStudent(idx) {
+      if (!confirm("Remove this student?")) return;
+      students.splice(idx, 1);
+      saveAll();
+      renderAll();
+    }
+
+    function adminAddFaculty() {
+      const name = document.getElementById("admFacName").value.trim();
+      const id = document.getElementById("admFacId").value.trim() || ("FAC-" + Math.floor(100 + Math.random() * 900));
+      const email = document.getElementById("admFacEmail").value.trim();
+      const pass = document.getElementById("admFacPass").value.trim() || "1234";
+      if (!name || !email) return alert("Enter faculty name and email.");
+      facultyList.push({ name, id, email, pass });
+      document.getElementById("admFacName").value = "";
+      document.getElementById("admFacId").value = "";
+      document.getElementById("admFacEmail").value = "";
+      document.getElementById("admFacPass").value = "";
+      saveAll();
+      renderAll();
+    }
+
+    function adminDeleteFaculty(idx) {
+      if (!confirm("Remove this faculty account?")) return;
+      facultyList.splice(idx, 1);
+      saveAll();
+      renderAll();
+    }
+
+    function adminUpdateTimetable() {
+      const course = document.getElementById("admTtCourse").value;
+      const day = document.getElementById("admTtDay").value;
+      const period = document.getElementById("admTtPeriod").value;
+      const text = document.getElementById("admTtText").value.trim();
+      if (!text) return alert("Enter subject & faculty text.");
+      if (!timetables[course].days[day]) timetables[course].days[day] = {};
+      timetables[course].days[day][period] = text;
+      document.getElementById("admTtText").value = "";
+      saveAll();
+      renderAll();
+      alert("Timetable updated.");
+    }
+
+    // Student Content Rendering (Strict: only show if Faculty uploaded for active course)
+    function renderStudentUploads() {
+      const courseLectures = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse);
+      const courseNotes = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse);
+      const courseAssigns = facultyUploads.filter(u => u.type === "assignment" && u.course === currentCourse);
+
+      document.getElementById("lecCourseBadge").textContent = currentCourse;
+      document.getElementById("noteCourseBadge").textContent = currentCourse;
+      document.getElementById("assignCourseBadge").textContent = currentCourse;
+
+      const lecArea = document.getElementById("studentLecturesArea");
+      if (courseLectures.length === 0) {
+        lecArea.innerHTML = `<div class="empty-state">No lectures uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
+      } else {
+        lecArea.innerHTML = courseLectures.map(l => {
+          const ytId = l.value.includes("v=") ? l.value.split("v=")[1].split("&")[0] : l.value.split("/").pop();
+          return `
+            <div class="item-box" style="margin-bottom:14px;">
+              <div><span class="badge">${l.course}</span><h3 style="margin-top:6px;">${l.title}</h3></div>
+              <div class="video-wrap"><iframe src="https://www.youtube.com/embed/${ytId}" allowfullscreen></iframe></div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      const noteArea = document.getElementById("studentNotesArea");
+      if (courseNotes.length === 0) {
+        noteArea.innerHTML = `<div class="empty-state">No notes or PDFs uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
+      } else {
+        noteArea.innerHTML = `<div class="grid">` + courseNotes.map(n => `
+          <div class="item-box">
+            <div><span class="badge green">${n.course}</span><h3 style="margin-top:8px;">${n.title}</h3></div>
+            <a class="btn btn-sm" href="${n.value}" target="_blank">Open Material</a>
+          </div>
+        `).join("") + `</div>`;
+      }
+
+      const assignArea = document.getElementById("studentAssignmentsArea");
+      if (courseAssigns.length === 0) {
+        assignArea.innerHTML = `<div class="empty-state">No assignments uploaded by Faculty for <strong>${currentCourse}</strong> yet.</div>`;
+      } else {
+        assignArea.innerHTML = `<div class="grid">` + courseAssigns.map(a => `
+          <div class="item-box">
+            <div><span class="badge amber">${a.course}</span><h3 style="margin-top:8px;">${a.title}</h3><p class="subtext" style="margin-top:4px;">${a.value}</p></div>
+          </div>
+        `).join("") + `</div>`;
+      }
     }
 
     function renderTimetable() {
@@ -1335,420 +1210,99 @@
           bodyRows.appendChild(tr);
         });
       }
-    }
 
-    // Navigation & Sidebar
-    function openView(viewId, title, btn) {
-      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(viewId).classList.add('active');
-      if (btn) btn.classList.add('active');
-      document.getElementById('pageTitle').textContent = title;
-      document.getElementById('sidebar').classList.remove('open');
-    }
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-    }
-
-    // Accounts: Student & Faculty Login + Creation
-    const defaultAccounts = [
-      { name: "Demo Student", role: "Student", id: "STU-001", email: "student@vjstudy.local", pass: "1234", course: "BA LLB" },
-      { name: "Faculty 1", role: "Faculty", id: "FAC-001", email: "faculty1@vjstudy.local", pass: "1234", course: "All Courses" }
-    ];
-    let accounts = JSON.parse(localStorage.getItem('vj_lms_accounts') || 'null') || defaultAccounts;
-    let activeUser = JSON.parse(localStorage.getItem('vj_lms_active_user') || 'null') || { name: "Guest Student", role: "Student", id: "GUEST" };
-
-    function saveAccountsState() {
-      localStorage.setItem('vj_lms_accounts', JSON.stringify(accounts));
-      localStorage.setItem('vj_lms_active_user', JSON.stringify(activeUser));
-      renderAuthUI();
-    }
-
-    function switchAuthTab(tab) {
-      ['login', 'create-student', 'create-faculty'].forEach(t => {
-        document.getElementById('tab' + t.split('-').map(w => w[0].toUpperCase() + w.slice(1)).join('')).classList.remove('active');
-      });
-      document.getElementById('panelLogin').style.display = tab === 'login' ? 'block' : 'none';
-      document.getElementById('panelCreateStudent').style.display = tab === 'create-student' ? 'block' : 'none';
-      document.getElementById('panelCreateFaculty').style.display = tab === 'create-faculty' ? 'block' : 'none';
-
-      if (tab === 'login') document.getElementById('tabLogin').classList.add('active');
-      if (tab === 'create-student') document.getElementById('tabCreateStudent').classList.add('active');
-      if (tab === 'create-faculty') document.getElementById('tabCreateFaculty').classList.add('active');
-    }
-
-    function createAccount(role) {
-      const msg = document.getElementById('authMessage');
-      if (role === 'Student') {
-        const name = document.getElementById('stuName').value.trim();
-        const id = document.getElementById('stuId').value.trim() || ('STU-' + Math.floor(100 + Math.random() * 900));
-        const course = document.getElementById('stuCourse').value;
-        const email = document.getElementById('stuEmail').value.trim();
-        const pass = document.getElementById('stuPass').value.trim();
-        if (!name || !email || !pass) { alert("Please fill Name, Email, and Password."); return; }
-        const newAcc = { name, role: "Student", id, email, pass, course };
-        accounts.push(newAcc);
-        activeUser = newAcc;
-        switchCourse(course);
-        saveAccountsState();
-        switchAuthTab('login');
-        msg.style.color = 'var(--success)';
-        msg.textContent = `Student account created & signed in as ${name} (${id}).`;
-      } else {
-        const name = document.getElementById('facName').value.trim();
-        const id = document.getElementById('facId').value.trim() || ('FAC-' + Math.floor(100 + Math.random() * 900));
-        const dept = document.getElementById('facDept').value.trim() || 'Faculty 1';
-        const email = document.getElementById('facEmail').value.trim();
-        const pass = document.getElementById('facPass').value.trim();
-        if (!name || !email || !pass) { alert("Please fill Name, Email, and Password."); return; }
-        const newAcc = { name, role: "Faculty", id, email, pass, course: dept };
-        accounts.push(newAcc);
-        activeUser = newAcc;
-        saveAccountsState();
-        switchAuthTab('login');
-        msg.style.color = 'var(--success)';
-        msg.textContent = `Faculty account created & signed in as ${name} (${id}).`;
-      }
-    }
-
-    function handleLogin() {
-      const identifier = document.getElementById('loginEmail').value.trim().toLowerCase();
-      const pass = document.getElementById('loginPassword').value.trim();
-      const msg = document.getElementById('authMessage');
-      const found = accounts.find(a => (a.email.toLowerCase() === identifier || a.id.toLowerCase() === identifier) && a.pass === pass);
-      if (!found) {
-        msg.style.color = 'var(--danger)';
-        msg.textContent = "Invalid credentials. Try Demo Student/Faculty login or create a new account.";
-        return;
-      }
-      activeUser = found;
-      if (found.course && timetables[found.course]) switchCourse(found.course);
-      saveAccountsState();
-      msg.style.color = 'var(--success)';
-      msg.textContent = `Signed in as ${found.name} (${found.role}).`;
-    }
-
-    function quickDemoLogin(role) {
-      const found = accounts.find(a => a.role === role) || defaultAccounts[role === 'Faculty' ? 1 : 0];
-      activeUser = found;
-      saveAccountsState();
-      const msg = document.getElementById('authMessage');
-      msg.style.color = 'var(--success)';
-      msg.textContent = `Quick signed in as ${found.name} (${found.role}).`;
-    }
-
-    function handleLogout() {
-      activeUser = { name: "Guest Student", role: "Student", id: "GUEST" };
-      saveAccountsState();
-      const msg = document.getElementById('authMessage');
-      msg.style.color = 'var(--muted)';
-      msg.textContent = "Signed out to Guest Student.";
-    }
-
-    function signInAsAccount(idx) {
-      activeUser = accounts[idx];
-      if (activeUser.course && timetables[activeUser.course]) switchCourse(activeUser.course);
-      saveAccountsState();
-    }
-
-    function renderAuthUI() {
-      const badge = document.getElementById('headerRoleBadge');
-      badge.textContent = activeUser.role;
-      badge.className = 'role-badge' + (activeUser.role === 'Faculty' ? ' faculty' : '');
-
-      document.getElementById('headerUserName').textContent = activeUser.name;
-      const initials = activeUser.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'VJ';
-      document.getElementById('headerAvatar').textContent = initials;
-      document.getElementById('currentAccountBadge').textContent = `Signed in: ${activeUser.name} (${activeUser.role})`;
-      document.getElementById('assignmentRoleNote').textContent = activeUser.role === 'Faculty' ? 'Faculty Grading Mode' : 'Student Submission Mode';
-
-      const tbody = document.getElementById('accountsTableBody');
-      tbody.innerHTML = '';
-      accounts.forEach((a, i) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><strong>${a.name}</strong></td>
-          <td><span class="badge ${a.role === 'Faculty' ? 'amber' : ''}">${a.role}</span></td>
-          <td>${a.id}</td>
-          <td>${a.email}</td>
-          <td><button class="btn btn-sm btn-outline" onclick="signInAsAccount(${i})">Switch</button></td>
-        `;
-        tbody.appendChild(tr);
-      });
-      renderAssignments();
-    }
-
-    // Module Progress
-    const totalLessons = 6;
-    let completedLessons = JSON.parse(localStorage.getItem('vj_lms_lessons') || '[false,false,false,false,false,false]');
-
-    function updateProgressUI() {
-      localStorage.setItem('vj_lms_lessons', JSON.stringify(completedLessons));
-      const doneCount = completedLessons.filter(Boolean).length;
-      const pct = Math.round((doneCount / totalLessons) * 100);
-
-      document.getElementById('sidebarProgressText').textContent = pct + '%';
-      document.getElementById('sidebarProgressBar').style.width = pct + '%';
-      document.getElementById('kpiProgress').textContent = pct + '%';
-      document.getElementById('kpiCompletedSub').textContent = `${doneCount} of ${totalLessons} lessons completed`;
-      document.getElementById('moduleProgressBadge').textContent = `${doneCount} / ${totalLessons} Completed`;
-
-      completedLessons.forEach((isDone, idx) => {
-        const btn = document.getElementById('chk-' + idx);
-        if (!btn) return;
-        if (isDone) {
-          btn.textContent = '✓ Completed';
-          btn.classList.add('btn-success');
-        } else {
-          btn.textContent = 'Mark Complete';
-          btn.classList.remove('btn-success');
-        }
-      });
-    }
-    function toggleLesson(idx) {
-      completedLessons[idx] = !completedLessons[idx];
-      updateProgressUI();
-    }
-    updateProgressUI();
-
-    // Assignments Feature
-    let assignments = JSON.parse(localStorage.getItem('vj_lms_assignments') || 'null') || [
-      { id: 0, title: "Unit 1 Case Brief & Summary", course: "BA LLB", due: "Friday", status: "Pending", submission: "" },
-      { id: 1, title: "Semester I Legal Research Worksheet", course: "All Courses", due: "Next Monday", status: "Pending", submission: "" }
-    ];
-
-    function renderAssignments() {
-      localStorage.setItem('vj_lms_assignments', JSON.stringify(assignments));
-      document.getElementById('kpiAssignments').textContent = assignments.length;
-      const sel = document.getElementById('assignSelect');
-      sel.innerHTML = assignments.map(a => `<option value="${a.id}">${a.title} (${a.course})</option>`).join('');
-
-      const tbody = document.getElementById('assignmentsBody');
-      tbody.innerHTML = '';
-      assignments.forEach(a => {
-        const badgeClass = a.status === 'Graded' ? 'green' : (a.status === 'Submitted' ? '' : 'amber');
-        const gradeBtn = activeUser.role === 'Faculty'
-          ? `<button class="btn btn-sm btn-success" onclick="markGraded(${a.id})">Mark Graded</button>`
-          : `<span style="font-size:0.78rem; color:var(--muted);">—</span>`;
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><strong>${a.title}</strong></td>
-          <td>${a.course}</td>
-          <td>${a.due}</td>
-          <td><span class="badge ${badgeClass}">${a.status}</span>${a.submission ? `<div style="font-size:0.78rem; color:var(--muted); margin-top:4px;">${a.submission}</div>` : ''}</td>
-          <td>${gradeBtn}</td>
-        `;
-        tbody.appendChild(tr);
+      const mon = course.days.Monday || {};
+      document.getElementById("dashScheduleTitle").textContent = `${currentCourse} — Monday Timetable`;
+      const dashBody = document.getElementById("dashScheduleBody");
+      dashBody.innerHTML = "";
+      course.periods.slice(0, 5).forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td><strong>${p.name.split(" (")[0]}</strong></td><td>${p.name.match(/\((.*?)\)/)?.[1] || ""}</td><td>${mon[p.key] || "—"}</td>`;
+        dashBody.appendChild(tr);
       });
     }
 
-    function submitAssignment() {
-      const id = Number(document.getElementById('assignSelect').value);
-      const val = document.getElementById('assignLinkInput').value.trim();
-      if (!val) { alert("Please enter a submission link or note."); return; }
-      const item = assignments.find(a => a.id === id);
-      if (item) {
-        item.submission = `${activeUser.name}: ${val}`;
-        item.status = "Submitted";
-        document.getElementById('assignLinkInput').value = '';
-        renderAssignments();
-      }
-    }
-
-    function markGraded(id) {
-      const item = assignments.find(a => a.id === id);
-      if (item) {
-        item.status = "Graded";
-        renderAssignments();
-      }
-    }
-
-    // Discussion Forum Feature
-    let forumPosts = JSON.parse(localStorage.getItem('vj_lms_forum') || 'null') || [
-      { topic: "Semester I Timetable & Period Structure", course: "BA LLB", author: "Faculty 1 (Faculty)", time: "Today", msg: "Periods 1 to 5 run in the morning session; please check your course tab for exact subjects." }
-    ];
-
-    function renderForum() {
-      localStorage.setItem('vj_lms_forum', JSON.stringify(forumPosts));
-      const wrap = document.getElementById('forumList');
-      wrap.innerHTML = '';
-      forumPosts.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'post-card';
-        div.innerHTML = `
-          <div class="post-meta"><strong>${p.topic}</strong> • <span class="badge">${p.course}</span> • Posted by ${p.author} (${p.time})</div>
-          <p style="font-size:0.9rem;">${p.msg}</p>
-        `;
-        wrap.appendChild(div);
-      });
-    }
-
-    function addForumPost() {
-      const topic = document.getElementById('forumTopic').value.trim();
-      const course = document.getElementById('forumCourse').value;
-      const msg = document.getElementById('forumMessage').value.trim();
-      if (!topic || !msg) { alert("Please enter both a topic and message."); return; }
-      forumPosts.unshift({
-        topic,
-        course,
-        author: `${activeUser.name} (${activeUser.role})`,
-        time: new Date().toLocaleDateString(),
-        msg
-      });
-      document.getElementById('forumTopic').value = '';
-      document.getElementById('forumMessage').value = '';
-      renderForum();
-    }
-
-    // Attendance & Streak Feature
-    let attendanceLogs = JSON.parse(localStorage.getItem('vj_lms_attendance') || '[]');
-
-    function renderAttendance() {
-      localStorage.setItem('vj_lms_attendance', JSON.stringify(attendanceLogs));
-      const count = attendanceLogs.length;
-      document.getElementById('kpiAttendance').textContent = `${count} ${count === 1 ? 'Day' : 'Days'}`;
-      document.getElementById('kpiStreak').textContent = `Study Streak: ${count} ${count === 1 ? 'day' : 'days'}`;
-      document.getElementById('attendanceBadge').textContent = `${count} Check-ins`;
-
-      const tbody = document.getElementById('attendanceBody');
-      tbody.innerHTML = '';
-      attendanceLogs.forEach(row => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${row.date}</td><td>${row.course}</td><td>${row.user}</td><td>${row.role}</td><td><span class="badge green">Present</span></td>`;
-        tbody.appendChild(tr);
-      });
-    }
-
-    function markAttendance() {
-      const todayStr = new Date().toLocaleDateString();
-      const fb = document.getElementById('attendanceFeedback');
-      const already = attendanceLogs.some(r => r.date === todayStr && r.user === activeUser.name && r.course === currentCourse);
-      if (already) {
-        fb.style.color = 'var(--warning)';
-        fb.textContent = `Already checked in for ${currentCourse} today (${todayStr}).`;
-        return;
-      }
-      attendanceLogs.unshift({ date: todayStr, course: currentCourse, user: activeUser.name, role: activeUser.role });
-      fb.style.color = 'var(--success)';
-      fb.textContent = `Attendance recorded for ${currentCourse} on ${todayStr}!`;
-      renderAttendance();
-    }
-
-    // Live Classroom (Jitsi Meet)
-    let jitsiApi = null;
-    function startLiveClass() {
-      const room = document.getElementById('roomInput').value.trim() || 'vjstudyroom-live-101';
-      const container = document.getElementById('meetContainer');
-      container.innerHTML = '';
-      if (jitsiApi) jitsiApi.dispose();
-      jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', {
-        roomName: room,
-        parentNode: container,
-        width: '100%',
-        height: 500
-      });
-    }
-    function endLiveClass() {
-      if (jitsiApi) { jitsiApi.dispose(); jitsiApi = null; }
-      document.getElementById('meetContainer').innerHTML = '<p>Session ended. Click "Start / Join Live Room" anytime to rejoin.</p>';
-    }
-
-    // Video Player & Module Launcher
-    function loadVideo() {
-      const id = document.getElementById('videoSelect').value;
-      document.getElementById('ytPlayer').src = 'https://www.youtube.com/embed/' + id;
-    }
-    function launchLecture(videoId) {
-      document.getElementById('videoSelect').value = videoId;
-      loadVideo();
-      openView('lectures', 'Recorded Lectures', document.querySelectorAll('.nav-btn')[3]);
-    }
-
-    // Notes Search
-    function filterNotes() {
-      const q = document.getElementById('noteSearch').value.toLowerCase();
-      document.querySelectorAll('#notesGrid .item-box').forEach(card => {
-        const text = card.getAttribute('data-title') + ' ' + card.innerText.toLowerCase();
-        card.style.display = text.includes(q) ? 'flex' : 'none';
-      });
-    }
-
-    // Quiz Engine
-    const questions = [
-      {
-        q: "Which YouTube privacy setting keeps class recordings accessible only to students with the link?",
-        options: ["Public", "Unlisted", "Private"],
-        answer: 1
-      },
-      {
-        q: "How do you publish saved changes in VS Code to your live GitHub Pages LMS?",
-        options: ["Commit -> Sync Changes", "Delete -> Reinstall", "Close VS Code"],
-        answer: 0
-      }
-    ];
-    let qIndex = 0;
-    function renderQuiz() {
-      const item = questions[qIndex];
-      document.getElementById('quizProgress').textContent = `Question ${qIndex + 1} of ${questions.length}`;
-      document.getElementById('quizQuestion').textContent = item.q;
-      document.getElementById('quizFeedback').textContent = '';
-      const opts = document.getElementById('quizOptions');
-      opts.innerHTML = '';
-      item.options.forEach((opt, i) => {
-        const b = document.createElement('button');
-        b.className = 'quiz-option';
-        b.textContent = opt;
-        b.onclick = () => {
-          const fb = document.getElementById('quizFeedback');
-          if (i === item.answer) {
-            fb.style.color = 'var(--success)';
-            fb.textContent = 'Correct!';
-          } else {
-            fb.style.color = 'var(--danger)';
-            fb.textContent = 'Incorrect — try again.';
-          }
-        };
-        opts.appendChild(b);
-      });
-    }
-    function nextQuestion() {
-      qIndex = (qIndex + 1) % questions.length;
-      renderQuiz();
-    }
-    renderQuiz();
-
-    // Study Planner
-    let tasks = JSON.parse(localStorage.getItem('vj_tasks') || '["Complete Module 1 Lecture", "Review Foundation Notes"]');
     function renderTasks() {
-      localStorage.setItem('vj_tasks', JSON.stringify(tasks));
-      document.getElementById('kpiTasks').textContent = tasks.length;
-      const list = document.getElementById('taskList');
-      list.innerHTML = '';
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
       tasks.forEach((t, i) => {
-        const li = document.createElement('li');
+        const li = document.createElement("li");
         li.innerHTML = `<span>${t}</span><button class="btn btn-sm btn-danger" onclick="removeTask(${i})">Remove</button>`;
         list.appendChild(li);
       });
     }
     function addTask() {
-      const inp = document.getElementById('taskInput');
+      const inp = document.getElementById("taskInput");
       if (!inp.value.trim()) return;
       tasks.push(inp.value.trim());
-      inp.value = '';
+      inp.value = "";
+      saveAll();
       renderTasks();
     }
     function removeTask(i) {
       tasks.splice(i, 1);
+      saveAll();
       renderTasks();
     }
-    renderTasks();
 
-    // Initial Renders
-    renderAuthUI();
-    renderForum();
-    renderAttendance();
-    renderDashboardSchedule();
-    renderTimetable();
+    let jitsiApi = null;
+    function startLiveClass() {
+      const room = document.getElementById("roomInput").value.trim() || "vjstudyroom-live-101";
+      const container = document.getElementById("meetContainer");
+      container.innerHTML = "";
+      if (jitsiApi) jitsiApi.dispose();
+      jitsiApi = new JitsiMeetExternalAPI("meet.jit.si", { roomName: room, parentNode: container, width: "100%", height: 460 });
+    }
+    function endLiveClass() {
+      if (jitsiApi) { jitsiApi.dispose(); jitsiApi = null; }
+      document.getElementById("meetContainer").innerHTML = "<p>Session ended.</p>";
+    }
+
+    function renderAll() {
+      document.getElementById("kpiCourse").textContent = currentCourse;
+      document.getElementById("kpiLecCount").textContent = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse).length;
+      document.getElementById("kpiNoteCount").textContent = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse).length;
+      document.getElementById("kpiStuCount").textContent = students.length;
+
+      renderStudentUploads();
+      renderTimetable();
+      renderTasks();
+
+      const subBody = document.getElementById("customSubjectsBody");
+      if (subBody) {
+        subBody.innerHTML = customSubjects.length
+          ? customSubjects.map(s => `<tr><td>${s.course}</td><td>${s.subject}</td></tr>`).join("")
+          : `<tr><td colspan="2" style="color:var(--muted);">No extra subjects added yet.</td></tr>`;
+      }
+
+      const admStuBody = document.getElementById("adminStudentsBody");
+      if (admStuBody) {
+        admStuBody.innerHTML = students.map((s, i) => `
+          <tr>
+            <td><strong>${s.name}</strong></td><td>${s.id}</td><td>${s.course}</td><td>${s.email}</td>
+            <td>
+              <button class="btn btn-sm btn-outline" onclick="adminEditStudent(${i})">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="adminDeleteStudent(${i})">Delete</button>
+            </td>
+          </tr>
+        `).join("");
+      }
+
+      const admFacBody = document.getElementById("adminFacultyBody");
+      if (admFacBody) {
+        admFacBody.innerHTML = facultyList.map((f, i) => `
+          <tr>
+            <td><strong>${f.name}</strong></td><td>${f.id}</td><td>${f.email}</td>
+            <td><button class="btn btn-sm btn-danger" onclick="adminDeleteFaculty(${i})">Remove</button></td>
+          </tr>
+        `).join("");
+      }
+    }
+
+    // Boot: open directly to the URL's login view so Student / Faculty / Admin URLs land on their login screen
+    setupUrlDisplayAndNavigation();
+    updateHeaderUser();
+    openLoginPage();
   </script>
 </body>
 </html>
