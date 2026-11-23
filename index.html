@@ -57,16 +57,17 @@
       margin-bottom: 18px;
     }
 
-    .brand-mark {
+    /* Exact blue rounded-square VJ logo from image_236d41.png */
+    .brand-logo {
       width: 40px;
       height: 40px;
+      background: #2563eb;
       border-radius: 10px;
-      background: var(--accent);
-      color: #ffffff;
       display: inline-grid;
       place-items: center;
       font-weight: 800;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      color: #ffffff;
       flex-shrink: 0;
     }
 
@@ -114,14 +115,14 @@
       transition: transform 0.25s ease;
     }
     .brand {
-      padding: 18px 20px;
+      padding: 20px;
       border-bottom: 1px solid #1e293b;
       display: flex;
       align-items: center;
       gap: 12px;
     }
     .brand h1 { font-size: 1.05rem; font-weight: 700; }
-    .brand span { font-size: 0.74rem; color: #94a3b8; display: block; }
+    .brand span { font-size: 0.75rem; color: #94a3b8; display: block; }
 
     .course-box {
       padding: 14px 16px;
@@ -434,7 +435,7 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <div class="brand-mark">VJ</div>
+      <div class="brand-logo">VJ</div>
       <div>
         <h1>VJ Study Room</h1>
         <span id="sidebarPortalMode">LMS Portal</span>
@@ -478,7 +479,7 @@
     <!-- LOGIN GATE -->
     <div id="loginGate" class="login-gate-card">
       <div class="gate-brand">
-        <div class="brand-mark">VJ</div>
+        <div class="brand-logo">VJ</div>
         <div>
           <h2 style="font-size:1.15rem;">VJ Study Room</h2>
           <span id="gateSubtitle" style="font-size:0.8rem; color:var(--muted);">Student Login</span>
