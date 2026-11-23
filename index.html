@@ -185,6 +185,10 @@
       background: var(--danger);
       color: #fff;
     }
+    .nav-pill.roombr {
+      background: #1d4ed8;
+      color: #dbeafe;
+    }
 
     .main-wrap {
       margin-left: 265px;
@@ -312,6 +316,7 @@
     }
 
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 14px; }
+    .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
     .field { margin-bottom: 12px; }
     .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
@@ -388,6 +393,35 @@
     }
     .badge.green { background: #dcfce7; color: #166534; }
     .badge.amber { background: #fef3c7; color: #92400e; }
+    .badge.red { background: #fee2e2; color: #991b1b; }
+
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .qr-box {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .qr-code-tag {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.82rem;
+      font-weight: 700;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 8px;
+      letter-spacing: 0.04em;
+    }
 
     .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; background: #000; margin-top: 12px; }
     .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -421,6 +455,7 @@
       border: 1px solid var(--border);
       border-radius: 8px;
       font-size: 0.9rem;
+      gap: 10px;
     }
 
     @media (max-width: 900px) {
@@ -564,6 +599,90 @@
         </div>
       </section>
 
+      <!-- ROOMBR SMART CLASSROOM HUB -->
+      <section id="roombr" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Roombr Smart Classroom Hub</h2>
+            <span class="badge" id="roombrCourseBadge">BA LLB</span>
+          </div>
+          <p class="subtext">Connect Roombr smart classroom sessions, recordings, interactive polls, hand-raise queues, and QR attendance with your active course.</p>
+
+          <div class="status-strip" id="roombrStatusStrip"></div>
+
+          <div id="roombrControlsBox" class="row" style="margin-bottom:16px;">
+            <button class="btn btn-sm btn-outline" onclick="toggleRoombrLock()">Toggle Room Lock</button>
+            <button class="btn btn-sm btn-outline" onclick="toggleRoombrSpotlight()">Toggle Spotlight Focus</button>
+            <button class="btn btn-sm btn-outline" onclick="cycleRoombrAudioMode()">Cycle Mic / Audio Mode</button>
+            <button class="btn btn-sm btn-success" onclick="rotateRoombrQrCode()">Refresh QR Attendance Code</button>
+          </div>
+
+          <div class="qr-box" style="margin-bottom:16px;">
+            <div class="qr-code-tag" id="roombrQrToken">ROOMBR-QR-BA-LLB</div>
+            <div style="flex:1; min-width:220px;">
+              <strong id="roombrQrTitle">Classroom QR Attendance</strong>
+              <p class="subtext" style="margin:4px 0 8px;">Mark attendance for the active Roombr session in <span id="roombrQrCourseLabel">BA LLB</span>.</p>
+              <button class="btn btn-sm btn-success" onclick="markRoombrAttendance()">Mark My Attendance</button>
+            </div>
+            <div>
+              <span class="badge green" id="roombrAttendanceCount">0 Checked In</span>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="roombrSessionTitle">Session / Recording Title</label>
+              <input type="text" id="roombrSessionTitle" placeholder="e.g., Constitutional Law — Roombr Board Session" />
+            </div>
+            <div class="field">
+              <label for="roombrSessionUrl">Roombr Session / Recording / Drive URL</label>
+              <input type="text" id="roombrSessionUrl" placeholder="https://... or YouTube/Drive link" />
+            </div>
+            <div class="field">
+              <label for="roombrSessionDest">Send To Portal Section</label>
+              <select id="roombrSessionDest">
+                <option value="session">Roombr Sessions List Only</option>
+                <option value="lecture">Publish to Recorded Lectures</option>
+                <option value="note">Publish to Notes & PDFs</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <button class="btn" onclick="saveRoombrSessionLink()">Save Session Link</button>
+            <button class="btn btn-outline" onclick="openLiveFromRoombr()">Open Live Classroom</button>
+          </div>
+
+          <div id="roombrSessionsList" style="margin-top:14px;"></div>
+        </div>
+
+        <div class="two-col">
+          <!-- LIVE POLLS -->
+          <div class="card">
+            <div class="card-header"><h2>Live Classroom Poll</h2></div>
+            <div class="field">
+              <label for="pollQuestionInput">Poll Question</label>
+              <input type="text" id="pollQuestionInput" placeholder="e.g., Ready for case discussion?" />
+            </div>
+            <div class="form-grid" style="margin-bottom:8px;">
+              <div class="field"><label>Option A</label><input type="text" id="pollOptA" placeholder="Yes, clear" /></div>
+              <div class="field"><label>Option B</label><input type="text" id="pollOptB" placeholder="Need recap" /></div>
+            </div>
+            <button class="btn btn-sm" onclick="createRoombrPoll()">Set / Update Poll</button>
+            <div id="roombrPollDisplay" style="margin-top:14px;"></div>
+          </div>
+
+          <!-- HAND RAISE QUEUE -->
+          <div class="card">
+            <div class="card-header">
+              <h2>Hand-Raise Queue</h2>
+              <button class="btn btn-sm btn-outline" onclick="toggleRaiseHand()">Raise / Lower Hand</button>
+            </div>
+            <p class="subtext">Students can raise their hand during Roombr or live sessions; faculty/admin can clear or resolve items.</p>
+            <ul class="task-list" id="handRaiseList"></ul>
+          </div>
+        </div>
+      </section>
+
       <!-- LECTURES -->
       <section id="lectures" class="view-section">
         <div class="card">
@@ -602,7 +721,10 @@
         <div class="card">
           <div class="card-header">
             <h2>Live Classroom</h2>
-            <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
+            <div class="row" style="margin-bottom:0;">
+              <button class="btn btn-sm btn-outline" onclick="openRoombrFromLive()">Roombr Hub</button>
+              <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
+            </div>
           </div>
           <div class="row">
             <input type="text" id="roomInput" value="vjstudyroom-live-101" placeholder="Enter Room Name" />
@@ -641,6 +763,7 @@
               <option value="Friday">Friday</option>
               <option value="Saturday">Saturday</option>
             </select>
+            <button type="button" class="btn btn-sm btn-outline" onclick="selectTodayInTimetable()">Today's Schedule</button>
           </div>
           <div class="table-wrap">
             <table>
@@ -826,7 +949,8 @@
       admin: "vjstudyroom_admin_permanent",
       uploads: "vjstudyroom_uploads_permanent",
       subjects: "vjstudyroom_subjects_permanent",
-      tasks: "vjstudyroom_tasks_permanent"
+      tasks: "vjstudyroom_tasks_permanent",
+      roombr: "vjstudyroom_roombr_permanent"
     };
 
     function loadWithMigration(permKey, legacyKeys, fallbackValue) {
@@ -854,6 +978,7 @@
 
     const optionIcons = {
       dashboard: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
+      roombr: '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg>',
       lectures: '<svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
       notes: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>',
       assignments: '<svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
@@ -981,6 +1106,17 @@
       }
     };
 
+    const defaultRoombrState = {
+      locked: false,
+      spotlight: false,
+      audioMode: "Noise-Canceling MEMS + RF Mic",
+      qrCode: "ROOMBR-QR-001",
+      sessions: [],
+      polls: {},
+      hands: [],
+      attendance: {}
+    };
+
     let students = loadWithMigration(
       PERM_KEYS.students,
       ["vj_students_v3", "vj_students_v2", "vj_students_v1"],
@@ -1017,9 +1153,15 @@
       []
     );
 
+    let roombrState = {
+      ...defaultRoombrState,
+      ...loadWithMigration(PERM_KEYS.roombr, [], defaultRoombrState)
+    };
+
     let currentUser = null;
     let currentCourse = "BA LLB";
     let generatedOtp = null;
+    let timetableDayInitialized = false;
 
     function saveData() {
       localStorage.setItem(PERM_KEYS.students, JSON.stringify(students));
@@ -1028,6 +1170,25 @@
       localStorage.setItem(PERM_KEYS.uploads, JSON.stringify(facultyUploads));
       localStorage.setItem(PERM_KEYS.subjects, JSON.stringify(customSubjects));
       localStorage.setItem(PERM_KEYS.tasks, JSON.stringify(tasks));
+      localStorage.setItem(PERM_KEYS.roombr, JSON.stringify(roombrState));
+    }
+
+    function getTodayWeekdayName() {
+      const names = ["Monday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const dayIdx = new Date().getDay();
+      return names[dayIdx] || "Monday";
+    }
+
+    function selectTodayInTimetable() {
+      const course = defaultTimetables[currentCourse];
+      const todayName = getTodayWeekdayName();
+      const sel = document.getElementById("ttDaySelect");
+      if (course && course.days && course.days[todayName]) {
+        sel.value = todayName;
+      } else {
+        sel.value = "All Days";
+      }
+      renderTimetable();
     }
 
     function initGate() {
@@ -1140,6 +1301,10 @@
       document.getElementById("headerAvatar").textContent = userObj.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
 
       buildNavigation();
+      if (!timetableDayInitialized) {
+        selectTodayInTimetable();
+        timetableDayInitialized = true;
+      }
       renderAll();
     }
 
@@ -1187,7 +1352,7 @@
 
     function navBtnHtml(viewId, title, labelText, iconKey, active, extraRight) {
       return `
-        <button class="nav-btn${active ? " active" : ""}" onclick="openView('${viewId}','${title}',this)">
+        <button class="nav-btn${active ? " active" : ""}" data-view="${viewId}" onclick="openView('${viewId}','${title}',this)">
           <span class="nav-btn-left"><span class="nav-opt-icon">${optionIcons[iconKey] || ""}</span><span>${labelText}</span></span>
           ${extraRight || ""}
         </button>
@@ -1200,6 +1365,7 @@
         nav.innerHTML = `
           <div class="nav-label">Student Options</div>
           ${navBtnHtml("dashboard", "Dashboard", "Dashboard", "dashboard", true, "")}
+          ${navBtnHtml("roombr", "Roombr Classroom", "Roombr Hub", "roombr", false, '<span class="nav-pill roombr">SMART</span>')}
           ${navBtnHtml("lectures", "Recorded Lectures", "Lectures", "lectures", false, "")}
           ${navBtnHtml("notes", "Notes & PDFs", "Notes & PDFs", "notes", false, "")}
           ${navBtnHtml("assignments", "Assignments", "Assignments", "assignments", false, "")}
@@ -1211,6 +1377,7 @@
         nav.innerHTML = `
           <div class="nav-label">Faculty Options</div>
           ${navBtnHtml("dashboard", "Dashboard", "Dashboard", "dashboard", true, "")}
+          ${navBtnHtml("roombr", "Roombr Classroom", "Roombr Hub", "roombr", false, '<span class="nav-pill roombr">SMART</span>')}
           ${navBtnHtml("add-student", "Add Student", "Add Student", "addStudent", false, "")}
           ${navBtnHtml("add-subject", "Add Subject", "Add Subject", "addSubject", false, "")}
           ${navBtnHtml("upload-content", "Upload Content", "Upload Content", "uploadContent", false, "")}
@@ -1221,6 +1388,7 @@
         nav.innerHTML = `
           <div class="nav-label">Admin Options</div>
           ${navBtnHtml("dashboard", "Dashboard", "Dashboard", "dashboard", true, "")}
+          ${navBtnHtml("roombr", "Roombr Classroom", "Roombr Hub", "roombr", false, '<span class="nav-pill roombr">SMART</span>')}
           ${navBtnHtml("manage-students", "Manage Students", "Manage Students", "manageStudents", false, "")}
           ${navBtnHtml("manage-faculty", "Manage Faculty", "Manage Faculty", "manageFaculty", false, "")}
           ${navBtnHtml("reset-passwords", "Reset Passwords", "Reset Passwords", "resetPasswords", false, "")}
@@ -1234,11 +1402,21 @@
     function openView(viewId, title, btn) {
       document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-      document.getElementById(viewId).classList.add("active");
-      if (btn) btn.classList.add("active");
+      const targetSec = document.getElementById(viewId);
+      if (targetSec) targetSec.classList.add("active");
+      const targetBtn = btn || document.querySelector(`.nav-btn[data-view="${viewId}"]`);
+      if (targetBtn) targetBtn.classList.add("active");
       document.getElementById("pageTitle").textContent = title;
       document.getElementById("sidebar").classList.remove("open");
       renderAll();
+    }
+
+    function openRoombrFromLive() {
+      openView("roombr", "Roombr Classroom");
+    }
+
+    function openLiveFromRoombr() {
+      openView("live", "Live Classroom");
     }
 
     function toggleSidebar() {
@@ -1254,6 +1432,217 @@
       document.getElementById("courseSwitcher").value = course;
       document.getElementById("ttCourseSelect").value = course;
       renderAll();
+    }
+
+    /* Roombr Smart Classroom Functions */
+    function toggleRoombrLock() {
+      if (portalRole === "student") return alert("Only Faculty or Admin can lock/unlock the room.");
+      roombrState.locked = !roombrState.locked;
+      saveData();
+      renderRoombr();
+    }
+
+    function toggleRoombrSpotlight() {
+      if (portalRole === "student") return alert("Only Faculty or Admin can toggle Spotlight focus.");
+      roombrState.spotlight = !roombrState.spotlight;
+      saveData();
+      renderRoombr();
+    }
+
+    function cycleRoombrAudioMode() {
+      if (portalRole === "student") return alert("Only Faculty or Admin can change Roombr audio mode.");
+      const modes = ["Noise-Canceling MEMS + RF Mic", "20W Harman Kardon Broadcast", "Dual-Camera Hybrid Capture"];
+      const idx = modes.indexOf(roombrState.audioMode);
+      roombrState.audioMode = modes[(idx + 1) % modes.length];
+      saveData();
+      renderRoombr();
+    }
+
+    function rotateRoombrQrCode() {
+      if (portalRole === "student") return alert("Only Faculty or Admin can refresh the QR code.");
+      const suffix = Math.floor(100 + Math.random() * 900);
+      roombrState.qrCode = `ROOMBR-QR-${suffix}`;
+      saveData();
+      renderRoombr();
+    }
+
+    function markRoombrAttendance() {
+      const who = currentUser ? `${currentUser.name} (${currentUser.id || portalRole})` : portalRole;
+      const list = roombrState.attendance[currentCourse] || [];
+      if (list.some(entry => entry.who === who && entry.code === roombrState.qrCode)) {
+        alert("Attendance already recorded for this QR session.");
+        return;
+      }
+      list.push({
+        who,
+        code: roombrState.qrCode,
+        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      });
+      roombrState.attendance[currentCourse] = list;
+      saveData();
+      renderRoombr();
+      alert(`Attendance marked for ${currentCourse}.`);
+    }
+
+    function saveRoombrSessionLink() {
+      const title = document.getElementById("roombrSessionTitle").value.trim();
+      const url = document.getElementById("roombrSessionUrl").value.trim();
+      const dest = document.getElementById("roombrSessionDest").value;
+      if (!title || !url) return alert("Enter a Roombr session title and URL/link.");
+
+      roombrState.sessions.unshift({
+        id: Date.now(),
+        course: currentCourse,
+        title,
+        url,
+        dest,
+        createdAt: new Date().toLocaleDateString()
+      });
+
+      if (dest === "lecture" || dest === "note") {
+        facultyUploads.unshift({
+          id: Date.now() + 1,
+          type: dest,
+          course: currentCourse,
+          title: `[Roombr] ${title}`,
+          value: url
+        });
+      }
+
+      document.getElementById("roombrSessionTitle").value = "";
+      document.getElementById("roombrSessionUrl").value = "";
+      saveData();
+      renderAll();
+      alert("Roombr session saved.");
+    }
+
+    function deleteRoombrSession(id) {
+      roombrState.sessions = roombrState.sessions.filter(s => s.id !== id);
+      saveData();
+      renderRoombr();
+    }
+
+    function createRoombrPoll() {
+      if (portalRole === "student") return alert("Only Faculty or Admin can set a classroom poll.");
+      const q = document.getElementById("pollQuestionInput").value.trim();
+      const a = document.getElementById("pollOptA").value.trim() || "Yes";
+      const b = document.getElementById("pollOptB").value.trim() || "No";
+      if (!q) return alert("Enter a poll question.");
+      roombrState.polls[currentCourse] = {
+        question: q,
+        options: [
+          { label: a, votes: 0 },
+          { label: b, votes: 0 }
+        ],
+        voters: []
+      };
+      document.getElementById("pollQuestionInput").value = "";
+      document.getElementById("pollOptA").value = "";
+      document.getElementById("pollOptB").value = "";
+      saveData();
+      renderRoombr();
+    }
+
+    function voteRoombrPoll(optIdx) {
+      const poll = roombrState.polls[currentCourse];
+      if (!poll) return;
+      const voterKey = currentUser ? `${portalRole}:${currentUser.id || currentUser.name}` : portalRole;
+      if (poll.voters.includes(voterKey)) {
+        return alert("You have already voted in this poll.");
+      }
+      if (poll.options[optIdx]) {
+        poll.options[optIdx].votes += 1;
+        poll.voters.push(voterKey);
+        saveData();
+        renderRoombr();
+      }
+    }
+
+    function toggleRaiseHand() {
+      const name = currentUser ? currentUser.name : portalRole;
+      const existingIdx = roombrState.hands.findIndex(h => h.name === name && h.course === currentCourse);
+      if (existingIdx >= 0) {
+        roombrState.hands.splice(existingIdx, 1);
+      } else {
+        roombrState.hands.push({
+          id: Date.now(),
+          name,
+          course: currentCourse,
+          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        });
+      }
+      saveData();
+      renderRoombr();
+    }
+
+    function resolveHand(id) {
+      roombrState.hands = roombrState.hands.filter(h => h.id !== id);
+      saveData();
+      renderRoombr();
+    }
+
+    function renderRoombr() {
+      document.getElementById("roombrCourseBadge").textContent = currentCourse;
+      document.getElementById("roombrQrCourseLabel").textContent = currentCourse;
+      document.getElementById("roombrQrToken").textContent = `${roombrState.qrCode} • ${currentCourse}`;
+
+      const attList = roombrState.attendance[currentCourse] || [];
+      document.getElementById("roombrAttendanceCount").textContent = `${attList.length} Checked In`;
+
+      document.getElementById("roombrStatusStrip").innerHTML = `
+        <span class="badge ${roombrState.locked ? "red" : "green"}">${roombrState.locked ? "Room Locked" : "Room Open"}</span>
+        <span class="badge ${roombrState.spotlight ? "amber" : ""}">${roombrState.spotlight ? "Spotlight: Active" : "Spotlight: Standard"}</span>
+        <span class="badge">${roombrState.audioMode}</span>
+        <span class="badge">1080p Dual-Cam Ready</span>
+      `;
+
+      const courseSessions = roombrState.sessions.filter(s => s.course === currentCourse);
+      document.getElementById("roombrSessionsList").innerHTML = courseSessions.length
+        ? `<div class="grid">` + courseSessions.map(s => `
+            <div class="item-box">
+              <div>
+                <span class="badge">${s.course} • ${s.createdAt}</span>
+                <h3 style="margin-top:8px;">${s.title}</h3>
+                <p class="subtext" style="margin-top:4px; word-break:break-all;">${s.url}</p>
+              </div>
+              <div class="row" style="margin-bottom:0;">
+                <a class="btn btn-sm" href="${s.url}" target="_blank" rel="noopener noreferrer">Open Link</a>
+                ${portalRole !== "student" ? `<button class="btn btn-sm btn-danger" onclick="deleteRoombrSession(${s.id})">Delete</button>` : ""}
+              </div>
+            </div>
+          `).join("") + `</div>`
+        : `<div class="empty-state">No Roombr session or recording links saved for <strong>${currentCourse}</strong> yet.</div>`;
+
+      const poll = roombrState.polls[currentCourse];
+      const pollBox = document.getElementById("roombrPollDisplay");
+      if (!poll) {
+        pollBox.innerHTML = `<div class="empty-state">No active poll for <strong>${currentCourse}</strong> yet.</div>`;
+      } else {
+        pollBox.innerHTML = `
+          <div class="item-box">
+            <strong>${poll.question}</strong>
+            <div style="display:grid; gap:8px; margin-top:8px;">
+              ${poll.options.map((o, idx) => `
+                <button class="btn btn-sm btn-outline" style="justify-content:space-between;" onclick="voteRoombrPoll(${idx})">
+                  <span>${o.label}</span>
+                  <strong>${o.votes} votes</strong>
+                </button>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      const handsList = document.getElementById("handRaiseList");
+      const courseHands = roombrState.hands.filter(h => h.course === currentCourse);
+      handsList.innerHTML = courseHands.length
+        ? courseHands.map(h => `
+            <li>
+              <span><strong>${h.name}</strong> <span style="color:var(--muted); font-size:0.8rem;">(${h.time})</span></span>
+              ${portalRole !== "student" ? `<button class="btn btn-sm btn-success" onclick="resolveHand(${h.id})">Acknowledge</button>` : `<span class="badge amber">Raised</span>`}
+            </li>
+          `).join("")
+        : `<li style="justify-content:center; color:var(--muted);">No raised hands in ${currentCourse}.</li>`;
     }
 
     function facultyAddStudent() {
@@ -1472,6 +1861,7 @@
       const lecsCount = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse).length;
       const notesCount = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse).length;
       const enrolledInSelectedCourse = students.filter(s => s.course === currentCourse).length;
+      const roombrSessionsCount = roombrState.sessions.filter(s => s.course === currentCourse).length;
 
       const kpiGrid = document.getElementById("kpiGrid");
       if (portalRole === "student") {
@@ -1479,16 +1869,18 @@
           <div class="kpi-card"><div class="kpi-title">Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Assigned Semester I Course</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Notes</div><div class="kpi-value">${notesCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Roombr Sessions</div><div class="kpi-value">${roombrSessionsCount}</div><div class="kpi-sub">Saved in ${currentCourse}</div></div>
         `;
       } else {
         kpiGrid.innerHTML = `
           <div class="kpi-card"><div class="kpi-title">Active Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Semester I</div></div>
           <div class="kpi-card"><div class="kpi-title">Enrolled Students</div><div class="kpi-value">${enrolledInSelectedCourse}</div><div class="kpi-sub">In ${currentCourse}</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
-          <div class="kpi-card"><div class="kpi-title">Faculty Notes</div><div class="kpi-value">${notesCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Roombr Sessions</div><div class="kpi-value">${roombrSessionsCount}</div><div class="kpi-sub">Saved in ${currentCourse}</div></div>
         `;
       }
 
+      renderRoombr();
       renderStudentUploads();
       renderTimetable();
       renderTasks();
