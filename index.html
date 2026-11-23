@@ -185,10 +185,6 @@
       background: var(--danger);
       color: #fff;
     }
-    .nav-pill.roombr {
-      background: #1d4ed8;
-      color: #dbeafe;
-    }
 
     .main-wrap {
       margin-left: 265px;
@@ -260,12 +256,142 @@
 
     main.content {
       padding: 24px;
-      max-width: 1200px;
+      max-width: 1280px;
       width: 100%;
       margin: 0 auto;
     }
     .view-section { display: none; }
     .view-section.active { display: block; }
+
+    /* Feed workspace layout */
+    .feed-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 20px;
+      align-items: start;
+    }
+    .composer-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .composer-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: 0.15s;
+    }
+    .composer-btn:hover {
+      border-color: var(--accent);
+      background: #f8fafc;
+    }
+    .composer-btn.active {
+      border-color: var(--accent);
+      background: #eff6ff;
+      color: var(--primary);
+    }
+    .feed-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-pill-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f766e;
+      color: #ffffff;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+    .filter-pill-wrap select {
+      background: transparent;
+      color: #ffffff;
+      border: none;
+      font-weight: 700;
+      font-size: 0.84rem;
+      cursor: pointer;
+      outline: none;
+      width: auto;
+      padding: 0;
+    }
+    .filter-pill-wrap select option {
+      color: var(--text);
+      background: var(--surface);
+    }
+    .scheduled-toggle-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .scheduled-toggle-btn.active {
+      background: #eff6ff;
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+    .feed-empty-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .feed-empty-graphic {
+      width: 96px;
+      height: 76px;
+      margin: 0 auto 14px;
+      border-radius: 14px;
+      background: #f0fdfa;
+      border: 1px solid #ccfbf1;
+      display: grid;
+      place-items: center;
+      color: #0f766e;
+    }
+    .side-panel-stack {
+      display: grid;
+      gap: 16px;
+    }
+    .side-panel-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .side-panel-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .side-empty-box {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
 
     .kpi-grid {
       display: grid;
@@ -316,7 +442,6 @@
     }
 
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-bottom: 14px; }
-    .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
     .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
     .field { margin-bottom: 12px; }
     .field label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
@@ -393,35 +518,6 @@
     }
     .badge.green { background: #dcfce7; color: #166534; }
     .badge.amber { background: #fef3c7; color: #92400e; }
-    .badge.red { background: #fee2e2; color: #991b1b; }
-
-    .status-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 14px;
-    }
-
-    .qr-box {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
-      background: #f8fafc;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .qr-code-tag {
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.82rem;
-      font-weight: 700;
-      background: #0f172a;
-      color: #f8fafc;
-      padding: 10px 14px;
-      border-radius: 8px;
-      letter-spacing: 0.04em;
-    }
 
     .video-wrap { position: relative; padding-bottom: 56.25%; height: 0; border-radius: 10px; overflow: hidden; background: #000; margin-top: 12px; }
     .video-wrap iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
@@ -458,11 +554,15 @@
       gap: 10px;
     }
 
+    @media (max-width: 1050px) {
+      .feed-layout { grid-template-columns: 1fr; }
+    }
     @media (max-width: 900px) {
       aside.sidebar { transform: translateX(-100%); }
       aside.sidebar.open { transform: translateX(0); }
       .main-wrap { margin-left: 0; }
       .menu-toggle { display: inline-block; }
+      .composer-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -502,6 +602,8 @@
         </div>
       </div>
       <div class="topbar-right">
+        <button type="button" class="btn btn-sm btn-outline" onclick="openView('schedule','Timetable')">Schedule</button>
+        <button type="button" class="btn btn-sm btn-success" onclick="openView('live','Live Classroom')">Start</button>
         <span class="role-badge" id="headerRoleBadge">Student</span>
         <div class="avatar-pill">
           <div class="avatar-circle" id="headerAvatar">VJ</div>
@@ -599,92 +701,122 @@
         </div>
       </section>
 
-      <!-- ROOMBR SMART CLASSROOM HUB -->
-      <section id="roombr" class="view-section">
-        <div class="card">
-          <div class="card-header">
-            <h2>Roombr Smart Classroom Hub</h2>
-            <span class="badge" id="roombrCourseBadge">BA LLB</span>
-          </div>
-          <p class="subtext">Connect Roombr smart classroom sessions, recordings, interactive polls, hand-raise queues, and QR attendance with your active course.</p>
+      <!-- FEED (Post, Announcements, Polls, Filter, Scheduled posts, Upcoming sessions, Classes) -->
+      <section id="feed" class="view-section">
+        <div class="feed-layout">
+          <div>
+            <div class="composer-row">
+              <button type="button" class="composer-btn active" id="tabComposerPost" onclick="openFeedComposer('post')">Post</button>
+              <button type="button" class="composer-btn" id="tabComposerAnnouncement" onclick="openFeedComposer('announcement')">Announcements</button>
+              <button type="button" class="composer-btn" id="tabComposerPoll" onclick="openFeedComposer('poll')">Polls</button>
+            </div>
 
-          <div class="status-strip" id="roombrStatusStrip"></div>
+            <div class="card" id="feedComposerCard" style="display:none;">
+              <div class="card-header">
+                <h2 id="feedComposerHeading">Create Post</h2>
+                <button type="button" class="btn btn-sm btn-muted" onclick="closeFeedComposer()">Close</button>
+              </div>
+              <div class="field">
+                <label id="feedTitleLabel">Title / Question</label>
+                <input type="text" id="feedTitleInput" placeholder="Enter title or question" />
+              </div>
+              <div class="field" id="feedBodyField">
+                <label>Message / Details</label>
+                <input type="text" id="feedBodyInput" placeholder="Write message or link" />
+              </div>
+              <div class="form-grid" id="feedPollOptionsGrid" style="display:none;">
+                <div class="field"><label>Option 1</label><input type="text" id="feedPollOpt1" placeholder="Option 1" /></div>
+                <div class="field"><label>Option 2</label><input type="text" id="feedPollOpt2" placeholder="Option 2" /></div>
+              </div>
+              <div class="field">
+                <label>Schedule Date / Time (Optional — leave blank for immediate)</label>
+                <input type="text" id="feedScheduleInput" placeholder="e.g., Tomorrow 10:00 AM" />
+              </div>
+              <button type="button" class="btn" onclick="publishFeedItem()">Publish to Feed</button>
+            </div>
 
-          <div id="roombrControlsBox" class="row" style="margin-bottom:16px;">
-            <button class="btn btn-sm btn-outline" onclick="toggleRoombrLock()">Toggle Room Lock</button>
-            <button class="btn btn-sm btn-outline" onclick="toggleRoombrSpotlight()">Toggle Spotlight Focus</button>
-            <button class="btn btn-sm btn-outline" onclick="cycleRoombrAudioMode()">Cycle Mic / Audio Mode</button>
-            <button class="btn btn-sm btn-success" onclick="rotateRoombrQrCode()">Refresh QR Attendance Code</button>
-          </div>
+            <div class="feed-toolbar">
+              <div class="filter-pill-wrap">
+                <span>Filter by</span>
+                <select id="feedFilterSelect" onchange="renderFeed()">
+                  <option value="all">All</option>
+                  <option value="post">Posts</option>
+                  <option value="announcement">Announcements</option>
+                  <option value="poll">Polls</option>
+                </select>
+              </div>
+              <button type="button" class="scheduled-toggle-btn" id="scheduledToggleBtn" onclick="toggleScheduledFeedFilter()">Scheduled posts</button>
+            </div>
 
-          <div class="qr-box" style="margin-bottom:16px;">
-            <div class="qr-code-tag" id="roombrQrToken">ROOMBR-QR-BA-LLB</div>
-            <div style="flex:1; min-width:220px;">
-              <strong id="roombrQrTitle">Classroom QR Attendance</strong>
-              <p class="subtext" style="margin:4px 0 8px;">Mark attendance for the active Roombr session in <span id="roombrQrCourseLabel">BA LLB</span>.</p>
-              <button class="btn btn-sm btn-success" onclick="markRoombrAttendance()">Mark My Attendance</button>
-            </div>
-            <div>
-              <span class="badge green" id="roombrAttendanceCount">0 Checked In</span>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div class="field">
-              <label for="roombrSessionTitle">Session / Recording Title</label>
-              <input type="text" id="roombrSessionTitle" placeholder="e.g., Constitutional Law — Roombr Board Session" />
-            </div>
-            <div class="field">
-              <label for="roombrSessionUrl">Roombr Session / Recording / Drive URL</label>
-              <input type="text" id="roombrSessionUrl" placeholder="https://... or YouTube/Drive link" />
-            </div>
-            <div class="field">
-              <label for="roombrSessionDest">Send To Portal Section</label>
-              <select id="roombrSessionDest">
-                <option value="session">Roombr Sessions List Only</option>
-                <option value="lecture">Publish to Recorded Lectures</option>
-                <option value="note">Publish to Notes & PDFs</option>
-              </select>
-            </div>
-          </div>
-          <div class="row">
-            <button class="btn" onclick="saveRoombrSessionLink()">Save Session Link</button>
-            <button class="btn btn-outline" onclick="openLiveFromRoombr()">Open Live Classroom</button>
+            <div id="feedItemsContainer"></div>
           </div>
 
-          <div id="roombrSessionsList" style="margin-top:14px;"></div>
-        </div>
+          <div class="side-panel-stack">
+            <div class="side-panel-card">
+              <div class="side-panel-title">
+                <span>Upcoming sessions</span>
+                <button type="button" class="btn-link" onclick="openView('schedule','Timetable')">&gt;</button>
+              </div>
+              <div id="upcomingSessionsBox" class="side-empty-box">No upcoming sessions</div>
+            </div>
 
-        <div class="two-col">
-          <!-- LIVE POLLS -->
-          <div class="card">
-            <div class="card-header"><h2>Live Classroom Poll</h2></div>
-            <div class="field">
-              <label for="pollQuestionInput">Poll Question</label>
-              <input type="text" id="pollQuestionInput" placeholder="e.g., Ready for case discussion?" />
+            <div class="side-panel-card">
+              <div class="side-panel-title">
+                <span>Classes:</span>
+              </div>
+              <div id="classesSummaryBox" class="side-empty-box"></div>
             </div>
-            <div class="form-grid" style="margin-bottom:8px;">
-              <div class="field"><label>Option A</label><input type="text" id="pollOptA" placeholder="Yes, clear" /></div>
-              <div class="field"><label>Option B</label><input type="text" id="pollOptB" placeholder="Need recap" /></div>
-            </div>
-            <button class="btn btn-sm" onclick="createRoombrPoll()">Set / Update Poll</button>
-            <div id="roombrPollDisplay" style="margin-top:14px;"></div>
-          </div>
-
-          <!-- HAND RAISE QUEUE -->
-          <div class="card">
-            <div class="card-header">
-              <h2>Hand-Raise Queue</h2>
-              <button class="btn btn-sm btn-outline" onclick="toggleRaiseHand()">Raise / Lower Hand</button>
-            </div>
-            <p class="subtext">Students can raise their hand during Roombr or live sessions; faculty/admin can clear or resolve items.</p>
-            <ul class="task-list" id="handRaiseList"></ul>
           </div>
         </div>
       </section>
 
-      <!-- LECTURES -->
-      <section id="lectures" class="view-section">
+      <!-- CURRICULUM -->
+      <section id="curriculum" class="view-section">
+        <div class="card">
+          <div class="card-header">
+            <h2>Curriculum & Subjects</h2>
+            <span class="badge" id="currCourseBadge">BA LLB</span>
+          </div>
+          <div id="curriculumSubjectsArea"></div>
+        </div>
+      </section>
+
+      <!-- COURSES & CLASSES -->
+      <section id="courses-classes" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Courses & Classes</h2></div>
+          <div class="grid" id="coursesClassesGrid"></div>
+        </div>
+      </section>
+
+      <!-- TEACHER DIRECTORY -->
+      <section id="teachers" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Teachers</h2></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Name</th><th>ID</th><th>Email</th></tr></thead>
+              <tbody id="teachersDirectoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- STUDENT DIRECTORY -->
+      <section id="students-dir" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Students</h2></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Name</th><th>ID</th><th>Course</th><th>Email</th></tr></thead>
+              <tbody id="studentsDirectoryBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIBRARY (Lectures, Notes, Assignments) -->
+      <section id="library" class="view-section">
         <div class="card">
           <div class="card-header">
             <h2>Recorded Lectures</h2>
@@ -692,10 +824,6 @@
           </div>
           <div id="studentLecturesArea"></div>
         </div>
-      </section>
-
-      <!-- NOTES & PDFs -->
-      <section id="notes" class="view-section">
         <div class="card">
           <div class="card-header">
             <h2>Notes & Study Materials</h2>
@@ -703,10 +831,6 @@
           </div>
           <div id="studentNotesArea"></div>
         </div>
-      </section>
-
-      <!-- ASSIGNMENTS -->
-      <section id="assignments" class="view-section">
         <div class="card">
           <div class="card-header">
             <h2>Assignments</h2>
@@ -716,15 +840,56 @@
         </div>
       </section>
 
+      <!-- SETTINGS -->
+      <section id="settings" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Portal Settings & Study Planner</h2></div>
+          <p class="subtext">Active Portal Role: <strong id="settingsRoleText">Student</strong> • Active Course: <strong id="settingsCourseText">BA LLB</strong></p>
+          <div class="row">
+            <input type="text" id="taskInput" placeholder="Add a study or class reminder..." />
+            <button class="btn" onclick="addTask()">Add Reminder</button>
+          </div>
+          <ul class="task-list" id="taskList"></ul>
+        </div>
+      </section>
+
+      <!-- REPORTS -->
+      <section id="reports" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Academic & Activity Reports</h2></div>
+          <div class="kpi-grid" id="reportsKpiGrid"></div>
+        </div>
+      </section>
+
+      <!-- SUBSCRIPTIONS & PLANS -->
+      <section id="subscriptions" class="view-section">
+        <div class="card">
+          <div class="card-header"><h2>Subscriptions & Plans</h2></div>
+          <div class="grid">
+            <div class="item-box">
+              <div>
+                <span class="badge green">Active Plan</span>
+                <h3 style="margin-top:8px;">Standard Campus Portal</h3>
+                <p class="subtext" style="margin-top:6px;">Includes Feed, Curriculum, Timetable, Library, and Live Classroom rooms.</p>
+              </div>
+            </div>
+            <div class="item-box">
+              <div>
+                <span class="badge">Self-Hosted Ready</span>
+                <h3 style="margin-top:8px;">Zero Recurring Fee Setup</h3>
+                <p class="subtext" style="margin-top:6px;">Uses browser storage and open classroom rooms with no mandatory subscription lock-in.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- LIVE CLASSROOM -->
       <section id="live" class="view-section">
         <div class="card">
           <div class="card-header">
             <h2>Live Classroom</h2>
-            <div class="row" style="margin-bottom:0;">
-              <button class="btn btn-sm btn-outline" onclick="openRoombrFromLive()">Roombr Hub</button>
-              <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
-            </div>
+            <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
           </div>
           <div class="row">
             <input type="text" id="roomInput" value="vjstudyroom-live-101" placeholder="Enter Room Name" />
@@ -763,7 +928,6 @@
               <option value="Friday">Friday</option>
               <option value="Saturday">Saturday</option>
             </select>
-            <button type="button" class="btn btn-sm btn-outline" onclick="selectTodayInTimetable()">Today's Schedule</button>
           </div>
           <div class="table-wrap">
             <table>
@@ -771,18 +935,6 @@
               <tbody id="ttBodyRows"></tbody>
             </table>
           </div>
-        </div>
-      </section>
-
-      <!-- STUDY PLANNER (Student) -->
-      <section id="tasks" class="view-section">
-        <div class="card">
-          <div class="card-header"><h2>Personal Study Planner</h2></div>
-          <div class="row">
-            <input type="text" id="taskInput" placeholder="Add a study goal..." />
-            <button class="btn" onclick="addTask()">Add</button>
-          </div>
-          <ul class="task-list" id="taskList"></ul>
         </div>
       </section>
 
@@ -950,7 +1102,7 @@
       uploads: "vjstudyroom_uploads_permanent",
       subjects: "vjstudyroom_subjects_permanent",
       tasks: "vjstudyroom_tasks_permanent",
-      roombr: "vjstudyroom_roombr_permanent"
+      feed: "vjstudyroom_feed_permanent"
     };
 
     function loadWithMigration(permKey, legacyKeys, fallbackValue) {
@@ -978,18 +1130,19 @@
 
     const optionIcons = {
       dashboard: '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>',
-      roombr: '<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="18" x2="12" y2="21"/></svg>',
-      lectures: '<svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
-      notes: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>',
-      assignments: '<svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>',
-      live: '<svg viewBox="0 0 24 24"><rect x="2" y="6" width="14" height="12" rx="2"/><polygon points="23 7 16 12 23 17 23 7"/></svg>',
-      schedule: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-      tasks: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>',
-      addStudent: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
-      addSubject: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="12" y1="7" x2="12" y2="13"/><line x1="9" y1="10" x2="15" y2="10"/></svg>',
+      feed: '<svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>',
+      curriculum: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>',
+      courses: '<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+      teacher: '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>',
+      student: '<svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>',
+      schedule: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+      library: '<svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
+      settings: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',
+      reports: '<svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>',
+      plans: '<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>',
+      live: '<svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg>',
+      addSubject: '<svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
       uploadContent: '<svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
-      manageStudents: '<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
-      manageFaculty: '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
       resetPasswords: '<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>'
     };
 
@@ -1106,17 +1259,6 @@
       }
     };
 
-    const defaultRoombrState = {
-      locked: false,
-      spotlight: false,
-      audioMode: "Noise-Canceling MEMS + RF Mic",
-      qrCode: "ROOMBR-QR-001",
-      sessions: [],
-      polls: {},
-      hands: [],
-      attendance: {}
-    };
-
     let students = loadWithMigration(
       PERM_KEYS.students,
       ["vj_students_v3", "vj_students_v2", "vj_students_v1"],
@@ -1153,15 +1295,13 @@
       []
     );
 
-    let roombrState = {
-      ...defaultRoombrState,
-      ...loadWithMigration(PERM_KEYS.roombr, [], defaultRoombrState)
-    };
+    let feedItems = loadWithMigration(PERM_KEYS.feed, [], []);
 
     let currentUser = null;
     let currentCourse = "BA LLB";
     let generatedOtp = null;
-    let timetableDayInitialized = false;
+    let activeComposerType = "post";
+    let showScheduledOnly = false;
 
     function saveData() {
       localStorage.setItem(PERM_KEYS.students, JSON.stringify(students));
@@ -1170,25 +1310,7 @@
       localStorage.setItem(PERM_KEYS.uploads, JSON.stringify(facultyUploads));
       localStorage.setItem(PERM_KEYS.subjects, JSON.stringify(customSubjects));
       localStorage.setItem(PERM_KEYS.tasks, JSON.stringify(tasks));
-      localStorage.setItem(PERM_KEYS.roombr, JSON.stringify(roombrState));
-    }
-
-    function getTodayWeekdayName() {
-      const names = ["Monday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-      const dayIdx = new Date().getDay();
-      return names[dayIdx] || "Monday";
-    }
-
-    function selectTodayInTimetable() {
-      const course = defaultTimetables[currentCourse];
-      const todayName = getTodayWeekdayName();
-      const sel = document.getElementById("ttDaySelect");
-      if (course && course.days && course.days[todayName]) {
-        sel.value = todayName;
-      } else {
-        sel.value = "All Days";
-      }
-      renderTimetable();
+      localStorage.setItem(PERM_KEYS.feed, JSON.stringify(feedItems));
     }
 
     function initGate() {
@@ -1301,10 +1423,6 @@
       document.getElementById("headerAvatar").textContent = userObj.name.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
 
       buildNavigation();
-      if (!timetableDayInitialized) {
-        selectTodayInTimetable();
-        timetableDayInitialized = true;
-      }
       renderAll();
     }
 
@@ -1363,38 +1481,54 @@
       const nav = document.getElementById("navMenu");
       if (portalRole === "student") {
         nav.innerHTML = `
-          <div class="nav-label">Student Options</div>
+          <div class="nav-label">Menu</div>
           ${navBtnHtml("dashboard", "Dashboard", "Dashboard", "dashboard", true, "")}
-          ${navBtnHtml("roombr", "Roombr Classroom", "Roombr Hub", "roombr", false, '<span class="nav-pill roombr">SMART</span>')}
-          ${navBtnHtml("lectures", "Recorded Lectures", "Lectures", "lectures", false, "")}
-          ${navBtnHtml("notes", "Notes & PDFs", "Notes & PDFs", "notes", false, "")}
-          ${navBtnHtml("assignments", "Assignments", "Assignments", "assignments", false, "")}
-          ${navBtnHtml("live", "Live Classroom", "Live Class", "live", false, '<span class="nav-pill">LIVE</span>')}
+          ${navBtnHtml("feed", "Feed", "Feed", "feed", false, "")}
+          ${navBtnHtml("curriculum", "Curriculum", "Curriculum", "curriculum", false, "")}
+          ${navBtnHtml("courses-classes", "Courses & Classes", "Courses & Classes", "courses", false, "")}
+          ${navBtnHtml("teachers", "Teacher", "Teacher", "teacher", false, "")}
+          ${navBtnHtml("students-dir", "Student", "Student", "student", false, "")}
           ${navBtnHtml("schedule", "Timetable", "Timetable", "schedule", false, "")}
-          ${navBtnHtml("tasks", "Study Planner", "Study Planner", "tasks", false, "")}
+          ${navBtnHtml("library", "Library", "Library", "library", false, "")}
+          ${navBtnHtml("live", "Live Classroom", "Live Class", "live", false, '<span class="nav-pill">LIVE</span>')}
+          ${navBtnHtml("settings", "Settings", "Settings", "settings", false, "")}
+          ${navBtnHtml("reports", "Reports", "Reports", "reports", false, "")}
+          ${navBtnHtml("subscriptions", "Subscriptions & Plans", "Subscriptions & Plans", "plans", false, "")}
         `;
       } else if (portalRole === "faculty") {
         nav.innerHTML = `
-          <div class="nav-label">Faculty Options</div>
+          <div class="nav-label">Menu</div>
           ${navBtnHtml("dashboard", "Dashboard", "Dashboard", "dashboard", true, "")}
-          ${navBtnHtml("roombr", "Roombr Classroom", "Roombr Hub", "roombr", false, '<span class="nav-pill roombr">SMART</span>')}
-          ${navBtnHtml("add-student", "Add Student", "Add Student", "addStudent", false, "")}
+          ${navBtnHtml("feed", "Feed", "Feed", "feed", false, "")}
+          ${navBtnHtml("curriculum", "Curriculum", "Curriculum", "curriculum", false, "")}
+          ${navBtnHtml("courses-classes", "Courses & Classes", "Courses & Classes", "courses", false, "")}
+          ${navBtnHtml("add-student", "Add Student", "Student", "student", false, "")}
+          ${navBtnHtml("schedule", "Timetable", "Timetable", "schedule", false, "")}
+          ${navBtnHtml("library", "Library", "Library", "library", false, "")}
           ${navBtnHtml("add-subject", "Add Subject", "Add Subject", "addSubject", false, "")}
           ${navBtnHtml("upload-content", "Upload Content", "Upload Content", "uploadContent", false, "")}
-          ${navBtnHtml("schedule", "Timetable", "Timetable", "schedule", false, "")}
           ${navBtnHtml("live", "Live Classroom", "Live Class", "live", false, '<span class="nav-pill">LIVE</span>')}
+          ${navBtnHtml("settings", "Settings", "Settings", "settings", false, "")}
+          ${navBtnHtml("reports", "Reports", "Reports", "reports", false, "")}
+          ${navBtnHtml("subscriptions", "Subscriptions & Plans", "Subscriptions & Plans", "plans", false, "")}
         `;
       } else {
         nav.innerHTML = `
-          <div class="nav-label">Admin Options</div>
+          <div class="nav-label">Menu</div>
           ${navBtnHtml("dashboard", "Dashboard", "Dashboard", "dashboard", true, "")}
-          ${navBtnHtml("roombr", "Roombr Classroom", "Roombr Hub", "roombr", false, '<span class="nav-pill roombr">SMART</span>')}
-          ${navBtnHtml("manage-students", "Manage Students", "Manage Students", "manageStudents", false, "")}
-          ${navBtnHtml("manage-faculty", "Manage Faculty", "Manage Faculty", "manageFaculty", false, "")}
-          ${navBtnHtml("reset-passwords", "Reset Passwords", "Reset Passwords", "resetPasswords", false, "")}
+          ${navBtnHtml("feed", "Feed", "Feed", "feed", false, "")}
+          ${navBtnHtml("curriculum", "Curriculum", "Curriculum", "curriculum", false, "")}
+          ${navBtnHtml("courses-classes", "Courses & Classes", "Courses & Classes", "courses", false, "")}
+          ${navBtnHtml("manage-faculty", "Manage Faculty", "Teacher", "teacher", false, "")}
+          ${navBtnHtml("manage-students", "Manage Students", "Student", "student", false, "")}
+          ${navBtnHtml("schedule", "Timetable", "Timetable", "schedule", false, "")}
+          ${navBtnHtml("library", "Library", "Library", "library", false, "")}
           ${navBtnHtml("add-subject", "Add Subject", "Add Subject", "addSubject", false, "")}
           ${navBtnHtml("upload-content", "Upload Content", "Upload Content", "uploadContent", false, "")}
-          ${navBtnHtml("schedule", "Timetable", "Timetable", "schedule", false, "")}
+          ${navBtnHtml("reset-passwords", "Reset Passwords", "Reset Passwords", "resetPasswords", false, "")}
+          ${navBtnHtml("settings", "Settings", "Settings", "settings", false, "")}
+          ${navBtnHtml("reports", "Reports", "Reports", "reports", false, "")}
+          ${navBtnHtml("subscriptions", "Subscriptions & Plans", "Subscriptions & Plans", "plans", false, "")}
         `;
       }
     }
@@ -1402,21 +1536,13 @@
     function openView(viewId, title, btn) {
       document.querySelectorAll(".view-section").forEach(s => s.classList.remove("active"));
       document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-      const targetSec = document.getElementById(viewId);
-      if (targetSec) targetSec.classList.add("active");
-      const targetBtn = btn || document.querySelector(`.nav-btn[data-view="${viewId}"]`);
-      if (targetBtn) targetBtn.classList.add("active");
+      const sec = document.getElementById(viewId);
+      if (sec) sec.classList.add("active");
+      const navBtn = btn || document.querySelector(`.nav-btn[data-view="${viewId}"]`);
+      if (navBtn) navBtn.classList.add("active");
       document.getElementById("pageTitle").textContent = title;
       document.getElementById("sidebar").classList.remove("open");
       renderAll();
-    }
-
-    function openRoombrFromLive() {
-      openView("roombr", "Roombr Classroom");
-    }
-
-    function openLiveFromRoombr() {
-      openView("live", "Live Classroom");
     }
 
     function toggleSidebar() {
@@ -1434,215 +1560,183 @@
       renderAll();
     }
 
-    /* Roombr Smart Classroom Functions */
-    function toggleRoombrLock() {
-      if (portalRole === "student") return alert("Only Faculty or Admin can lock/unlock the room.");
-      roombrState.locked = !roombrState.locked;
-      saveData();
-      renderRoombr();
+    /* Feed Functions */
+    function openFeedComposer(type) {
+      activeComposerType = type;
+      document.getElementById("tabComposerPost").classList.toggle("active", type === "post");
+      document.getElementById("tabComposerAnnouncement").classList.toggle("active", type === "announcement");
+      document.getElementById("tabComposerPoll").classList.toggle("active", type === "poll");
+      document.getElementById("feedComposerCard").style.display = "block";
+
+      const headings = {
+        post: "Create Post",
+        announcement: "Create Announcement",
+        poll: "Create Poll"
+      };
+      document.getElementById("feedComposerHeading").textContent = headings[type];
+      document.getElementById("feedTitleLabel").textContent = type === "poll" ? "Poll Question" : "Title";
+      document.getElementById("feedBodyField").style.display = type === "poll" ? "none" : "block";
+      document.getElementById("feedPollOptionsGrid").style.display = type === "poll" ? "grid" : "none";
     }
 
-    function toggleRoombrSpotlight() {
-      if (portalRole === "student") return alert("Only Faculty or Admin can toggle Spotlight focus.");
-      roombrState.spotlight = !roombrState.spotlight;
-      saveData();
-      renderRoombr();
+    function closeFeedComposer() {
+      document.getElementById("feedComposerCard").style.display = "none";
+      document.getElementById("feedTitleInput").value = "";
+      document.getElementById("feedBodyInput").value = "";
+      document.getElementById("feedPollOpt1").value = "";
+      document.getElementById("feedPollOpt2").value = "";
+      document.getElementById("feedScheduleInput").value = "";
     }
 
-    function cycleRoombrAudioMode() {
-      if (portalRole === "student") return alert("Only Faculty or Admin can change Roombr audio mode.");
-      const modes = ["Noise-Canceling MEMS + RF Mic", "20W Harman Kardon Broadcast", "Dual-Camera Hybrid Capture"];
-      const idx = modes.indexOf(roombrState.audioMode);
-      roombrState.audioMode = modes[(idx + 1) % modes.length];
-      saveData();
-      renderRoombr();
-    }
+    function publishFeedItem() {
+      const title = document.getElementById("feedTitleInput").value.trim();
+      const body = document.getElementById("feedBodyInput").value.trim();
+      const opt1 = document.getElementById("feedPollOpt1").value.trim() || "Option 1";
+      const opt2 = document.getElementById("feedPollOpt2").value.trim() || "Option 2";
+      const scheduleText = document.getElementById("feedScheduleInput").value.trim();
 
-    function rotateRoombrQrCode() {
-      if (portalRole === "student") return alert("Only Faculty or Admin can refresh the QR code.");
-      const suffix = Math.floor(100 + Math.random() * 900);
-      roombrState.qrCode = `ROOMBR-QR-${suffix}`;
-      saveData();
-      renderRoombr();
-    }
+      if (!title) return alert("Please enter a title or question.");
 
-    function markRoombrAttendance() {
-      const who = currentUser ? `${currentUser.name} (${currentUser.id || portalRole})` : portalRole;
-      const list = roombrState.attendance[currentCourse] || [];
-      if (list.some(entry => entry.who === who && entry.code === roombrState.qrCode)) {
-        alert("Attendance already recorded for this QR session.");
-        return;
-      }
-      list.push({
-        who,
-        code: roombrState.qrCode,
-        time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-      });
-      roombrState.attendance[currentCourse] = list;
-      saveData();
-      renderRoombr();
-      alert(`Attendance marked for ${currentCourse}.`);
-    }
-
-    function saveRoombrSessionLink() {
-      const title = document.getElementById("roombrSessionTitle").value.trim();
-      const url = document.getElementById("roombrSessionUrl").value.trim();
-      const dest = document.getElementById("roombrSessionDest").value;
-      if (!title || !url) return alert("Enter a Roombr session title and URL/link.");
-
-      roombrState.sessions.unshift({
+      const item = {
         id: Date.now(),
+        type: activeComposerType,
         course: currentCourse,
+        author: currentUser ? currentUser.name : portalRole,
         title,
-        url,
-        dest,
-        createdAt: new Date().toLocaleDateString()
-      });
-
-      if (dest === "lecture" || dest === "note") {
-        facultyUploads.unshift({
-          id: Date.now() + 1,
-          type: dest,
-          course: currentCourse,
-          title: `[Roombr] ${title}`,
-          value: url
-        });
-      }
-
-      document.getElementById("roombrSessionTitle").value = "";
-      document.getElementById("roombrSessionUrl").value = "";
-      saveData();
-      renderAll();
-      alert("Roombr session saved.");
-    }
-
-    function deleteRoombrSession(id) {
-      roombrState.sessions = roombrState.sessions.filter(s => s.id !== id);
-      saveData();
-      renderRoombr();
-    }
-
-    function createRoombrPoll() {
-      if (portalRole === "student") return alert("Only Faculty or Admin can set a classroom poll.");
-      const q = document.getElementById("pollQuestionInput").value.trim();
-      const a = document.getElementById("pollOptA").value.trim() || "Yes";
-      const b = document.getElementById("pollOptB").value.trim() || "No";
-      if (!q) return alert("Enter a poll question.");
-      roombrState.polls[currentCourse] = {
-        question: q,
-        options: [
-          { label: a, votes: 0 },
-          { label: b, votes: 0 }
-        ],
+        body,
+        scheduledFor: scheduleText,
+        options: activeComposerType === "poll" ? [
+          { label: opt1, votes: 0 },
+          { label: opt2, votes: 0 }
+        ] : [],
         voters: []
       };
-      document.getElementById("pollQuestionInput").value = "";
-      document.getElementById("pollOptA").value = "";
-      document.getElementById("pollOptB").value = "";
+
+      feedItems.unshift(item);
       saveData();
-      renderRoombr();
+      closeFeedComposer();
+      renderFeed();
     }
 
-    function voteRoombrPoll(optIdx) {
-      const poll = roombrState.polls[currentCourse];
-      if (!poll) return;
+    function voteFeedPoll(itemId, optIdx) {
+      const item = feedItems.find(f => f.id === itemId);
+      if (!item || item.type !== "poll") return;
       const voterKey = currentUser ? `${portalRole}:${currentUser.id || currentUser.name}` : portalRole;
-      if (poll.voters.includes(voterKey)) {
-        return alert("You have already voted in this poll.");
-      }
-      if (poll.options[optIdx]) {
-        poll.options[optIdx].votes += 1;
-        poll.voters.push(voterKey);
+      if (item.voters.includes(voterKey)) return alert("You already voted on this poll.");
+      if (item.options[optIdx]) {
+        item.options[optIdx].votes += 1;
+        item.voters.push(voterKey);
         saveData();
-        renderRoombr();
+        renderFeed();
       }
     }
 
-    function toggleRaiseHand() {
-      const name = currentUser ? currentUser.name : portalRole;
-      const existingIdx = roombrState.hands.findIndex(h => h.name === name && h.course === currentCourse);
-      if (existingIdx >= 0) {
-        roombrState.hands.splice(existingIdx, 1);
-      } else {
-        roombrState.hands.push({
-          id: Date.now(),
-          name,
-          course: currentCourse,
-          time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-        });
-      }
-      saveData();
-      renderRoombr();
+    function toggleScheduledFeedFilter() {
+      showScheduledOnly = !showScheduledOnly;
+      document.getElementById("scheduledToggleBtn").classList.toggle("active", showScheduledOnly);
+      renderFeed();
     }
 
-    function resolveHand(id) {
-      roombrState.hands = roombrState.hands.filter(h => h.id !== id);
-      saveData();
-      renderRoombr();
-    }
+    function renderFeed() {
+      const filterVal = document.getElementById("feedFilterSelect").value;
+      const list = feedItems.filter(f => {
+        if (f.course !== currentCourse) return false;
+        if (filterVal !== "all" && f.type !== filterVal) return false;
+        if (showScheduledOnly && !f.scheduledFor) return false;
+        return true;
+      });
 
-    function renderRoombr() {
-      document.getElementById("roombrCourseBadge").textContent = currentCourse;
-      document.getElementById("roombrQrCourseLabel").textContent = currentCourse;
-      document.getElementById("roombrQrToken").textContent = `${roombrState.qrCode} • ${currentCourse}`;
-
-      const attList = roombrState.attendance[currentCourse] || [];
-      document.getElementById("roombrAttendanceCount").textContent = `${attList.length} Checked In`;
-
-      document.getElementById("roombrStatusStrip").innerHTML = `
-        <span class="badge ${roombrState.locked ? "red" : "green"}">${roombrState.locked ? "Room Locked" : "Room Open"}</span>
-        <span class="badge ${roombrState.spotlight ? "amber" : ""}">${roombrState.spotlight ? "Spotlight: Active" : "Spotlight: Standard"}</span>
-        <span class="badge">${roombrState.audioMode}</span>
-        <span class="badge">1080p Dual-Cam Ready</span>
-      `;
-
-      const courseSessions = roombrState.sessions.filter(s => s.course === currentCourse);
-      document.getElementById("roombrSessionsList").innerHTML = courseSessions.length
-        ? `<div class="grid">` + courseSessions.map(s => `
-            <div class="item-box">
-              <div>
-                <span class="badge">${s.course} • ${s.createdAt}</span>
-                <h3 style="margin-top:8px;">${s.title}</h3>
-                <p class="subtext" style="margin-top:4px; word-break:break-all;">${s.url}</p>
-              </div>
-              <div class="row" style="margin-bottom:0;">
-                <a class="btn btn-sm" href="${s.url}" target="_blank" rel="noopener noreferrer">Open Link</a>
-                ${portalRole !== "student" ? `<button class="btn btn-sm btn-danger" onclick="deleteRoombrSession(${s.id})">Delete</button>` : ""}
-              </div>
+      const container = document.getElementById("feedItemsContainer");
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="feed-empty-card">
+            <div class="feed-empty-graphic">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <line x1="7" y1="9" x2="17" y2="9"/>
+                <line x1="7" y1="13" x2="13" y2="13"/>
+              </svg>
             </div>
-          `).join("") + `</div>`
-        : `<div class="empty-state">No Roombr session or recording links saved for <strong>${currentCourse}</strong> yet.</div>`;
-
-      const poll = roombrState.polls[currentCourse];
-      const pollBox = document.getElementById("roombrPollDisplay");
-      if (!poll) {
-        pollBox.innerHTML = `<div class="empty-state">No active poll for <strong>${currentCourse}</strong> yet.</div>`;
-      } else {
-        pollBox.innerHTML = `
-          <div class="item-box">
-            <strong>${poll.question}</strong>
-            <div style="display:grid; gap:8px; margin-top:8px;">
-              ${poll.options.map((o, idx) => `
-                <button class="btn btn-sm btn-outline" style="justify-content:space-between;" onclick="voteRoombrPoll(${idx})">
-                  <span>${o.label}</span>
-                  <strong>${o.votes} votes</strong>
-                </button>
-              `).join("")}
-            </div>
+            <p style="color:var(--muted); font-size:0.95rem;">There is no content to show in the feed.</p>
           </div>
         `;
+      } else {
+        container.innerHTML = list.map(item => `
+          <div class="card" style="margin-bottom:14px;">
+            <div class="row" style="justify-content:space-between; margin-bottom:8px;">
+              <span class="badge ${item.type === "announcement" ? "amber" : item.type === "poll" ? "green" : ""}">${item.type.toUpperCase()} • ${item.course}</span>
+              <span style="font-size:0.78rem; color:var(--muted);">${item.author}${item.scheduledFor ? ` • Scheduled: ${item.scheduledFor}` : ""}</span>
+            </div>
+            <h3 style="font-size:1rem; margin-bottom:6px;">${item.title}</h3>
+            ${item.body ? `<p class="subtext" style="margin-bottom:8px;">${item.body}</p>` : ""}
+            ${item.type === "poll" ? `
+              <div style="display:grid; gap:8px; margin-top:8px;">
+                ${item.options.map((opt, idx) => `
+                  <button type="button" class="btn btn-sm btn-outline" style="justify-content:space-between;" onclick="voteFeedPoll(${item.id}, ${idx})">
+                    <span>${opt.label}</span>
+                    <strong>${opt.votes} votes</strong>
+                  </button>
+                `).join("")}
+              </div>
+            ` : ""}
+          </div>
+        `).join("");
       }
 
-      const handsList = document.getElementById("handRaiseList");
-      const courseHands = roombrState.hands.filter(h => h.course === currentCourse);
-      handsList.innerHTML = courseHands.length
-        ? courseHands.map(h => `
-            <li>
-              <span><strong>${h.name}</strong> <span style="color:var(--muted); font-size:0.8rem;">(${h.time})</span></span>
-              ${portalRole !== "student" ? `<button class="btn btn-sm btn-success" onclick="resolveHand(${h.id})">Acknowledge</button>` : `<span class="badge amber">Raised</span>`}
-            </li>
-          `).join("")
-        : `<li style="justify-content:center; color:var(--muted);">No raised hands in ${currentCourse}.</li>`;
+      const scheduledList = feedItems.filter(f => f.course === currentCourse && f.scheduledFor);
+      document.getElementById("upcomingSessionsBox").innerHTML = scheduledList.length
+        ? scheduledList.map(s => `<div style="margin-bottom:8px;"><strong>${s.title}</strong><div style="font-size:0.78rem; color:var(--muted);">${s.scheduledFor}</div></div>`).join("")
+        : "No upcoming sessions";
+
+      const courseNames = Object.keys(defaultTimetables);
+      document.getElementById("classesSummaryBox").innerHTML = courseNames
+        .map(c => `<div style="padding:4px 0; font-weight:${c === currentCourse ? "700" : "500"}; color:${c === currentCourse ? "var(--text)" : "var(--muted)"};">${c}</div>`)
+        .join("");
+    }
+
+    function renderCurriculumAndDirectories() {
+      document.getElementById("currCourseBadge").textContent = currentCourse;
+      const courseSubs = customSubjects.filter(s => s.course === currentCourse);
+      const daySample = (defaultTimetables[currentCourse] && defaultTimetables[currentCourse].days && defaultTimetables[currentCourse].days.Monday) || {};
+      const defaultSubs = Object.values(daySample).filter(v => v && v !== "—" && v !== "Library");
+
+      const allSubs = [
+        ...defaultSubs.map(s => ({ course: currentCourse, subject: s })),
+        ...courseSubs
+      ];
+
+      document.getElementById("curriculumSubjectsArea").innerHTML = allSubs.length
+        ? `<div class="table-wrap"><table><thead><tr><th>Course</th><th>Subject / Session</th></tr></thead><tbody>` +
+          allSubs.map(s => `<tr><td>${s.course}</td><td>${s.subject}</td></tr>`).join("") +
+          `</tbody></table></div>`
+        : `<div class="empty-state">No subjects listed for <strong>${currentCourse}</strong>.</div>`;
+
+      document.getElementById("coursesClassesGrid").innerHTML = Object.keys(defaultTimetables).map(c => {
+        const info = defaultTimetables[c];
+        return `
+          <div class="item-box">
+            <div>
+              <span class="badge ${c === currentCourse ? "green" : ""}">${c === currentCourse ? "Active Course" : "Semester I"}</span>
+              <h3 style="margin-top:8px;">${c}</h3>
+              <p class="subtext" style="margin-top:4px;">${info.subtitle}</p>
+            </div>
+            <button type="button" class="btn btn-sm" onclick="switchCourse('${c}')">Select Course</button>
+          </div>
+        `;
+      }).join("");
+
+      const tBody = document.getElementById("teachersDirectoryBody");
+      if (tBody) {
+        tBody.innerHTML = facultyList.map(f => `<tr><td><strong>${f.name}</strong></td><td>${f.id}</td><td>${f.email}</td></tr>`).join("");
+      }
+
+      const sBody = document.getElementById("studentsDirectoryBody");
+      if (sBody) {
+        sBody.innerHTML = students.map(s => `<tr><td><strong>${s.name}</strong></td><td>${s.id}</td><td>${s.course}</td><td>${s.email}</td></tr>`).join("");
+      }
+
+      document.getElementById("settingsRoleText").textContent = portalRole.toUpperCase();
+      document.getElementById("settingsCourseText").textContent = currentCourse;
     }
 
     function facultyAddStudent() {
@@ -1860,8 +1954,8 @@
       document.getElementById("activeCourseLabel").textContent = `${currentCourse} • Semester I`;
       const lecsCount = facultyUploads.filter(u => u.type === "lecture" && u.course === currentCourse).length;
       const notesCount = facultyUploads.filter(u => u.type === "note" && u.course === currentCourse).length;
+      const feedCount = feedItems.filter(f => f.course === currentCourse).length;
       const enrolledInSelectedCourse = students.filter(s => s.course === currentCourse).length;
-      const roombrSessionsCount = roombrState.sessions.filter(s => s.course === currentCourse).length;
 
       const kpiGrid = document.getElementById("kpiGrid");
       if (portalRole === "student") {
@@ -1869,18 +1963,29 @@
           <div class="kpi-card"><div class="kpi-title">Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Assigned Semester I Course</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Notes</div><div class="kpi-value">${notesCount}</div><div class="kpi-sub">Uploaded for ${currentCourse}</div></div>
-          <div class="kpi-card"><div class="kpi-title">Roombr Sessions</div><div class="kpi-value">${roombrSessionsCount}</div><div class="kpi-sub">Saved in ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Feed Items</div><div class="kpi-value">${feedCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
         `;
       } else {
         kpiGrid.innerHTML = `
           <div class="kpi-card"><div class="kpi-title">Active Course</div><div class="kpi-value" style="font-size:1.3rem;">${currentCourse}</div><div class="kpi-sub">Semester I</div></div>
           <div class="kpi-card"><div class="kpi-title">Enrolled Students</div><div class="kpi-value">${enrolledInSelectedCourse}</div><div class="kpi-sub">In ${currentCourse}</div></div>
           <div class="kpi-card"><div class="kpi-title">Faculty Lectures</div><div class="kpi-value">${lecsCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
-          <div class="kpi-card"><div class="kpi-title">Roombr Sessions</div><div class="kpi-value">${roombrSessionsCount}</div><div class="kpi-sub">Saved in ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Feed Items</div><div class="kpi-value">${feedCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
         `;
       }
 
-      renderRoombr();
+      const reportsGrid = document.getElementById("reportsKpiGrid");
+      if (reportsGrid) {
+        reportsGrid.innerHTML = `
+          <div class="kpi-card"><div class="kpi-title">Students (${currentCourse})</div><div class="kpi-value">${enrolledInSelectedCourse}</div><div class="kpi-sub">Registered</div></div>
+          <div class="kpi-card"><div class="kpi-title">Total Faculty</div><div class="kpi-value">${facultyList.length}</div><div class="kpi-sub">Active Accounts</div></div>
+          <div class="kpi-card"><div class="kpi-title">Total Uploads</div><div class="kpi-value">${facultyUploads.filter(u => u.course === currentCourse).length}</div><div class="kpi-sub">In ${currentCourse}</div></div>
+          <div class="kpi-card"><div class="kpi-title">Feed Posts & Polls</div><div class="kpi-value">${feedCount}</div><div class="kpi-sub">In ${currentCourse}</div></div>
+        `;
+      }
+
+      renderFeed();
+      renderCurriculumAndDirectories();
       renderStudentUploads();
       renderTimetable();
       renderTasks();
