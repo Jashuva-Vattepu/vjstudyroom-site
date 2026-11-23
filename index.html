@@ -721,7 +721,7 @@
         </div>
       </section>
 
-      <!-- ADMIN: MANAGE STUDENTS + BACKUP/RESTORE -->
+      <!-- ADMIN: MANAGE STUDENTS -->
       <section id="manage-students" class="view-section">
         <div class="card">
           <div class="card-header"><h2>Manage Students</h2></div>
@@ -730,18 +730,6 @@
               <thead><tr><th>Name</th><th>ID</th><th>Course</th><th>Email</th><th>Actions</th></tr></thead>
               <tbody id="adminStudentsBody"></tbody>
             </table>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-header"><h2>Backup & Restore Registered Data</h2></div>
-          <p class="subtext">Download a JSON backup file of all registered students, faculty, subjects, and uploads so you never lose them.</p>
-          <div class="row" style="margin-bottom:0;">
-            <button class="btn btn-outline" onclick="exportPortalBackup()">Download Backup (JSON)</button>
-            <label class="btn btn-muted" style="cursor:pointer;">
-              Restore Backup (JSON)
-              <input type="file" accept=".json,application/json" style="display:none;" onchange="importPortalBackup(event)" />
-            </label>
           </div>
         </div>
       </section>
@@ -800,7 +788,7 @@
   <script>
     const F1 = "Faculty 1";
 
-    // Permanent storage keys (never rename in future updates)
+    // Permanent storage keys (never renamed in future updates)
     const PERM_KEYS = {
       students: "vjstudyroom_students_permanent",
       faculty: "vjstudyroom_faculty_permanent",
@@ -810,7 +798,7 @@
       tasks: "vjstudyroom_tasks_permanent"
     };
 
-    // Helper: load from permanent key, or automatically migrate from older v3/v2/v1 keys
+    // Load from permanent key, or automatically migrate from older v3/v2/v1 keys
     function loadWithMigration(permKey, legacyKeys, fallbackValue) {
       const existingPerm = localStorage.getItem(permKey);
       if (existingPerm !== null) {
@@ -994,49 +982,6 @@
       localStorage.setItem(PERM_KEYS.uploads, JSON.stringify(facultyUploads));
       localStorage.setItem(PERM_KEYS.subjects, JSON.stringify(customSubjects));
       localStorage.setItem(PERM_KEYS.tasks, JSON.stringify(tasks));
-    }
-
-    function exportPortalBackup() {
-      const payload = {
-        exportedAt: new Date().toISOString(),
-        students,
-        facultyList,
-        adminAccount,
-        facultyUploads,
-        customSubjects,
-        tasks
-      };
-      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "vjstudyroom-backup.json";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function importPortalBackup(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const data = JSON.parse(e.target.result);
-          if (Array.isArray(data.students)) students = data.students;
-          if (Array.isArray(data.facultyList)) facultyList = data.facultyList;
-          if (data.adminAccount && data.adminAccount.email) adminAccount = data.adminAccount;
-          if (Array.isArray(data.facultyUploads)) facultyUploads = data.facultyUploads;
-          if (Array.isArray(data.customSubjects)) customSubjects = data.customSubjects;
-          if (Array.isArray(data.tasks)) tasks = data.tasks;
-          saveData();
-          renderAll();
-          alert("Backup restored successfully!");
-        } catch (err) {
-          alert("Invalid backup file.");
-        }
-      };
-      reader.readAsText(file);
-      event.target.value = "";
     }
 
     function initGate() {
