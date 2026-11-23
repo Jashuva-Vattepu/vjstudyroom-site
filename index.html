@@ -56,17 +56,77 @@
       gap: 12px;
       margin-bottom: 18px;
     }
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      background: var(--accent);
-      border-radius: 10px;
-      display: grid;
+
+    /* VJ Circle & Rectangular Logo Marks */
+    .logo-circle-vj {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #0f172a;
+      color: #ffffff;
+      border: 2px solid #cbd5e1;
+      display: inline-grid;
       place-items: center;
       font-weight: 800;
-      font-size: 1rem;
-      color: #fff;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
       flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-circle-vj::after {
+      content: "";
+      position: absolute;
+      width: 130%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.22);
+      transform: rotate(-14deg);
+      pointer-events: none;
+    }
+
+    .logo-rect-vj {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0f172a;
+      color: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .logo-rect-vj::after {
+      content: "";
+      position: absolute;
+      width: 140%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.22);
+      transform: rotate(-12deg);
+      pointer-events: none;
+    }
+
+    .nav-item-logo {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      font-size: 0.6rem;
+      font-weight: 800;
+      display: inline-grid;
+      place-items: center;
+      margin-right: 8px;
+      flex-shrink: 0;
+    }
+    .nav-btn-left {
+      display: flex;
+      align-items: center;
+      min-width: 0;
     }
 
     aside.sidebar {
@@ -83,14 +143,14 @@
       transition: transform 0.25s ease;
     }
     .brand {
-      padding: 20px;
+      padding: 18px 20px;
       border-bottom: 1px solid #1e293b;
       display: flex;
       align-items: center;
       gap: 12px;
     }
     .brand h1 { font-size: 1.05rem; font-weight: 700; }
-    .brand span { font-size: 0.75rem; color: #94a3b8; display: block; }
+    .brand span { font-size: 0.74rem; color: #94a3b8; display: block; }
 
     .course-box {
       padding: 14px 16px;
@@ -266,6 +326,11 @@
       gap: 10px;
       flex-wrap: wrap;
     }
+    .card-header-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
     .card-header h2 { font-size: 1.1rem; font-weight: 700; }
     .subtext { font-size: 0.88rem; color: var(--muted); margin-bottom: 14px; }
 
@@ -403,7 +468,7 @@
 
   <aside class="sidebar" id="sidebar">
     <div class="brand">
-      <div class="brand-logo">VJ</div>
+      <div class="logo-circle-vj" title="VJ Circle Logo">VJ</div>
       <div>
         <h1>VJ Study Room</h1>
         <span id="sidebarPortalMode">LMS Portal</span>
@@ -430,6 +495,7 @@
     <header class="topbar">
       <div class="topbar-left">
         <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="logo-rect-vj" title="VJ Rectangular Logo">VJ</div>
         <div class="breadcrumb">
           <span id="activeCourseLabel">BA LLB • Semester I</span> / <strong id="pageTitle">Dashboard</strong>
         </div>
@@ -447,9 +513,12 @@
     <!-- LOGIN GATE -->
     <div id="loginGate" class="login-gate-card">
       <div class="gate-brand">
-        <div class="brand-logo">VJ</div>
+        <div class="logo-circle-vj" title="VJ Circle Logo">VJ</div>
         <div>
-          <h2 style="font-size:1.15rem;">VJ Study Room</h2>
+          <div class="card-header-title" style="gap:8px; margin-bottom:2px;">
+            <h2 style="font-size:1.15rem;">VJ Study Room</h2>
+            <span class="logo-rect-vj" style="padding:2px 7px; font-size:0.68rem;">VJ</span>
+          </div>
           <span id="gateSubtitle" style="font-size:0.8rem; color:var(--muted);">Student Login</span>
         </div>
       </div>
@@ -527,7 +596,12 @@
       <section id="dashboard" class="view-section active">
         <div class="kpi-grid" id="kpiGrid"></div>
         <div class="card">
-          <div class="card-header"><h2>Recent Faculty Uploads (Active Course)</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Recent Faculty Uploads (Active Course)</h2>
+            </div>
+          </div>
           <div id="dashUploadsSummary"></div>
         </div>
       </section>
@@ -536,7 +610,10 @@
       <section id="lectures" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Recorded Lectures</h2>
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Recorded Lectures</h2>
+            </div>
             <span class="badge" id="lecCourseBadge">BA LLB</span>
           </div>
           <div id="studentLecturesArea"></div>
@@ -547,7 +624,10 @@
       <section id="notes" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Notes & Study Materials</h2>
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Notes & Study Materials</h2>
+            </div>
             <span class="badge" id="noteCourseBadge">BA LLB</span>
           </div>
           <div id="studentNotesArea"></div>
@@ -558,7 +638,10 @@
       <section id="assignments" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Assignments</h2>
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Assignments</h2>
+            </div>
             <span class="badge" id="assignCourseBadge">BA LLB</span>
           </div>
           <div id="studentAssignmentsArea"></div>
@@ -569,7 +652,10 @@
       <section id="live" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2>Live Classroom</h2>
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Live Classroom</h2>
+            </div>
             <a class="btn btn-sm btn-outline" href="https://meet.google.com/" target="_blank">Backup: Google Meet</a>
           </div>
           <div class="row">
@@ -587,7 +673,10 @@
       <section id="schedule" class="view-section">
         <div class="card">
           <div class="card-header">
-            <h2 id="timetableHeading">Semester I Timetable — BA LLB</h2>
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2 id="timetableHeading">Semester I Timetable — BA LLB</h2>
+            </div>
             <span class="badge" id="timetableSubtitle">5-Year Integrated Degree Course</span>
           </div>
           <div class="row">
@@ -622,7 +711,12 @@
       <!-- STUDY PLANNER (Student) -->
       <section id="tasks" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Personal Study Planner</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Personal Study Planner</h2>
+            </div>
+          </div>
           <div class="row">
             <input type="text" id="taskInput" placeholder="Add a study goal..." />
             <button class="btn" onclick="addTask()">Add</button>
@@ -634,7 +728,12 @@
       <!-- FACULTY: ADD STUDENT -->
       <section id="add-student" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Add Student</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Add Student</h2>
+            </div>
+          </div>
           <div class="form-grid">
             <div class="field"><label>Student Name</label><input type="text" id="facStuName" placeholder="Full name" /></div>
             <div class="field"><label>Student Roll / ID</label><input type="text" id="facStuId" placeholder="e.g., STU-101" /></div>
@@ -660,7 +759,12 @@
       <!-- FACULTY & ADMIN: ADD SUBJECT -->
       <section id="add-subject" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Add Subject</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Add Subject</h2>
+            </div>
+          </div>
           <div class="form-grid">
             <div class="field">
               <label>Course</label>
@@ -692,7 +796,12 @@
       <!-- FACULTY & ADMIN: UPLOAD CONTENT -->
       <section id="upload-content" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Upload Lecture / Note / Assignment</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Upload Lecture / Note / Assignment</h2>
+            </div>
+          </div>
           <div class="form-grid">
             <div class="field">
               <label>Type</label>
@@ -724,7 +833,12 @@
       <!-- ADMIN: MANAGE STUDENTS -->
       <section id="manage-students" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Manage Students</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Manage Students</h2>
+            </div>
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Name</th><th>ID</th><th>Course</th><th>Email</th><th>Actions</th></tr></thead>
@@ -737,7 +851,12 @@
       <!-- ADMIN: MANAGE FACULTY -->
       <section id="manage-faculty" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Manage Faculty</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Manage Faculty</h2>
+            </div>
+          </div>
           <div class="form-grid">
             <div class="field"><label>Faculty Name</label><input type="text" id="admFacName" placeholder="Faculty name" /></div>
             <div class="field"><label>Faculty ID</label><input type="text" id="admFacId" placeholder="FAC-201" /></div>
@@ -757,7 +876,12 @@
       <!-- ADMIN: RESET PASSWORDS -->
       <section id="reset-passwords" class="view-section">
         <div class="card">
-          <div class="card-header"><h2>Reset Passwords (Students & Faculty)</h2></div>
+          <div class="card-header">
+            <div class="card-header-title">
+              <span class="logo-rect-vj">VJ</span>
+              <h2>Reset Passwords (Students & Faculty)</h2>
+            </div>
+          </div>
           <p class="subtext">Select Student or Faculty, choose the account, and set a new password.</p>
           <div class="form-grid">
             <div class="field">
@@ -788,7 +912,6 @@
   <script>
     const F1 = "Faculty 1";
 
-    // Permanent storage keys (never renamed in future updates)
     const PERM_KEYS = {
       students: "vjstudyroom_students_permanent",
       faculty: "vjstudyroom_faculty_permanent",
@@ -798,7 +921,6 @@
       tasks: "vjstudyroom_tasks_permanent"
     };
 
-    // Load from permanent key, or automatically migrate from older v3/v2/v1 keys
     function loadWithMigration(permKey, legacyKeys, fallbackValue) {
       const existingPerm = localStorage.getItem(permKey);
       if (existingPerm !== null) {
@@ -1139,39 +1261,48 @@
       }
     }
 
+    function navBtnHtml(viewId, title, labelText, active, extraRight) {
+      return `
+        <button class="nav-btn${active ? " active" : ""}" onclick="openView('${viewId}','${title}',this)">
+          <span class="nav-btn-left"><span class="nav-item-logo">VJ</span><span>${labelText}</span></span>
+          ${extraRight || ""}
+        </button>
+      `;
+    }
+
     function buildNavigation() {
       const nav = document.getElementById("navMenu");
       if (portalRole === "student") {
         nav.innerHTML = `
           <div class="nav-label">Student Options</div>
-          <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
-          <button class="nav-btn" onclick="openView('lectures','Recorded Lectures',this)">Lectures</button>
-          <button class="nav-btn" onclick="openView('notes','Notes & PDFs',this)">Notes & PDFs</button>
-          <button class="nav-btn" onclick="openView('assignments','Assignments',this)">Assignments</button>
-          <button class="nav-btn" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill">LIVE</span></button>
-          <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
-          <button class="nav-btn" onclick="openView('tasks','Study Planner',this)">Study Planner</button>
+          ${navBtnHtml("dashboard", "Dashboard", "Dashboard", true, "")}
+          ${navBtnHtml("lectures", "Recorded Lectures", "Lectures", false, "")}
+          ${navBtnHtml("notes", "Notes & PDFs", "Notes & PDFs", false, "")}
+          ${navBtnHtml("assignments", "Assignments", "Assignments", false, "")}
+          ${navBtnHtml("live", "Live Classroom", "Live Class", false, '<span class="nav-pill">LIVE</span>')}
+          ${navBtnHtml("schedule", "Timetable", "Timetable", false, "")}
+          ${navBtnHtml("tasks", "Study Planner", "Study Planner", false, "")}
         `;
       } else if (portalRole === "faculty") {
         nav.innerHTML = `
           <div class="nav-label">Faculty Options</div>
-          <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
-          <button class="nav-btn" onclick="openView('add-student','Add Student',this)">Add Student</button>
-          <button class="nav-btn" onclick="openView('add-subject','Add Subject',this)">Add Subject</button>
-          <button class="nav-btn" onclick="openView('upload-content','Upload Content',this)">Upload Content</button>
-          <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
-          <button class="nav-btn" onclick="openView('live','Live Classroom',this)">Live Class <span class="nav-pill">LIVE</span></button>
+          ${navBtnHtml("dashboard", "Dashboard", "Dashboard", true, "")}
+          ${navBtnHtml("add-student", "Add Student", "Add Student", false, "")}
+          ${navBtnHtml("add-subject", "Add Subject", "Add Subject", false, "")}
+          ${navBtnHtml("upload-content", "Upload Content", "Upload Content", false, "")}
+          ${navBtnHtml("schedule", "Timetable", "Timetable", false, "")}
+          ${navBtnHtml("live", "Live Classroom", "Live Class", false, '<span class="nav-pill">LIVE</span>')}
         `;
       } else {
         nav.innerHTML = `
           <div class="nav-label">Admin Options</div>
-          <button class="nav-btn active" onclick="openView('dashboard','Dashboard',this)">Dashboard</button>
-          <button class="nav-btn" onclick="openView('manage-students','Manage Students',this)">Manage Students</button>
-          <button class="nav-btn" onclick="openView('manage-faculty','Manage Faculty',this)">Manage Faculty</button>
-          <button class="nav-btn" onclick="openView('reset-passwords','Reset Passwords',this)">Reset Passwords</button>
-          <button class="nav-btn" onclick="openView('add-subject','Add Subject',this)">Add Subject</button>
-          <button class="nav-btn" onclick="openView('upload-content','Upload Content',this)">Upload Content</button>
-          <button class="nav-btn" onclick="openView('schedule','Timetable',this)">Timetable</button>
+          ${navBtnHtml("dashboard", "Dashboard", "Dashboard", true, "")}
+          ${navBtnHtml("manage-students", "Manage Students", "Manage Students", false, "")}
+          ${navBtnHtml("manage-faculty", "Manage Faculty", "Manage Faculty", false, "")}
+          ${navBtnHtml("reset-passwords", "Reset Passwords", "Reset Passwords", false, "")}
+          ${navBtnHtml("add-subject", "Add Subject", "Add Subject", false, "")}
+          ${navBtnHtml("upload-content", "Upload Content", "Upload Content", false, "")}
+          ${navBtnHtml("schedule", "Timetable", "Timetable", false, "")}
         `;
       }
     }
